@@ -1,0 +1,6 @@
+name: Create Release Assets
+
+on:
+  push:
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1
