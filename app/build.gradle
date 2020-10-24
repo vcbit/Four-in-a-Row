@@ -1,0 +1,40 @@
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jlleitschuh.gradle.ktlint' version "11.3.1"
+}
+
+android {
+    namespace 'com.vitorpamplona.amethyst'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.vitorpamplona.amethyst"
+        minSdk 26
+        targetSdk 33
+        versionCode 93
+        versionName "0.25.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            //minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "@string/app_name_release"
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            resValue "string", "app_name", "@string/app_name_debug"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
