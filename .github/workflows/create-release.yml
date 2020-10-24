@@ -66,4 +66,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ st
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: app/build/outputs/apk/release/app-release-unsigned-signed.apk
+          asset_name: app-release-${{ github.ref_name }}.apk
+          asset_content_type: application/zip
+
+      - name: Upload AAB Asset
+        id: upload-release-asset-aab
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.
