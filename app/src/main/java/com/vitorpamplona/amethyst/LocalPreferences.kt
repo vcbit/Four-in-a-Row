@@ -216,3 +216,88 @@ object LocalPreferences {
                 }
             } catch (e: Throwable) {
                 e.printStackTrace()
+                null
+            }
+
+            val languagePreferences = try {
+                getString(PrefKeys.LANGUAGE_PREFS, null)?.let {
+                    gson.fromJson(
+                        it,
+                        object : TypeToken<Map<String, String>>() {}.type
+                    ) as Map<String, String>
+                } ?: mapOf()
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                mapOf()
+            }
+
+            val hideDeleteRequestInfo = getBoolean(PrefKeys.HIDE_DELETE_REQUEST_INFO, false)
+
+            return Account(
+                Persona(privKey = privKey?.toByteArray(), pubKey = pubKey.toByteArray()),
+                followingChannels,
+                hiddenUsers,
+                localRelays,
+                dontTranslateFrom,
+                languagePreferences,
+                translateTo,
+                zapAmountChoices,
+                hideDeleteRequestInfo,
+                latestContactList
+            )
+        }
+    }
+
+    fun saveLastRead(route: String, timestampInSecs: Long) {
+        encryptedPreferences(currentAccount).edit().apply {
+            putLong(PrefKeys.LAST_READ(route), timestampInSecs)
+        }.apply()
+    }
+
+    fun loadLastRead(route: String): Long {
+        encryptedPreferences(currentAccount).run {
+            return getLong(PrefKeys.LAST_READ(route), 0)
+        }
+    }
+
+    fun migrateSingleUserPrefs() {
+        if (currentAccount != null) return
+
+        val pubkey = encryptedPreferences().getString(PrefKeys.NOSTR_PUBKEY, null) ?: return
+        val npub = Hex.decode(pubkey).toNpub()
+
+        val stringPrefs = listOf(
+            PrefKeys.NOSTR_PRIVKEY,
+            PrefKeys.NOSTR_PUBKEY,
+            PrefKeys.RELAYS,
+            PrefKeys.LANGUAGE_PREFS,
+            PrefKeys.TRANSLATE_TO,
+            PrefKeys.ZAP_AMOUNTS,
+            PrefKeys.LATEST_CONTACT_LIST
+        )
+
+        val stringSetPrefs = listOf(
+            PrefKeys.FOLLOWING_CHANNELS,
+            PrefKeys.HIDDEN_USERS,
+            PrefKeys.DONT_TRANSLATE_FROM
+        )
+
+        encryptedPreferences().apply {
+            val appPrefs = this
+            encryptedPreferences(npub).edit().apply {
+                val userPrefs = this
+
+                stringPrefs.forEach { userPrefs.putString(it, appPrefs.getString(it, null)) }
+                stringSetPrefs.forEach { userPrefs.putStringSet(it, appPrefs.getStringSet(it, null)) }
+                userPrefs.putBoolean(
+                    PrefKeys.HIDE_DELETE_REQUEST_INFO,
+                    appPrefs.getBoolean(PrefKeys.HIDE_DELETE_REQUEST_INFO, false)
+                )
+            }.apply()
+        }
+
+        encryptedPreferences().edit().clear().apply()
+        addAccount(npub)
+        currentAccount = npub
+    }
+}
