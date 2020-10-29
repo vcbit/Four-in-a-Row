@@ -16,4 +16,17 @@ object VideoCache {
     lateinit var exoDatabaseProvider: StandaloneDatabaseProvider
     lateinit var simpleCache: SimpleCache
 
-    lateinit var cacheD
+    lateinit var cacheDataSourceFactory: CacheDataSource.Factory
+
+    fun get(context: Context): CacheDataSource.Factory {
+        if (!this::simpleCache.isInitialized) {
+            exoDatabaseProvider = StandaloneDatabaseProvider(context)
+
+            simpleCache = SimpleCache(
+                context.cacheDir,
+                leastRecentlyUsedCacheEvictor,
+                exoDatabaseProvider
+            )
+
+            cacheDataSourceFactory = CacheDataSource.Factory()
+      
