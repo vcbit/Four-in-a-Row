@@ -23,4 +23,17 @@
         android:theme="@style/Theme.Amethyst"
         android:largeHeap="true"
         android:usesCleartextTraffic="true"
-        android:hardwareAccelerated=
+        android:hardwareAccelerated="true"
+        tools:targetApi="33">
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.Amethyst">
+
+            <intent-filter android:label="Amethyst">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter android:label="Am
