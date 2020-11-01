@@ -29,4 +29,13 @@ object VideoCache {
             )
 
             cacheDataSourceFactory = CacheDataSource.Factory()
-      
+                .setCache(simpleCache)
+                .setUpstreamDataSourceFactory(
+                    DefaultHttpDataSource.Factory().setAllowCrossProtocolRedirects(true)
+                )
+                .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
+        }
+
+        return cacheDataSourceFactory
+    }
+}
