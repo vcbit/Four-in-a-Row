@@ -29,4 +29,16 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
-import kotlinx.corout
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import nostr.postr.Persona
+import java.util.Locale
+import java.util.concurrent.atomic.AtomicBoolean
+
+val DefaultChannels = setOf(
+    "25e5c82273a271cb1a840d0060391a0bf4965cafeb029d5ab55350b418953fbb", // -> Anigma's Nostr
+    "42224859763652914db53052103f0b744df79dfc4efef7e950fc0802fc3df3c5" // -> Amethyst's Group
+)
+
+fun getLanguagesSpokenByUser(): Set<String> {
+    val languageList = ConfigurationCompat.getLocales(Reso
