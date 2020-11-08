@@ -41,4 +41,18 @@ val DefaultChannels = setOf(
 )
 
 fun getLanguagesSpokenByUser(): Set<String> {
-    val languageList = ConfigurationCompat.getLocales(Reso
+    val languageList = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration())
+    val codedList = mutableSetOf<String>()
+    for (i in 0 until languageList.size()) {
+        languageList.get(i)?.let { codedList.add(it.language) }
+    }
+    return codedList
+}
+
+@OptIn(DelicateCoroutinesApi::class)
+class Account(
+    val loggedIn: Persona,
+    var followingChannels: Set<String> = DefaultChannels,
+    var hiddenUsers: Set<String> = setOf(),
+    var localRelays: Set<RelaySetupInfo> = Constants.defaultRelays.toSet(),
+    var dontTr
