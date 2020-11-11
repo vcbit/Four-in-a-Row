@@ -55,4 +55,14 @@ class Account(
     var followingChannels: Set<String> = DefaultChannels,
     var hiddenUsers: Set<String> = setOf(),
     var localRelays: Set<RelaySetupInfo> = Constants.defaultRelays.toSet(),
-    var dontTr
+    var dontTranslateFrom: Set<String> = getLanguagesSpokenByUser(),
+    var languagePreferences: Map<String, String> = mapOf(),
+    var translateTo: String = Locale.getDefault().language,
+    var zapAmountChoices: List<Long> = listOf(500L, 1000L, 5000L),
+    var hideDeleteRequestInfo: Boolean = false,
+    var backupContactList: ContactListEvent? = null
+) {
+    var transientHiddenUsers: Set<String> = setOf()
+
+    // Observers line up here.
+    val live: AccountLiveData = AccountLive
