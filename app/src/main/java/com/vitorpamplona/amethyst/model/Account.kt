@@ -145,4 +145,20 @@ class Account(
 
         note.event?.let {
             val event = ReactionEvent.createLike(it, loggedIn.privKey!!)
-            Client.
+            Client.send(event)
+            LocalCache.consume(event)
+        }
+    }
+
+    fun createZapRequestFor(note: Note): LnZapRequestEvent? {
+        if (!isWriteable()) return null
+
+        note.event?.let {
+            return LnZapRequestEvent.create(it, userProfile().relays?.keys?.ifEmpty { null } ?: localRelays.map { it.url }.toSet(), loggedIn.privKey!!)
+        }
+
+        return null
+    }
+
+    fun createZapRequestFor(user: User): LnZapRequestEvent? {
+        return createZapReque
