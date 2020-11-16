@@ -209,4 +209,19 @@ class Account(
     }
 
     fun delete(notes: List<Note>) {
-        if (!isWrit
+        if (!isWriteable()) return
+
+        val myNotes = notes.filter { it.author == userProfile() }.map { it.idHex }
+
+        if (myNotes.isNotEmpty()) {
+            val event = DeletionEvent.create(myNotes, loggedIn.privKey!!)
+            Client.send(event)
+            LocalCache.consume(event)
+        }
+    }
+
+    fun boost(note: Note) {
+        if (!isWriteable()) return
+
+        if (note.hasBoostedInTheLast5Minutes(userProfile())) {
+            // has already bosted in the pa
