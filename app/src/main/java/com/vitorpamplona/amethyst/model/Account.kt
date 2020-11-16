@@ -191,4 +191,22 @@ class Account(
         }
     }
 
-    fun report(user: User
+    fun report(user: User, type: ReportEvent.ReportType) {
+        if (!isWriteable()) return
+
+        if (user.hasReport(userProfile(), type)) {
+            // has already reported this note
+            return
+        }
+
+        val event = ReportEvent.create(user.pubkeyHex, type, loggedIn.privKey!!)
+        Client.send(event)
+        LocalCache.consume(event, null)
+    }
+
+    fun delete(note: Note) {
+        delete(listOf(note))
+    }
+
+    fun delete(notes: List<Note>) {
+        if (!isWrit
