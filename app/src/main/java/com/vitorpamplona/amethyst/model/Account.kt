@@ -127,4 +127,22 @@ class Account(
         return boostsTo(note).isNotEmpty()
     }
 
-    fun
+    fun boostsTo(note: Note): List<Note> {
+        return note.boostedBy(userProfile())
+    }
+
+    fun hasReacted(note: Note): Boolean {
+        return note.hasReacted(userProfile(), "+")
+    }
+
+    fun reactTo(note: Note) {
+        if (!isWriteable()) return
+
+        if (hasReacted(note)) {
+            // has already liked this note
+            return
+        }
+
+        note.event?.let {
+            val event = ReactionEvent.createLike(it, loggedIn.privKey!!)
+            Client.
