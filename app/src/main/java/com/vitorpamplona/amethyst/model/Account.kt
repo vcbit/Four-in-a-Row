@@ -109,4 +109,22 @@ class Account(
         }
     }
 
-    fun sendNewUserMetadata(toStrin
+    fun sendNewUserMetadata(toString: String, identities: List<IdentityClaim>) {
+        if (!isWriteable()) return
+
+        loggedIn.privKey?.let {
+            val event = MetadataEvent.create(toString, identities, loggedIn.privKey!!)
+            Client.send(event)
+            LocalCache.consume(event)
+        }
+    }
+
+    fun reactionTo(note: Note): List<Note> {
+        return note.reactedBy(userProfile(), "+")
+    }
+
+    fun hasBoosted(note: Note): Boolean {
+        return boostsTo(note).isNotEmpty()
+    }
+
+    fun
