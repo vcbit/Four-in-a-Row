@@ -78,4 +78,19 @@ class Account(
     }
 
     fun hiddenUsers(): List<User> {
-        return (hiddenUsers + transientHiddenUsers).map { LocalCache.getO
+        return (hiddenUsers + transientHiddenUsers).map { LocalCache.getOrCreateUser(it) }
+    }
+
+    fun isWriteable(): Boolean {
+        return loggedIn.privKey != null
+    }
+
+    fun sendNewRelayList(relays: Map<String, ContactListEvent.ReadWrite>) {
+        if (!isWriteable()) return
+
+        val contactList = userProfile().latestContactList
+        val follows = contactList?.follows() ?: emptyList()
+
+        if (contactList != null && follows.isNotEmpty()) {
+            val event = ContactListEvent.create(
+ 
