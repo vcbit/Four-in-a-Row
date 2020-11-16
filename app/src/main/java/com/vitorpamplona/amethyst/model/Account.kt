@@ -93,4 +93,20 @@ class Account(
 
         if (contactList != null && follows.isNotEmpty()) {
             val event = ContactListEvent.create(
- 
+                follows,
+                relays,
+                loggedIn.privKey!!
+            )
+
+            Client.send(event)
+            LocalCache.consume(event)
+        } else {
+            val event = ContactListEvent.create(listOf(), relays, loggedIn.privKey!!)
+
+            // Keep this local to avoid erasing a good contact list.
+            // Client.send(event)
+            LocalCache.consume(event)
+        }
+    }
+
+    fun sendNewUserMetadata(toStrin
