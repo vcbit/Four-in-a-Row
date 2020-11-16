@@ -65,4 +65,17 @@ class Account(
     var transientHiddenUsers: Set<String> = setOf()
 
     // Observers line up here.
-    val live: AccountLiveData = AccountLive
+    val live: AccountLiveData = AccountLiveData(this)
+    val liveLanguages: AccountLiveData = AccountLiveData(this)
+    val saveable: AccountLiveData = AccountLiveData(this)
+
+    fun userProfile(): User {
+        return LocalCache.getOrCreateUser(loggedIn.pubKey.toHexKey())
+    }
+
+    fun followingChannels(): List<Channel> {
+        return followingChannels.map { LocalCache.getOrCreateChannel(it) }
+    }
+
+    fun hiddenUsers(): List<User> {
+        return (hiddenUsers + transientHiddenUsers).map { LocalCache.getO
