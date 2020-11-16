@@ -174,4 +174,21 @@ class Account(
         if (!isWriteable()) return
 
         if (note.hasReacted(userProfile(), "⚠️")) {
-            
+            // has already liked this note
+            return
+        }
+
+        note.event?.let {
+            val event = ReactionEvent.createWarning(it, loggedIn.privKey!!)
+            Client.send(event)
+            LocalCache.consume(event)
+        }
+
+        note.event?.let {
+            val event = ReportEvent.create(it, type, loggedIn.privKey!!)
+            Client.send(event)
+            LocalCache.consume(event, null)
+        }
+    }
+
+    fun report(user: User
