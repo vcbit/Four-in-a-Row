@@ -245,4 +245,15 @@ class Account(
         if (!isWriteable()) return
 
         val contactList = userProfile().latestContactList
-        val follows = contactList?
+        val follows = contactList?.follows() ?: emptyList()
+
+        val event = if (contactList != null && follows.isNotEmpty()) {
+            ContactListEvent.create(
+                follows.plus(Contact(user.pubkeyHex, null)),
+                userProfile().relays,
+                loggedIn.privKey!!
+            )
+        } else {
+            val relays = Constants.defaultRelays.associate { it.url to ContactListEvent.ReadWrite(it.read, it.write) }
+            ContactListEvent.create(
+                listOf(Co
