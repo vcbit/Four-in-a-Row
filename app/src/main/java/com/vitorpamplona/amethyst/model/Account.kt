@@ -224,4 +224,25 @@ class Account(
         if (!isWriteable()) return
 
         if (note.hasBoostedInTheLast5Minutes(userProfile())) {
-            // has already bosted in the pa
+            // has already bosted in the past 5mins
+            return
+        }
+
+        note.event?.let {
+            val event = RepostEvent.create(it, loggedIn.privKey!!)
+            Client.send(event)
+            LocalCache.consume(event)
+        }
+    }
+
+    fun broadcast(note: Note) {
+        note.event?.let {
+            Client.send(it)
+        }
+    }
+
+    fun follow(user: User) {
+        if (!isWriteable()) return
+
+        val contactList = userProfile().latestContactList
+        val follows = contactList?
