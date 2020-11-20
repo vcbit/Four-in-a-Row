@@ -256,4 +256,21 @@ class Account(
         } else {
             val relays = Constants.defaultRelays.associate { it.url to ContactListEvent.ReadWrite(it.read, it.write) }
             ContactListEvent.create(
-                listOf(Co
+                listOf(Contact(user.pubkeyHex, null)),
+                relays,
+                loggedIn.privKey!!
+            )
+        }
+
+        Client.send(event)
+        LocalCache.consume(event)
+    }
+
+    fun unfollow(user: User) {
+        if (!isWriteable()) return
+
+        val contactList = userProfile().latestContactList
+        val follows = contactList?.follows() ?: emptyList()
+
+        if (contactList != null && follows.isNotEmpty()) {
+            val event = ContactListEvent.create(
