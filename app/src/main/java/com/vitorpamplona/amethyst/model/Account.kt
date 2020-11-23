@@ -274,3 +274,19 @@ class Account(
 
         if (contactList != null && follows.isNotEmpty()) {
             val event = ContactListEvent.create(
+                follows.filter { it.pubKeyHex != user.pubkeyHex },
+                userProfile().relays,
+                loggedIn.privKey!!
+            )
+
+            Client.send(event)
+            LocalCache.consume(event)
+        }
+    }
+
+    fun sendPost(message: String, replyTo: List<Note>?, mentions: List<User>?) {
+        if (!isWriteable()) return
+
+        val repliesToHex = replyTo?.map { it.idHex }
+        val mentionsHex = mentions?.map { it.pubkeyHex }
+        val addresses = replyTo?.mapN
