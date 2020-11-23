@@ -289,4 +289,20 @@ class Account(
 
         val repliesToHex = replyTo?.map { it.idHex }
         val mentionsHex = mentions?.map { it.pubkeyHex }
-        val addresses = replyTo?.mapN
+        val addresses = replyTo?.mapNotNull { it.address() }
+
+        val signedEvent = TextNoteEvent.create(
+            msg = message,
+            replyTos = repliesToHex,
+            mentions = mentionsHex,
+            addresses = addresses,
+            privateKey = loggedIn.privKey!!
+        )
+        Client.send(signedEvent)
+        LocalCache.consume(signedEvent)
+    }
+
+    fun sendChannelMessage(message: String, toChannel: String, replyingTo: Note? = null, mentions: List<User>?) {
+        if (!isWriteable()) return
+
+   
