@@ -316,4 +316,17 @@ class Account(
             privateKey = loggedIn.privKey!!
         )
         Client.send(signedEvent)
-        LocalCache.consume(signedEven
+        LocalCache.consume(signedEvent, null)
+    }
+
+    fun sendPrivateMeesage(message: String, toUser: String, replyingTo: Note? = null) {
+        if (!isWriteable()) return
+        val user = LocalCache.users[toUser] ?: return
+
+        val repliesToHex = listOfNotNull(replyingTo?.idHex).ifEmpty { null }
+        val mentionsHex = emptyList<String>()
+
+        val signedEvent = PrivateDmEvent.create(
+            recipientPubKey = user.pubkey(),
+            publishedRecipientPubKey = user.pubkey(),
+            msg = mess
