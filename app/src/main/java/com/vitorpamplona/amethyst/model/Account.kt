@@ -329,4 +329,20 @@ class Account(
         val signedEvent = PrivateDmEvent.create(
             recipientPubKey = user.pubkey(),
             publishedRecipientPubKey = user.pubkey(),
-            msg = mess
+            msg = message,
+            replyTos = repliesToHex,
+            mentions = mentionsHex,
+            privateKey = loggedIn.privKey!!,
+            advertiseNip18 = false
+        )
+        Client.send(signedEvent)
+        LocalCache.consume(signedEvent, null)
+    }
+
+    fun sendCreateNewChannel(name: String, about: String, picture: String) {
+        if (!isWriteable()) return
+
+        val metadata = ChannelCreateEvent.ChannelData(
+            name,
+            about,
+  
