@@ -420,4 +420,21 @@ class Account(
 
             val recepientPK = event.recipientPubKey()
 
-            if (note.author == 
+            if (note.author == userProfile() && recepientPK != null) {
+                pubkeyToUse = recepientPK
+            }
+
+            event.plainContent(loggedIn.privKey!!, pubkeyToUse.toByteArray())
+        } else {
+            event?.content()
+        }
+    }
+
+    fun addDontTranslateFrom(languageCode: String) {
+        dontTranslateFrom = dontTranslateFrom.plus(languageCode)
+        liveLanguages.invalidateData()
+
+        saveable.invalidateData()
+    }
+
+    fun updateTranslateTo(languageCode: String
