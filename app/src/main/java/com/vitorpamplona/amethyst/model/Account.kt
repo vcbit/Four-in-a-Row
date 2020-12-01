@@ -472,4 +472,18 @@ class Account(
 
         // Ugly, but forces nostr.band as the only search-supporting relay today.
         // TODO: Remove when search becomes more available.
-        if (usersRelayList.none { it.activeTypes.contains(FeedType.SEARCH) }) 
+        if (usersRelayList.none { it.activeTypes.contains(FeedType.SEARCH) }) {
+            usersRelayList = usersRelayList + Relay(
+                Constants.forcedRelayForSearch.url,
+                Constants.forcedRelayForSearch.read,
+                Constants.forcedRelayForSearch.write,
+                Constants.forcedRelayForSearch.feedTypes
+            )
+        }
+
+        return usersRelayList.toTypedArray()
+    }
+
+    fun convertLocalRelays(): Array<Relay> {
+        return localRelays.map {
+            Relay(it.url, it.read, it.write, it.feedType
