@@ -465,4 +465,11 @@ class Account(
 
     // Takes a User's relay list and adds the types of feeds they are active for.
     fun activeRelays(): Array<Relay>? {
-        var usersRelayList = userProfil
+        var usersRelayList = userProfile().relays?.map {
+            val localFeedTypes = localRelays.firstOrNull() { localRelay -> localRelay.url == it.key }?.feedTypes ?: FeedType.values().toSet()
+            Relay(it.key, it.value.read, it.value.write, localFeedTypes)
+        } ?: return null
+
+        // Ugly, but forces nostr.band as the only search-supporting relay today.
+        // TODO: Remove when search becomes more available.
+        if (usersRelayList.none { it.activeTypes.contains(FeedType.SEARCH) }) 
