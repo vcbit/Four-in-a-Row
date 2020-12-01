@@ -437,4 +437,20 @@ class Account(
         saveable.invalidateData()
     }
 
-    fun updateTranslateTo(languageCode: String
+    fun updateTranslateTo(languageCode: String) {
+        translateTo = languageCode
+        liveLanguages.invalidateData()
+
+        saveable.invalidateData()
+    }
+
+    fun prefer(source: String, target: String, preference: String) {
+        languagePreferences = languagePreferences + Pair("$source,$target", preference)
+        saveable.invalidateData()
+    }
+
+    fun preferenceBetween(source: String, target: String): String? {
+        return languagePreferences.get("$source,$target")
+    }
+
+    private fun updateContactListTo(newContactLis
