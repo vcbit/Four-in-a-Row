@@ -367,4 +367,21 @@ class Account(
     }
 
     fun leaveChannel(idHex: String) {
-        fo
+        followingChannels = followingChannels - idHex
+        live.invalidateData()
+
+        saveable.invalidateData()
+    }
+
+    fun hideUser(pubkeyHex: String) {
+        hiddenUsers = hiddenUsers + pubkeyHex
+        live.invalidateData()
+        saveable.invalidateData()
+    }
+
+    fun showUser(pubkeyHex: String) {
+        hiddenUsers = hiddenUsers - pubkeyHex
+        transientHiddenUsers = transientHiddenUsers - pubkeyHex
+        live.invalidateData()
+        saveable.invalidateData()
+   
