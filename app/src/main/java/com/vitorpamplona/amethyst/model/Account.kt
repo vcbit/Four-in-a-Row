@@ -345,4 +345,26 @@ class Account(
         val metadata = ChannelCreateEvent.ChannelData(
             name,
             about,
-  
+            picture
+        )
+
+        val event = ChannelCreateEvent.create(
+            channelInfo = metadata,
+            privateKey = loggedIn.privKey!!
+        )
+
+        Client.send(event)
+        LocalCache.consume(event)
+
+        joinChannel(event.id)
+    }
+
+    fun joinChannel(idHex: String) {
+        followingChannels = followingChannels + idHex
+        live.invalidateData()
+
+        saveable.invalidateData()
+    }
+
+    fun leaveChannel(idHex: String) {
+        fo
