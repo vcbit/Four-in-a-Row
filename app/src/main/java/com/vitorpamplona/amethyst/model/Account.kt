@@ -384,4 +384,22 @@ class Account(
         transientHiddenUsers = transientHiddenUsers - pubkeyHex
         live.invalidateData()
         saveable.invalidateData()
-   
+    }
+
+    fun changeZapAmounts(newAmounts: List<Long>) {
+        zapAmountChoices = newAmounts
+        live.invalidateData()
+        saveable.invalidateData()
+    }
+
+    fun sendChangeChannel(name: String, about: String, picture: String, channel: Channel) {
+        if (!isWriteable()) return
+
+        val metadata = ChannelCreateEvent.ChannelData(
+            name,
+            about,
+            picture
+        )
+
+        val event = ChannelMetadataEvent.create(
+            newChannelInfo = me
