@@ -453,4 +453,16 @@ class Account(
         return languagePreferences.get("$source,$target")
     }
 
-    private fun updateContactListTo(newContactLis
+    private fun updateContactListTo(newContactList: ContactListEvent?) {
+        if (newContactList?.follows().isNullOrEmpty()) return
+
+        // Events might be different objects, we have to compare their ids.
+        if (backupContactList?.id != newContactList?.id) {
+            backupContactList = newContactList
+            saveable.invalidateData()
+        }
+    }
+
+    // Takes a User's relay list and adds the types of feeds they are active for.
+    fun activeRelays(): Array<Relay>? {
+        var usersRelayList = userProfil
