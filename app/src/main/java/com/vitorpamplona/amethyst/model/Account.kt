@@ -486,4 +486,20 @@ class Account(
 
     fun convertLocalRelays(): Array<Relay> {
         return localRelays.map {
-            Relay(it.url, it.read, it.write, it.feedType
+            Relay(it.url, it.read, it.write, it.feedTypes)
+        }.toTypedArray()
+    }
+
+    fun reconnectIfRelaysHaveChanged() {
+        val newRelaySet = activeRelays() ?: convertLocalRelays()
+        if (!Client.isSameRelaySetConfig(newRelaySet)) {
+            Client.disconnect()
+            Client.connect(newRelaySet)
+            RelayPool.requestAndWatch()
+        }
+    }
+
+    fun isHidden(user: User) = user.pubkeyHex in hiddenUsers || user.pubkeyHex in transientHiddenUsers
+
+    fun isAcceptable(user: User): Boolean {
+        return !isHidden(user) &
