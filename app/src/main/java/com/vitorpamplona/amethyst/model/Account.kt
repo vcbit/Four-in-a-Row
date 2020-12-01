@@ -402,4 +402,22 @@ class Account(
         )
 
         val event = ChannelMetadataEvent.create(
-            newChannelInfo = me
+            newChannelInfo = metadata,
+            originalChannelIdHex = channel.idHex,
+            privateKey = loggedIn.privKey!!
+        )
+
+        Client.send(event)
+        LocalCache.consume(event)
+
+        joinChannel(event.id)
+    }
+
+    fun decryptContent(note: Note): String? {
+        val event = note.event
+        return if (event is PrivateDmEvent && loggedIn.privKey != null) {
+            var pubkeyToUse = event.pubKey
+
+            val recepientPK = event.recipientPubKey()
+
+            if (note.author == 
