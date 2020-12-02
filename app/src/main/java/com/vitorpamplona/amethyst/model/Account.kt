@@ -502,4 +502,11 @@ class Account(
     fun isHidden(user: User) = user.pubkeyHex in hiddenUsers || user.pubkeyHex in transientHiddenUsers
 
     fun isAcceptable(user: User): Boolean {
-        return !isHidden(user) &
+        return !isHidden(user) && // if user hasn't hided this author
+            user.reportsBy(userProfile()).isEmpty() && // if user has not reported this post
+            user.countReportAuthorsBy(userProfile().follows) < 5
+    }
+
+    fun isAcceptableDirect(note: Note): Boolean {
+        return note.reportsBy(userProfile()).isEmpty() && // if user has not reported this post
+            note.countReportAuthorsBy(userProfile().follows) < 5 // if it has 5 reports by reliable u
