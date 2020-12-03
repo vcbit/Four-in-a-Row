@@ -535,4 +535,21 @@ class Account(
                 (note.author?.reportsBy(followsPlusMe) ?: emptyList()) +
                 innerReports
             ).toSet()
- 
+    }
+
+    fun saveRelayList(value: List<RelaySetupInfo>) {
+        localRelays = value.toSet()
+        sendNewRelayList(value.associate { it.url to ContactListEvent.ReadWrite(it.read, it.write) })
+
+        saveable.invalidateData()
+    }
+
+    fun setHideDeleteRequestInfo() {
+        hideDeleteRequestInfo = true
+        saveable.invalidateData()
+    }
+
+    init {
+        backupContactList?.let {
+            println("Loading saved contacts ${it.toJson()}")
+            if (userProfile().latestContactLis
