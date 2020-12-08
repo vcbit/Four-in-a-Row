@@ -576,3 +576,21 @@ class Account(
                     if (it.pubkeyHex !in transientHiddenUsers && it.duplicatedMessages.size >= 5) {
                         val userToBlock = LocalCache.getOrCreateUser(it.pubkeyHex)
                         if (userToBlock != userProfile() && userToBlock !in userProfile().follows) {
+                            transientHiddenUsers = transientHiddenUsers + it.pubkeyHex
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+class AccountLiveData(private val account: Account) : LiveData<AccountState>(AccountState(account)) {
+    var handlerWaiting = AtomicBoolean()
+
+    fun invalidateData() {
+        if (handlerWaiting.getAndSet(true)) return
+
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+            
