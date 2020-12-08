@@ -552,4 +552,21 @@ class Account(
     init {
         backupContactList?.let {
             println("Loading saved contacts ${it.toJson()}")
-            if (userProfile().latestContactLis
+            if (userProfile().latestContactList == null) {
+                LocalCache.consume(it)
+            }
+        }
+
+        // Observes relays to restart connections
+        userProfile().live().relays.observeForever {
+            GlobalScope.launch(Dispatchers.IO) {
+                reconnectIfRelaysHaveChanged()
+            }
+        }
+
+        // saves contact list for the next time.
+        userProfile().live().follows.observeForever {
+            updateContactListTo(userProfile().latestContactList)
+        }
+
+        // imports transien
