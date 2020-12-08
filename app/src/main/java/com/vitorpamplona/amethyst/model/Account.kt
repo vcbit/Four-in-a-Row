@@ -569,4 +569,10 @@ class Account(
             updateContactListTo(userProfile().latestContactList)
         }
 
-        // imports transien
+        // imports transient blocks due to spam.
+        LocalCache.antiSpam.liveSpam.observeForever {
+            GlobalScope.launch(Dispatchers.IO) {
+                it.cache.spamMessages.snapshot().values.forEach {
+                    if (it.pubkeyHex !in transientHiddenUsers && it.duplicatedMessages.size >= 5) {
+                        val userToBlock = LocalCache.getOrCreateUser(it.pubkeyHex)
+                        if (userToBlock != userProfile() && userToBlock !in userProfile().follows) {
