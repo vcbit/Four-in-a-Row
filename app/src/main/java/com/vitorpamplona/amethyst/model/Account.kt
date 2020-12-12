@@ -593,4 +593,20 @@ class AccountLiveData(private val account: Account) : LiveData<AccountState>(Acc
 
         val scope = CoroutineScope(Job() + Dispatchers.Default)
         scope.launch {
-            
+            try {
+                delay(100)
+                refresh()
+            } finally {
+                withContext(NonCancellable) {
+                    handlerWaiting.set(false)
+                }
+            }
+        }
+    }
+
+    fun refresh() {
+        postValue(AccountState(account))
+    }
+}
+
+class AccountState(val account: Account)
