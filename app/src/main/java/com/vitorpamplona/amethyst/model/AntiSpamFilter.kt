@@ -38,4 +38,23 @@ class AntiSpamFilter {
             // Log down offenders
             if (spamMessages.get(hash) == null) {
                 spamMessages.put(hash, Spammer(event.pubKey, setOf(recentMessages[hash], event.id)))
-   
+                liveSpam.invalidateData()
+            } else {
+                val spammer = spamMessages.get(hash)
+                spammer.duplicatedMessages = spammer.duplicatedMessages + event.id
+
+                liveSpam.invalidateData()
+            }
+
+            return true
+        }
+
+        recentMessages.put(hash, idHex)
+
+        return false
+    }
+
+    val liveSpam: AntiSpamLiveData = AntiSpamLiveData(this)
+}
+
+class AntiSpamLiveData(val cache: AntiSpamFilter) : LiveData<AntiSpa
