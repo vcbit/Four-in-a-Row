@@ -19,4 +19,15 @@ class AntiSpamFilter {
     val recentMessages = LruCache<Int, String>(1000)
     val spamMessages = LruCache<Int, Spammer>(1000)
 
-    @Synchro
+    @Synchronized
+    fun isSpam(event: Event): Boolean {
+        val idHex = event.id
+
+        // if short message, ok
+        if (event.content.length < 50) return false
+
+        // double list strategy:
+        // if duplicated, it goes into spam. 1000 spam messages are saved into the spam list.
+
+        // Considers tags so that same replies to different people don't count.
+        val hash = (event.content + event.tags.flatten().joinToString(",")).ha
