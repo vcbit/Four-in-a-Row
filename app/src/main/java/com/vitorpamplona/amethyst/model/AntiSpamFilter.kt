@@ -30,4 +30,12 @@ class AntiSpamFilter {
         // if duplicated, it goes into spam. 1000 spam messages are saved into the spam list.
 
         // Considers tags so that same replies to different people don't count.
-        val hash = (event.content + event.tags.flatten().joinToString(",")).ha
+        val hash = (event.content + event.tags.flatten().joinToString(",")).hashCode()
+
+        if ((recentMessages[hash] != null && recentMessages[hash] != idHex) || spamMessages[hash] != null) {
+            Log.w("Potential SPAM Message", "${event.id} ${recentMessages[hash]} ${spamMessages[hash] != null} ${event.content.replace("\n", " | ")}")
+
+            // Log down offenders
+            if (spamMessages.get(hash) == null) {
+                spamMessages.put(hash, Spammer(event.pubKey, setOf(recentMessages[hash], event.id)))
+   
