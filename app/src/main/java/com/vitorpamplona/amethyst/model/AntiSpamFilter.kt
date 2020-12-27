@@ -57,4 +57,19 @@ class AntiSpamFilter {
     val liveSpam: AntiSpamLiveData = AntiSpamLiveData(this)
 }
 
-class AntiSpamLiveData(val cache: AntiSpamFilter) : LiveData<AntiSpa
+class AntiSpamLiveData(val cache: AntiSpamFilter) : LiveData<AntiSpamState>(AntiSpamState(cache)) {
+
+    // Refreshes observers in batches.
+    var handlerWaiting = AtomicBoolean()
+
+    fun invalidateData() {
+        if (!hasActiveObservers()) return
+        if (handlerWaiting.getAndSet(true)) return
+
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            try {
+                delay(100)
+                refresh()
+            } finally {
+                withC
