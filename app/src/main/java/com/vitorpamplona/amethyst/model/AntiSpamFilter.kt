@@ -72,4 +72,16 @@ class AntiSpamLiveData(val cache: AntiSpamFilter) : LiveData<AntiSpamState>(Anti
                 delay(100)
                 refresh()
             } finally {
-                withC
+                withContext(NonCancellable) {
+                    handlerWaiting.set(false)
+                }
+            }
+        }
+    }
+
+    private fun refresh() {
+        postValue(AntiSpamState(cache))
+    }
+}
+
+class AntiSpamState(val cache: AntiSpamFilter)
