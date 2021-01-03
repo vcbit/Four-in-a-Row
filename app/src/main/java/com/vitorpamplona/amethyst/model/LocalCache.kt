@@ -639,3 +639,265 @@ object LocalCache {
         // Adds notifications to users.
         mentions.forEach {
             it.addTaggedPost(note)
+        }
+        replyTo.forEach {
+            it.author?.addTaggedPost(note)
+        }
+
+        // Counts the replies
+        replyTo.forEach {
+            it.addReply(note)
+        }
+
+        refreshObservers()
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun consume(event: ChannelHideMessageEvent) {
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun consume(event: ChannelMuteUserEvent) {
+    }
+
+    fun consume(event: LnZapEvent) {
+        val note = getOrCreateNote(event.id)
+
+        // Already processed this event.
+        if (note.event != null) return
+
+        val zapRequest = event.containedPost()?.id?.let { getOrCreateNote(it) }
+
+        val author = getOrCreateUser(event.pubKey)
+        val mentions = event.zappedAuthor().mapNotNull { checkGetOrCreateUser(it) }
+        val repliesTo = event.zappedPost().mapNotNull { checkGetOrCreateNote(it) } +
+            event.taggedAddresses().map { getOrCreateAddressableNote(it) } +
+            ((zapRequest?.event as? LnZapRequestEvent)?.taggedAddresses()?.map { getOrCreateAddressableNote(it) } ?: emptySet<Note>())
+
+        note.loadEvent(event, author, mentions, repliesTo)
+
+        if (zapRequest == null) {
+            Log.e("ZP", "Zap Request not found. Unable to process Zap {${event.toJson()}}")
+            return
+        }
+
+        // Log.d("ZP", "New ZapEvent ${event.content} (${notes.size},${users.size}) ${note.author?.toBestDisplayName()} ${formattedDateTime(event.createdAt)}")
+
+        // Adds notifications to users.
+        mentions.forEach {
+            it.addTaggedPost(note)
+        }
+        repliesTo.forEach {
+            it.author?.addTaggedPost(note)
+        }
+
+        repliesTo.forEach {
+            it.addZap(zapRequest, note)
+        }
+        mentions.forEach {
+            it.addZap(zapRequest, note)
+        }
+    }
+
+    fun consume(event: LnZapRequestEvent) {
+        val note = getOrCreateNote(event.id)
+
+        // Already processed this event.
+        if (note.event != null) return
+
+        val author = getOrCreateUser(event.pubKey)
+        val mentions = event.zappedAuthor().mapNotNull { checkGetOrCreateUser(it) }
+        val repliesTo = event.zappedPost().mapNotNull { checkGetOrCreateNote(it) } +
+            event.taggedAddresses().map { getOrCreateAddressableNote(it) }
+
+        note.loadEvent(event, author, mentions, repliesTo)
+
+        // Log.d("ZP", "New Zap Request ${event.content} (${notes.size},${users.size}) ${note.author?.toBestDisplayName()} ${formattedDateTime(event.createdAt)}")
+
+        // Adds notifications to users.
+        mentions.forEach {
+            it.addTaggedPost(note)
+        }
+        repliesTo.forEach {
+            it.author?.addTaggedPost(note)
+        }
+
+        repliesTo.forEach {
+            it.addZap(note, null)
+        }
+        mentions.forEach {
+            it.addZap(note, null)
+        }
+    }
+
+    fun findUsersStartingWith(username: String): List<User> {
+        return users.values.filter {
+            (it.anyNameStartsWith(username)) ||
+                it.pubkeyHex.startsWith(username, true) ||
+                it.pubkeyNpub().startsWith(username, true)
+        }
+    }
+
+    fun findNotesStartingWith(text: String): List<Note> {
+        return notes.values.filter {
+            (it.event is TextNoteEvent && it.event?.content()?.contains(text, true) ?: false) ||
+                (it.event is ChannelMessageEvent && it.event?.content()?.contains(text, true) ?: false) ||
+                it.idHex.startsWith(text, true) ||
+                it.idNote().startsWith(text, true)
+        } + addressables.values.filter {
+            (it.event as? LongTextNoteEvent)?.content?.contains(text, true) ?: false ||
+                (it.event as? LongTextNoteEvent)?.title()?.contains(text, true) ?: false ||
+                (it.event as? LongTextNoteEvent)?.summary()?.contains(text, true) ?: false ||
+                it.idHex.startsWith(text, true)
+        }
+    }
+
+    fun findChannelsStartingWith(text: String): List<Channel> {
+        return channels.values.filter {
+            it.anyNameStartsWith(text) ||
+                it.idHex.startsWith(text, true) ||
+                it.idNote().startsWith(text, true)
+        }
+    }
+
+    fun cleanObservers() {
+        notes.forEach {
+            it.value.clearLive()
+        }
+
+        users.forEach {
+            it.value.clearLive()
+        }
+    }
+
+    fun pruneOldAndHiddenMessages(account: Account) {
+        channels.forEach { it ->
+            val toBeRemoved = it.value.pruneOldAndHiddenMessages(account)
+
+            toBeRemoved.forEach {
+                notes.remove(it.idHex)
+                // Doesn't need to clean up the replies and mentions.. Too small to matter.
+
+                // reverts the add
+                it.mentions?.forEach { user ->
+                    user.removeTaggedPost(it)
+                }
+                it.replyTo?.forEach { replyingNote ->
+                    replyingNote.author?.removeTaggedPost(it)
+                }
+
+                // Counts the replies
+                it.replyTo?.forEach { _ ->
+                    it.removeReply(it)
+                }
+            }
+
+            println("PRUNE: ${toBeRemoved.size} messages removed from ${it.value.info.name}")
+        }
+    }
+
+    fun pruneNonFollows(account: Account) {
+        val follows = account.userProfile().follows
+        val knownPMs = account.userProfile().privateChatrooms.filter {
+            account.userProfile().hasSentMessagesTo(it.key) && account.isAcceptable(it.key)
+        }
+
+        val followsFollow = follows.map {
+            it.follows
+        }.flatten()
+
+        val followSet = follows.plus(knownPMs).plus(account.userProfile()).plus(followsFollow)
+
+        val toBeRemoved = notes
+            .filter {
+                (it.value.author == null || it.value.author!! !in followSet) && it.value.event?.kind() == TextNoteEvent.kind && it.value.liveSet?.isInUse() != true
+            }
+
+        toBeRemoved.forEach {
+            notes.remove(it.key)
+        }
+
+        val toBeRemovedUsers = users
+            .filter {
+                (it.value !in followSet) && it.value.liveSet?.isInUse() != true
+            }
+
+        toBeRemovedUsers.forEach {
+            users.remove(it.key)
+        }
+
+        println("PRUNE: ${toBeRemoved.size} messages removed because they came from NonFollows")
+        println("PRUNE: ${toBeRemovedUsers.size} users removed because are NonFollows")
+    }
+
+    fun pruneHiddenMessages(account: Account) {
+        val toBeRemoved = account.hiddenUsers.map {
+            (users[it]?.notes ?: emptySet())
+        }.flatten()
+
+        account.hiddenUsers.forEach {
+            users[it]?.clearNotes()
+        }
+
+        toBeRemoved.forEach {
+            it.author?.removeNote(it)
+
+            // reverts the add
+            it.mentions?.forEach { user ->
+                user.removeTaggedPost(it)
+            }
+            it.replyTo?.forEach { replyingNote ->
+                replyingNote.author?.removeTaggedPost(it)
+            }
+
+            // Counts the replies
+            it.replyTo?.forEach { masterNote ->
+                masterNote.removeReply(it)
+                masterNote.removeBoost(it)
+                masterNote.removeReaction(it)
+                masterNote.removeZap(it)
+                masterNote.removeReport(it)
+            }
+
+            notes.remove(it.idHex)
+        }
+
+        println("PRUNE: ${toBeRemoved.size} messages removed because they were Hidden")
+    }
+
+    // Observers line up here.
+    val live: LocalCacheLiveData = LocalCacheLiveData(this)
+
+    private fun refreshObservers() {
+        live.invalidateData()
+    }
+}
+
+class LocalCacheLiveData(val cache: LocalCache) : LiveData<LocalCacheState>(LocalCacheState(cache)) {
+
+    // Refreshes observers in batches.
+    var handlerWaiting = AtomicBoolean()
+
+    fun invalidateData() {
+        if (!hasActiveObservers()) return
+        if (handlerWaiting.getAndSet(true)) return
+
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            try {
+                delay(50)
+                refresh()
+            } finally {
+                withContext(NonCancellable) {
+                    handlerWaiting.set(false)
+                }
+            }
+        }
+    }
+
+    private fun refresh() {
+        postValue(LocalCacheState(cache))
+    }
+}
+
+class LocalCacheState(val cache: LocalCache)
