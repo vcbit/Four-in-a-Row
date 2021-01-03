@@ -52,4 +52,25 @@ class Channel(val idHex: String) {
         val important = notes.values
             .filter { it.author?.let { it1 -> account.isHidden(it1) } == false }
             .sortedBy { it.createdAt() }
-            .reversed(
+            .reversed()
+            .take(1000)
+            .toSet()
+
+        val toBeRemoved = notes.values.filter { it !in important }.toSet()
+
+        toBeRemoved.forEach {
+            notes.remove(it.idHex)
+        }
+
+        return toBeRemoved
+    }
+}
+
+class ChannelLiveData(val channel: Channel) : LiveData<ChannelState>(ChannelState(channel)) {
+    fun refresh() {
+        postValue(ChannelState(channel))
+    }
+
+    override fun onActive() {
+        super.onActive()
+        Nost
