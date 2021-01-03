@@ -17,4 +17,17 @@ import java.math.BigDecimal
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.D
+import java.util.Date
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.regex.Pattern
+
+val tagSearch = Pattern.compile("(?:\\s|\\A)\\#\\[([0-9]+)\\]")
+
+class AddressableNote(val address: ATag) : Note(address.toTag()) {
+    override fun idNote() = address.toNAddr()
+    override fun idDisplayNote() = idNote().toShortenHex()
+    override fun address() = address
+    override fun createdAt() = (event as? LongTextNoteEvent)?.publishedAt() ?: event?.createdAt()
+}
+
+open class Note(val idHex: String)
