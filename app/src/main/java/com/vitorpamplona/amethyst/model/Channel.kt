@@ -73,4 +73,13 @@ class ChannelLiveData(val channel: Channel) : LiveData<ChannelState>(ChannelStat
 
     override fun onActive() {
         super.onActive()
-        Nost
+        NostrSingleChannelDataSource.add(channel.idHex)
+    }
+
+    override fun onInactive() {
+        super.onInactive()
+        NostrSingleChannelDataSource.remove(channel.idHex)
+    }
+}
+
+class ChannelState(val channel: Channel)
