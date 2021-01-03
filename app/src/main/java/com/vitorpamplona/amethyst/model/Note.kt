@@ -30,4 +30,18 @@ class AddressableNote(val address: ATag) : Note(address.toTag()) {
     override fun createdAt() = (event as? LongTextNoteEvent)?.publishedAt() ?: event?.createdAt()
 }
 
-open class Note(val idHex: String)
+open class Note(val idHex: String) {
+    // These fields are only available after the Text Note event is received.
+    // They are immutable after that.
+    var event: EventInterface? = null
+    var author: User? = null
+    var mentions: List<User>? = null
+    var replyTo: List<Note>? = null
+
+    // These fields are updated every time an event related to this note is received.
+    var replies = setOf<Note>()
+        private set
+    var reactions = setOf<Note>()
+        private set
+    var boosts = setOf<Note>()
+        p
