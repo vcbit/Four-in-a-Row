@@ -20,4 +20,24 @@ class Channel(val idHex: String) {
     fun idDisplayNote() = idNote().toShortenHex()
 
     fun toBestDisplayName(): String {
-        return info.name ?: idDisplay
+        return info.name ?: idDisplayNote()
+    }
+
+    fun addNote(note: Note) {
+        notes[note.idHex] = note
+    }
+
+    fun updateChannelInfo(creator: User, channelInfo: ChannelCreateEvent.ChannelData, updatedAt: Long) {
+        this.creator = creator
+        this.info = channelInfo
+        this.updatedMetadataAt = updatedAt
+
+        live.refresh()
+    }
+
+    fun profilePicture(): String? {
+        if (info.picture.isNullOrBlank()) info.picture = null
+        return info.picture
+    }
+
+    fun anyNameStartsWith(prefix:
