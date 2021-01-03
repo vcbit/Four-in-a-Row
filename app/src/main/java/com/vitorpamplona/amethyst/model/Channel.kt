@@ -40,4 +40,16 @@ class Channel(val idHex: String) {
         return info.picture
     }
 
-    fun anyNameStartsWith(prefix:
+    fun anyNameStartsWith(prefix: String): Boolean {
+        return listOfNotNull(info.name, info.about)
+            .filter { it.startsWith(prefix, true) }.isNotEmpty()
+    }
+
+    // Observers line up here.
+    val live: ChannelLiveData = ChannelLiveData(this)
+
+    fun pruneOldAndHiddenMessages(account: Account): Set<Note> {
+        val important = notes.values
+            .filter { it.author?.let { it1 -> account.isHidden(it1) } == false }
+            .sortedBy { it.createdAt() }
+            .reversed(
