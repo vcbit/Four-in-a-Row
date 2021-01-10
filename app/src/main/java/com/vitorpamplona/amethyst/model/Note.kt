@@ -44,4 +44,21 @@ open class Note(val idHex: String) {
     var reactions = setOf<Note>()
         private set
     var boosts = setOf<Note>()
-        p
+        private set
+    var reports = mapOf<User, Set<Note>>()
+        private set
+    var zaps = mapOf<Note, Note?>()
+        private set
+
+    var relays = setOf<String>()
+        private set
+
+    var lastReactionsDownloadTime: Long? = null
+
+    fun id() = Hex.decode(idHex)
+    open fun idNote() = id().toNote()
+    open fun idDisplayNote() = idNote().toShortenHex()
+
+    fun channel(): Channel? {
+        val channelHex =
+            (event as? ChannelMessageE
