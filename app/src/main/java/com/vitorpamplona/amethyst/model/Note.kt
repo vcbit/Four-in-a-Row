@@ -61,4 +61,17 @@ open class Note(val idHex: String) {
 
     fun channel(): Channel? {
         val channelHex =
-            (event as? ChannelMessageE
+            (event as? ChannelMessageEvent)?.channel()
+                ?: (event as? ChannelMetadataEvent)?.channel()
+                ?: (event as? ChannelCreateEvent)?.let { it.id }
+
+        return channelHex?.let { LocalCache.checkGetOrCreateChannel(it) }
+    }
+
+    open fun address() = (event as? LongTextNoteEvent)?.address()
+
+    open fun createdAt() = event?.createdAt()
+
+    fun loadEvent(event: Event, author: User, mentions: List<User>, replyTo: List<Note>) {
+        this.event = event
+        this.author
