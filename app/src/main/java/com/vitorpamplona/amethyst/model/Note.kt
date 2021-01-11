@@ -89,4 +89,14 @@ open class Note(val idHex: String) {
     /**
      * This method caches signatures during each execution to avoid recalculation in longer threads
      */
-    fun replyLevelSignature(cach
+    fun replyLevelSignature(cachedSignatures: MutableMap<Note, String> = mutableMapOf()): String {
+        val replyTo = replyTo
+        if (replyTo == null || replyTo.isEmpty()) {
+            return "/" + formattedDateTime(createdAt() ?: 0) + ";"
+        }
+
+        return replyTo
+            .map {
+                cachedSignatures[it] ?: it.replyLevelSignature(cachedSignatures).apply { cachedSignatures.put(it, this) }
+            }
+            .maxBy { it.length }.removeSuffix(";") + "/" + formattedDateTime(createdAt()
