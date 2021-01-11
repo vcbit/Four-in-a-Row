@@ -74,4 +74,19 @@ open class Note(val idHex: String) {
 
     fun loadEvent(event: Event, author: User, mentions: List<User>, replyTo: List<Note>) {
         this.event = event
-        this.author
+        this.author = author
+        this.mentions = mentions
+        this.replyTo = replyTo
+
+        liveSet?.metadata?.invalidateData()
+    }
+
+    fun formattedDateTime(timestamp: Long): String {
+        return Instant.ofEpochSecond(timestamp).atZone(ZoneId.systemDefault())
+            .format(DateTimeFormatter.ofPattern("uuuu-MM-dd-HH:mm:ss"))
+    }
+
+    /**
+     * This method caches signatures during each execution to avoid recalculation in longer threads
+     */
+    fun replyLevelSignature(cach
