@@ -116,4 +116,24 @@ open class Note(val idHex: String) {
     fun addReply(note: Note) {
         if (note !in replies) {
             replies = replies + note
-          
+            liveSet?.replies?.invalidateData()
+        }
+    }
+
+    fun removeReply(note: Note) {
+        replies = replies - note
+        liveSet?.replies?.invalidateData()
+    }
+    fun removeBoost(note: Note) {
+        boosts = boosts - note
+        liveSet?.boosts?.invalidateData()
+    }
+    fun removeReaction(note: Note) {
+        reactions = reactions - note
+        liveSet?.reactions?.invalidateData()
+    }
+
+    fun removeReport(deleteNote: Note) {
+        val author = deleteNote.author ?: return
+
+       
