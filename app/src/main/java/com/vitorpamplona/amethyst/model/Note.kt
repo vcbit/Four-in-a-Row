@@ -99,4 +99,21 @@ open class Note(val idHex: String) {
             .map {
                 cachedSignatures[it] ?: it.replyLevelSignature(cachedSignatures).apply { cachedSignatures.put(it, this) }
             }
-            .maxBy { it.length }.removeSuffix(";") + "/" + formattedDateTime(createdAt()
+            .maxBy { it.length }.removeSuffix(";") + "/" + formattedDateTime(createdAt() ?: 0) + ";"
+    }
+
+    fun replyLevel(cachedLevels: MutableMap<Note, Int> = mutableMapOf()): Int {
+        val replyTo = replyTo
+        if (replyTo == null || replyTo.isEmpty()) {
+            return 0
+        }
+
+        return replyTo.maxOf {
+            cachedLevels[it] ?: it.replyLevel(cachedLevels).apply { cachedLevels.put(it, this) }
+        } + 1
+    }
+
+    fun addReply(note: Note) {
+        if (note !in replies) {
+            replies = replies + note
+          
