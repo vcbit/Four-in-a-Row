@@ -183,4 +183,20 @@ open class Note(val idHex: String) {
         val author = note.author ?: return
 
         if (author !in reports.keys) {
-            reports = re
+            reports = reports + Pair(author, setOf(note))
+            liveSet?.reports?.invalidateData()
+        } else if (reports[author]?.contains(note) == false) {
+            reports = reports + Pair(author, (reports[author] ?: emptySet()) + note)
+            liveSet?.reports?.invalidateData()
+        }
+    }
+
+    fun addRelay(relay: Relay) {
+        if (relay.url !in relays) {
+            relays = relays + relay.url
+            liveSet?.relays?.invalidateData()
+        }
+    }
+
+    fun isZappedBy(user: User): Boolean {
+       
