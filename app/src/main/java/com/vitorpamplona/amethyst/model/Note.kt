@@ -149,4 +149,21 @@ open class Note(val idHex: String) {
             zaps = zaps.minus(note)
             liveSet?.zaps?.invalidateData()
         } else if (zaps.containsValue(note)) {
-          
+            val toRemove = zaps.filterValues { it == note }
+            zaps = zaps.minus(toRemove.keys)
+            liveSet?.zaps?.invalidateData()
+        }
+    }
+
+    fun addBoost(note: Note) {
+        if (note !in boosts) {
+            boosts = boosts + note
+            liveSet?.boosts?.invalidateData()
+        }
+    }
+
+    fun addZap(zapRequest: Note, zap: Note?) {
+        if (zapRequest !in zaps.keys) {
+            zaps = zaps + Pair(zapRequest, zap)
+            liveSet?.zaps?.invalidateData()
+        } else if 
