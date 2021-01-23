@@ -166,4 +166,21 @@ open class Note(val idHex: String) {
         if (zapRequest !in zaps.keys) {
             zaps = zaps + Pair(zapRequest, zap)
             liveSet?.zaps?.invalidateData()
-        } else if 
+        } else if (zapRequest in zaps.keys && zaps[zapRequest] == null) {
+            zaps = zaps + Pair(zapRequest, zap)
+            liveSet?.zaps?.invalidateData()
+        }
+    }
+
+    fun addReaction(note: Note) {
+        if (note !in reactions) {
+            reactions = reactions + note
+            liveSet?.reactions?.invalidateData()
+        }
+    }
+
+    fun addReport(note: Note) {
+        val author = note.author ?: return
+
+        if (author !in reports.keys) {
+            reports = re
