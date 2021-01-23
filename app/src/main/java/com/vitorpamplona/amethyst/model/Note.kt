@@ -136,4 +136,17 @@ open class Note(val idHex: String) {
     fun removeReport(deleteNote: Note) {
         val author = deleteNote.author ?: return
 
-       
+        if (author in reports.keys && reports[author]?.contains(deleteNote) == true) {
+            reports[author]?.let {
+                reports = reports + Pair(author, it.minus(deleteNote))
+                liveSet?.reports?.invalidateData()
+            }
+        }
+    }
+
+    fun removeZap(note: Note) {
+        if (zaps[note] != null) {
+            zaps = zaps.minus(note)
+            liveSet?.zaps?.invalidateData()
+        } else if (zaps.containsValue(note)) {
+          
