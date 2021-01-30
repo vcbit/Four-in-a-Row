@@ -233,4 +233,19 @@ open class Note(val idHex: String) {
         return zaps.mapNotNull { it.value?.event }
             .filterIsInstance<LnZapEvent>()
             .mapNotNull {
-                it.am
+                it.amount
+            }.sumOf { it }
+    }
+
+    fun hasAnyReports(): Boolean {
+        val dayAgo = Date().time / 1000 - 24 * 60 * 60
+        return reports.isNotEmpty() ||
+            (
+                author?.reports?.values?.filter {
+                    it.firstOrNull { (it.createdAt() ?: 0) > dayAgo } != null
+                }?.isNotEmpty() ?: false
+                )
+    }
+
+    fun directlyCiteUsersHex(): Set<HexKey> {
+        val matcher = tagSearch.matcher(
