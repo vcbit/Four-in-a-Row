@@ -248,4 +248,19 @@ open class Note(val idHex: String) {
     }
 
     fun directlyCiteUsersHex(): Set<HexKey> {
-        val matcher = tagSearch.matcher(
+        val matcher = tagSearch.matcher(event?.content() ?: "")
+        val returningList = mutableSetOf<String>()
+        while (matcher.find()) {
+            try {
+                val tag = matcher.group(1)?.let { event?.tags()?.get(it.toInt()) }
+                if (tag != null && tag[0] == "p") {
+                    returningList.add(tag[1])
+                }
+            } catch (e: Exception) {
+            }
+        }
+        return returningList
+    }
+
+    fun directlyCiteUsers(): Set<User> {
+        val matcher = tagSear
