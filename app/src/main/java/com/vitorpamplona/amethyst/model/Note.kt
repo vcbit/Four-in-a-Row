@@ -263,4 +263,17 @@ open class Note(val idHex: String) {
     }
 
     fun directlyCiteUsers(): Set<User> {
-        val matcher = tagSear
+        val matcher = tagSearch.matcher(event?.content() ?: "")
+        val returningList = mutableSetOf<User>()
+        while (matcher.find()) {
+            try {
+                val tag = matcher.group(1)?.let { event?.tags()?.get(it.toInt()) }
+                if (tag != null && tag[0] == "p") {
+                    LocalCache.checkGetOrCreateUser(tag[1])?.let {
+                        returningList.add(it)
+                    }
+                }
+            } catch (e: Exception) {
+            }
+        }
+   
