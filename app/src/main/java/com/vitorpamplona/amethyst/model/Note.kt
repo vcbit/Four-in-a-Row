@@ -276,4 +276,16 @@ open class Note(val idHex: String) {
             } catch (e: Exception) {
             }
         }
-   
+        return returningList
+    }
+
+    fun directlyCites(userProfile: User): Boolean {
+        return author == userProfile ||
+            (userProfile in directlyCiteUsers()) ||
+            (event is ReactionEvent && replyTo?.lastOrNull()?.directlyCites(userProfile) == true) ||
+            (event is RepostEvent && replyTo?.lastOrNull()?.directlyCites(userProfile) == true)
+    }
+
+    fun isNewThread(): Boolean {
+        return event is RepostEvent || replyTo == null || replyTo?.size == 0
+    
