@@ -336,4 +336,19 @@ class NoteLiveSet(u: Note) {
     val replies: NoteLiveData = NoteLiveData(u)
     val reports: NoteLiveData = NoteLiveData(u)
     val relays: NoteLiveData = NoteLiveData(u)
-    val zaps: NoteLiveData = 
+    val zaps: NoteLiveData = NoteLiveData(u)
+
+    fun isInUse(): Boolean {
+        return metadata.hasObservers() ||
+            reactions.hasObservers() ||
+            boosts.hasObservers() ||
+            replies.hasObservers() ||
+            reports.hasObservers() ||
+            relays.hasObservers() ||
+            zaps.hasObservers()
+    }
+}
+
+class NoteLiveData(val note: Note) : LiveData<NoteState>(NoteState(note)) {
+    // Refreshes observers in batches.
+    var handlerWaiting = AtomicBoo
