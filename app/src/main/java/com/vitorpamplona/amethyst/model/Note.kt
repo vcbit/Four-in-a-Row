@@ -303,4 +303,21 @@ open class Note(val idHex: String) {
     }
 
     fun hasBoostedInTheLast5Minutes(loggedIn: User): Boolean {
-        val currentTi
+        val currentTime = Date().time / 1000
+        return boosts.firstOrNull { it.author == loggedIn && (it.createdAt() ?: 0) > currentTime - (60 * 5) } != null // 5 minute protection
+    }
+
+    fun boostedBy(loggedIn: User): List<Note> {
+        return boosts.filter { it.author == loggedIn }
+    }
+
+    var liveSet: NoteLiveSet? = null
+
+    fun live(): NoteLiveSet {
+        if (liveSet == null) {
+            liveSet = NoteLiveSet(this)
+        }
+        return liveSet!!
+    }
+
+    fun clearLive() 
