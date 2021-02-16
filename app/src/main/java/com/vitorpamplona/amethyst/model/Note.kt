@@ -288,4 +288,19 @@ open class Note(val idHex: String) {
 
     fun isNewThread(): Boolean {
         return event is RepostEvent || replyTo == null || replyTo?.size == 0
-    
+    }
+
+    fun hasZapped(loggedIn: User): Boolean {
+        return zaps.any { it.key.author == loggedIn }
+    }
+
+    fun hasReacted(loggedIn: User, content: String): Boolean {
+        return reactedBy(loggedIn, content).isNotEmpty()
+    }
+
+    fun reactedBy(loggedIn: User, content: String): List<Note> {
+        return reactions.filter { it.author == loggedIn && it.event?.content() == content }
+    }
+
+    fun hasBoostedInTheLast5Minutes(loggedIn: User): Boolean {
+        val currentTi
