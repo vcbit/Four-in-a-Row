@@ -320,4 +320,20 @@ open class Note(val idHex: String) {
         return liveSet!!
     }
 
-    fun clearLive() 
+    fun clearLive() {
+        if (liveSet != null && liveSet?.isInUse() == false) {
+            liveSet = null
+        }
+    }
+}
+
+class NoteLiveSet(u: Note) {
+    // Observers line up here.
+    val metadata: NoteLiveData = NoteLiveData(u)
+
+    val reactions: NoteLiveData = NoteLiveData(u)
+    val boosts: NoteLiveData = NoteLiveData(u)
+    val replies: NoteLiveData = NoteLiveData(u)
+    val reports: NoteLiveData = NoteLiveData(u)
+    val relays: NoteLiveData = NoteLiveData(u)
+    val zaps: NoteLiveData = 
