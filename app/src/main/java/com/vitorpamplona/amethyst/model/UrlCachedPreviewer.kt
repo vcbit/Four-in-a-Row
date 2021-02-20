@@ -49,4 +49,15 @@ object UrlCachedPreviewer {
     }
 
     fun findUrlsInMessage(message: String): List<String> {
-        return m
+        return message.split('\n').map { paragraph ->
+            paragraph.split(' ').filter { word: String ->
+                isValidURL(word) || noProtocolUrlValidator.matcher(word).matches()
+            }
+        }.flatten()
+    }
+
+    fun preloadPreviewsFor(note: Note) {
+        note.event?.content()?.let {
+            findUrlsInMessage(it).forEach {
+                val removedParamsFromUrl = it.split("?")[0].lowercase()
+                if (imageExtension.matcher(removed
