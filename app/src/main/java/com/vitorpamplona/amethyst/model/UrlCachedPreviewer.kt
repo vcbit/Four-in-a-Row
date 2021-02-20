@@ -18,4 +18,21 @@ object UrlCachedPreviewer {
     var failures = mapOf<String, Throwable>()
         private set
 
-    fun previewInfo(url: String, callba
+    fun previewInfo(url: String, callback: IUrlPreviewCallback? = null) {
+        cache[url]?.let {
+            callback?.onComplete(it)
+            return
+        }
+
+        failures[url]?.let {
+            callback?.onFailed(it)
+            return
+        }
+
+        val scope = CoroutineScope(Job() + Dispatchers.IO)
+        scope.launch {
+            BahaUrlPreview(
+                url,
+                object : IUrlPreviewCallback {
+                    override fun onComplete(urlInfo: UrlInfoItem) {
+       
