@@ -60,4 +60,16 @@ object UrlCachedPreviewer {
         note.event?.content()?.let {
             findUrlsInMessage(it).forEach {
                 val removedParamsFromUrl = it.split("?")[0].lowercase()
-                if (imageExtension.matcher(removed
+                if (imageExtension.matcher(removedParamsFromUrl).matches()) {
+                    // Preload Images? Isn't this too heavy?
+                } else if (videoExtension.matcher(removedParamsFromUrl).matches()) {
+                    // Do nothing for now.
+                } else if (isValidURL(removedParamsFromUrl)) {
+                    previewInfo(it)
+                } else {
+                    previewInfo("https://$it")
+                }
+            }
+        }
+    }
+}
