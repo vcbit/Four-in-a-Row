@@ -50,3 +50,50 @@ class Nip05Verifier {
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onResponse(call: Call, response: Response) {
+                        response.use {
+                            if (it.isSuccessful) {
+                                onSuccess(it.body.string())
+                            } else {
+                                onError("Could not resolve $nip05. Error: ${it.code}. Check if the server up and if the address $nip05 is correct")
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call, e: java.io.IOException) {
+                        onError("Could not resolve $url. Check if the server up and if the address $nip05 is correct")
+                        e.printStackTrace()
+                    }
+                })
+            } catch (e: java.lang.Exception) {
+                onError("Could not resolve '$url': ${e.message}")
+            }
+        }
+    }
+
+    fun verifyNip05(nip05: String, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
+        val mapper = jacksonObjectMapper()
+
+        fetchNip05Json(
+            nip05,
+            onSuccess = {
+                val nip05url = try {
+                    mapper.readTree(it)
+                } catch (t: Throwable) {
+                    onError("Error Parsing JSON from Lightning Address. Check the user's lightning setup")
+                    null
+                }
+
+                val user = nip05.split("@")[0]
+
+                val hexKey = nip05url?.get("names")?.get(user)?.asText()
+
+                if (hexKey == null) {
+                    onError("Username not found in the NIP05 JSON")
+                } else {
+                    onSuccess(hexKey)
+                }
+            },
+            onError = onError
+        )
+    }
+}
