@@ -35,4 +35,18 @@ object UrlCachedPreviewer {
                 url,
                 object : IUrlPreviewCallback {
                     override fun onComplete(urlInfo: UrlInfoItem) {
-       
+                        cache = cache + Pair(url, urlInfo)
+                        callback?.onComplete(urlInfo)
+                    }
+
+                    override fun onFailed(throwable: Throwable) {
+                        failures = failures + Pair(url, throwable)
+                        callback?.onFailed(throwable)
+                    }
+                }
+            ).fetchUrlPreview()
+        }
+    }
+
+    fun findUrlsInMessage(message: String): List<String> {
+        return m
