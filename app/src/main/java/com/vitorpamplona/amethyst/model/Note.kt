@@ -370,4 +370,22 @@ class NoteLiveData(val note: Note) : LiveData<NoteState>(NoteState(note)) {
         }
     }
 
-    priva
+    private fun refresh() {
+        postValue(NoteState(note))
+    }
+
+    override fun onActive() {
+        super.onActive()
+        if (note is AddressableNote) {
+            NostrSingleEventDataSource.addAddress(note)
+        } else {
+            NostrSingleEventDataSource.add(note)
+        }
+    }
+
+    override fun onInactive() {
+        super.onInactive()
+        if (note is AddressableNote) {
+            NostrSingleEventDataSource.removeAddress(note)
+        } else {
+            NostrSingleEventDataSo
