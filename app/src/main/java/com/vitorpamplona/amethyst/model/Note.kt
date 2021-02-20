@@ -388,4 +388,9 @@ class NoteLiveData(val note: Note) : LiveData<NoteState>(NoteState(note)) {
         if (note is AddressableNote) {
             NostrSingleEventDataSource.removeAddress(note)
         } else {
-            NostrSingleEventDataSo
+            NostrSingleEventDataSource.remove(note)
+        }
+    }
+}
+
+class NoteState(val note: Note)
