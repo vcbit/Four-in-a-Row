@@ -351,4 +351,23 @@ class NoteLiveSet(u: Note) {
 
 class NoteLiveData(val note: Note) : LiveData<NoteState>(NoteState(note)) {
     // Refreshes observers in batches.
-    var handlerWaiting = AtomicBoo
+    var handlerWaiting = AtomicBoolean()
+
+    fun invalidateData() {
+        if (!hasActiveObservers()) return
+        if (handlerWaiting.getAndSet(true)) return
+
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            try {
+                delay(100)
+                refresh()
+            } finally {
+                withContext(NonCancellable) {
+                    handlerWaiting.set(false)
+                }
+            }
+        }
+    }
+
+    priva
