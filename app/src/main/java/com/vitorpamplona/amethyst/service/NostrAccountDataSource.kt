@@ -15,4 +15,20 @@ import com.vitorpamplona.amethyst.service.relays.FeedType
 import com.vitorpamplona.amethyst.service.relays.JsonFilter
 import com.vitorpamplona.amethyst.service.relays.TypedFilter
 
-object NostrAccountDataSource : NostrDataSou
+object NostrAccountDataSource : NostrDataSource("AccountData") {
+    lateinit var account: Account
+
+    fun createAccountContactListFilter(): TypedFilter {
+        return TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(ContactListEvent.kind),
+                authors = listOf(account.userProfile().pubkeyHex),
+                limit = 1
+            )
+        )
+    }
+
+    fun createAccountMetadataFilter(): TypedFilter {
+        return TypedFilter(
+            types
