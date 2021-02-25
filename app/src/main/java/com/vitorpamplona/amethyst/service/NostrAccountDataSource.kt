@@ -45,4 +45,21 @@ object NostrAccountDataSource : NostrDataSource("AccountData") {
             types = FeedType.values().toSet(),
             filter = JsonFilter(
                 kinds = listOf(BadgeProfilesEvent.kind),
-                authors 
+                authors = listOf(account.userProfile().pubkeyHex),
+                limit = 1
+            )
+        )
+    }
+
+    fun createAccountReportsFilter(): TypedFilter {
+        return TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(ReportEvent.kind),
+                authors = listOf(account.userProfile().pubkeyHex)
+            )
+        )
+    }
+
+    fun createNotificationFilter() = TypedFilter(
+        types = Fe
