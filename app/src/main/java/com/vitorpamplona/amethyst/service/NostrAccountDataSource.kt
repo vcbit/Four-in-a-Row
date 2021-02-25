@@ -31,4 +31,18 @@ object NostrAccountDataSource : NostrDataSource("AccountData") {
 
     fun createAccountMetadataFilter(): TypedFilter {
         return TypedFilter(
-            types
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(MetadataEvent.kind),
+                authors = listOf(account.userProfile().pubkeyHex),
+                limit = 1
+            )
+        )
+    }
+
+    fun createAccountAcceptedAwardsFilter(): TypedFilter {
+        return TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(BadgeProfilesEvent.kind),
+                authors 
