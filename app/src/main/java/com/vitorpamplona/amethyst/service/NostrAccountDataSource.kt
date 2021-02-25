@@ -62,4 +62,20 @@ object NostrAccountDataSource : NostrDataSource("AccountData") {
     }
 
     fun createNotificationFilter() = TypedFilter(
-        types = Fe
+        types = FeedType.values().toSet(),
+        filter = JsonFilter(
+            kinds = listOf(
+                TextNoteEvent.kind,
+                ReactionEvent.kind,
+                RepostEvent.kind,
+                ReportEvent.kind,
+                LnZapEvent.kind,
+                ChannelMessageEvent.kind,
+                BadgeAwardEvent.kind
+            ),
+            tags = mapOf("p" to listOf(account.userProfile().pubkeyHex)),
+            limit = 200
+        )
+    )
+
+    val accountChanne
