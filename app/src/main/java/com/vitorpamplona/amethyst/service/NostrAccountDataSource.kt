@@ -78,4 +78,16 @@ object NostrAccountDataSource : NostrDataSource("AccountData") {
         )
     )
 
-    val accountChanne
+    val accountChannel = requestNewChannel()
+
+    override fun updateChannelFilters() {
+        // gets everthing about the user logged in
+        accountChannel.typedFilters = listOf(
+            createAccountMetadataFilter(),
+            createAccountContactListFilter(),
+            createNotificationFilter(),
+            createAccountReportsFilter(),
+            createAccountAcceptedAwardsFilter()
+        ).ifEmpty { null }
+    }
+}
