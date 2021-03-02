@@ -9,4 +9,19 @@ import com.vitorpamplona.amethyst.service.relays.JsonFilter
 import com.vitorpamplona.amethyst.service.relays.TypedFilter
 
 object NostrChatroomDataSource : NostrDataSource("ChatroomFeed") {
-    lateinit 
+    lateinit var account: Account
+    var withUser: User? = null
+
+    fun loadMessagesBetween(accountIn: Account, userId: String) {
+        account = accountIn
+        withUser = LocalCache.users[userId]
+        resetFilters()
+    }
+
+    fun createMessagesToMeFilter(): TypedFilter? {
+        val myPeer = withUser
+
+        return if (myPeer != null) {
+            TypedFilter(
+                types = setOf(FeedType.PRIVATE_DMS),
+                filter = JsonFilter(
