@@ -25,3 +25,19 @@ object NostrChatroomDataSource : NostrDataSource("ChatroomFeed") {
             TypedFilter(
                 types = setOf(FeedType.PRIVATE_DMS),
                 filter = JsonFilter(
+                    kinds = listOf(PrivateDmEvent.kind),
+                    authors = listOf(myPeer.pubkeyHex),
+                    tags = mapOf("p" to listOf(account.userProfile().pubkeyHex))
+                )
+            )
+        } else {
+            null
+        }
+    }
+
+    fun createMessagesFromMeFilter(): TypedFilter? {
+        val myPeer = withUser
+
+        return if (myPeer != null) {
+            TypedFilter(
+                types = setOf(FeedType.PRIVATE_DMS),
