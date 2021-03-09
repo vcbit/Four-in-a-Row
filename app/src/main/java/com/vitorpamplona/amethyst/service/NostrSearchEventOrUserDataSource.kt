@@ -8,4 +8,18 @@ import com.vitorpamplona.amethyst.service.model.LongTextNoteEvent
 import com.vitorpamplona.amethyst.service.model.MetadataEvent
 import com.vitorpamplona.amethyst.service.model.TextNoteEvent
 import com.vitorpamplona.amethyst.service.relays.FeedType
-import com.vitorpamplona.
+import com.vitorpamplona.amethyst.service.relays.JsonFilter
+import com.vitorpamplona.amethyst.service.relays.TypedFilter
+import nostr.postr.bechToBytes
+import nostr.postr.toHex
+
+object NostrSearchEventOrUserDataSource : NostrDataSource("SingleEventFeed") {
+    private var searchString: String? = null
+
+    private fun createAnythingWithIDFilter(): List<TypedFilter>? {
+        val mySearchString = searchString
+        if (mySearchString == null) {
+            return null
+        }
+
+  
