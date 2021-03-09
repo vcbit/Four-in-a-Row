@@ -55,4 +55,6 @@ object NostrChatroomDataSource : NostrDataSource("ChatroomFeed") {
     val inandoutChannel = requestNewChannel()
 
     override fun updateChannelFilters() {
-        inandoutChannel.typedFilters = listOfNotNull(createMessagesToMeFilter(), createMessagesFromMeFilter()).ifEmpty { nul
+        inandoutChannel.typedFilters = listOfNotNull(createMessagesToMeFilter(), createMessagesFromMeFilter()).ifEmpty { null }
+    }
+}
