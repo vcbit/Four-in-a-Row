@@ -41,3 +41,18 @@ object NostrChatroomDataSource : NostrDataSource("ChatroomFeed") {
         return if (myPeer != null) {
             TypedFilter(
                 types = setOf(FeedType.PRIVATE_DMS),
+                filter = JsonFilter(
+                    kinds = listOf(PrivateDmEvent.kind),
+                    authors = listOf(account.userProfile().pubkeyHex),
+                    tags = mapOf("p" to listOf(myPeer.pubkeyHex))
+                )
+            )
+        } else {
+            null
+        }
+    }
+
+    val inandoutChannel = requestNewChannel()
+
+    override fun updateChannelFilters() {
+        inandoutChannel.typedFilters = listOfNotNull(createMessagesToMeFilter(), createMessagesFromMeFilter()).ifEmpty { nul
