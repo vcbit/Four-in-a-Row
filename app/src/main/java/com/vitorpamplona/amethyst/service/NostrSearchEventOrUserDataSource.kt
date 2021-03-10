@@ -50,4 +50,18 @@ object NostrSearchEventOrUserDataSource : NostrDataSource("SingleEventFeed") {
             TypedFilter(
                 types = FeedType.values().toSet(),
                 filter = JsonFilter(
-                    k
+                    kinds = listOf(MetadataEvent.kind),
+                    authors = listOfNotNull(hexToWatch)
+                )
+            ),
+            TypedFilter(
+                types = FeedType.values().toSet(),
+                filter = JsonFilter(
+                    kinds = listOf(MetadataEvent.kind),
+                    search = mySearchString,
+                    limit = 20
+                )
+            ),
+            TypedFilter(
+                types = FeedType.values().toSet(),
+ 
