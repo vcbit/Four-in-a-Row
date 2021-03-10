@@ -30,3 +30,17 @@ object NostrSingleChannelDataSource : NostrDataSource("SingleChannelFeed") {
     fun createLoadEventsIfNotLoadedFilter(): TypedFilter? {
         val directEventsToLoad = channelsToWatch
             .map { LocalCache.getOrCreateChannel(it) }
+            .filter { it.notes.isEmpty() }
+
+        val interestedEvents = (directEventsToLoad).map { it.idHex }.toSet()
+
+        if (interestedEvents.isEmpty()) {
+            return null
+        }
+
+        // downloads linked events to this event.
+        return TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(ChannelCreateEvent.kind),
+                ids = interestedEvents.toLis
