@@ -76,4 +76,15 @@ object NostrSearchEventOrUserDataSource : NostrDataSource("SingleEventFeed") {
     val searchChannel = requestNewChannel()
 
     override fun updateChannelFilters() {
-        searchChannel.typedFilters = createAnythingWit
+        searchChannel.typedFilters = createAnythingWithIDFilter()
+    }
+
+    fun search(searchString: String) {
+        this.searchString = searchString
+        invalidateFilters()
+    }
+
+    fun clear() {
+        searchString = null
+    }
+}
