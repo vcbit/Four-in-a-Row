@@ -34,3 +34,20 @@ object NostrSearchEventOrUserDataSource : NostrDataSource("SingleEventFeed") {
             // Usually when people add an incomplete npub or note.
             null
         }
+
+        if (hexToWatch == null) {
+            return null
+        }
+
+        // downloads all the reactions to a given event.
+        return listOf(
+            TypedFilter(
+                types = FeedType.values().toSet(),
+                filter = JsonFilter(
+                    ids = listOfNotNull(hexToWatch)
+                )
+            ),
+            TypedFilter(
+                types = FeedType.values().toSet(),
+                filter = JsonFilter(
+                    k
