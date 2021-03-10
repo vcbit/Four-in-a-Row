@@ -22,4 +22,15 @@ object NostrSearchEventOrUserDataSource : NostrDataSource("SingleEventFeed") {
             return null
         }
 
-  
+        val hexToWatch = try {
+            if (mySearchString.startsWith("npub") || mySearchString.startsWith("nsec")) {
+                decodePublicKey(mySearchString).toHex()
+            } else if (mySearchString.startsWith("note")) {
+                mySearchString.bechToBytes().toHex()
+            } else {
+                mySearchString
+            }
+        } catch (e: Exception) {
+            // Usually when people add an incomplete npub or note.
+            null
+        }
