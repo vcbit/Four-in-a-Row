@@ -17,4 +17,16 @@ object NostrSingleChannelDataSource : NostrDataSource("SingleChannelFeed") {
             return null
         }
 
-        // 
+        // downloads all the reactions to a given event.
+        return TypedFilter(
+            types = setOf(FeedType.PUBLIC_CHATS),
+            filter = JsonFilter(
+                kinds = listOf(ChannelMetadataEvent.kind),
+                tags = mapOf("e" to reactionsToWatch)
+            )
+        )
+    }
+
+    fun createLoadEventsIfNotLoadedFilter(): TypedFilter? {
+        val directEventsToLoad = channelsToWatch
+            .map { LocalCache.getOrCreateChannel(it) }
