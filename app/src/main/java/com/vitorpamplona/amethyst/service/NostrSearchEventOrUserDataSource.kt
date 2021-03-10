@@ -64,4 +64,16 @@ object NostrSearchEventOrUserDataSource : NostrDataSource("SingleEventFeed") {
             ),
             TypedFilter(
                 types = FeedType.values().toSet(),
- 
+                filter = JsonFilter(
+                    kinds = listOf(TextNoteEvent.kind, LongTextNoteEvent.kind, ChannelMetadataEvent.kind, ChannelCreateEvent.kind, ChannelMessageEvent.kind),
+                    search = mySearchString,
+                    limit = 20
+                )
+            )
+        )
+    }
+
+    val searchChannel = requestNewChannel()
+
+    override fun updateChannelFilters() {
+        searchChannel.typedFilters = createAnythingWit
