@@ -62,4 +62,8 @@ object NostrSingleChannelDataSource : NostrDataSource("SingleChannelFeed") {
         invalidateFilters()
     }
 
-    fun remove(eventId: Strin
+    fun remove(eventId: String) {
+        channelsToWatch = channelsToWatch.minus(eventId)
+        invalidateFilters()
+    }
+}
