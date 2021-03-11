@@ -43,4 +43,23 @@ object NostrSingleChannelDataSource : NostrDataSource("SingleChannelFeed") {
             types = FeedType.values().toSet(),
             filter = JsonFilter(
                 kinds = listOf(ChannelCreateEvent.kind),
-                ids = interestedEvents.toLis
+                ids = interestedEvents.toList()
+            )
+        )
+    }
+
+    val singleChannelChannel = requestNewChannel()
+
+    override fun updateChannelFilters() {
+        val reactions = createRepliesAndReactionsFilter()
+        val missing = createLoadEventsIfNotLoadedFilter()
+
+        singleChannelChannel.typedFilters = listOfNotNull(reactions, missing).ifEmpty { null }
+    }
+
+    fun add(eventId: String) {
+        channelsToWatch = channelsToWatch.plus(eventId)
+        invalidateFilters()
+    }
+
+    fun remove(eventId: Strin
