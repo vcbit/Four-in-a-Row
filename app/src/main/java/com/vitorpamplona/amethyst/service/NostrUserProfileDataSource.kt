@@ -40,3 +40,79 @@ object NostrUserProfileDataSource : NostrDataSource("UserProfileFeed") {
 
     fun createUserPostsFilter() = user?.let {
         TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(TextNoteEvent.kind, LongTextNoteEvent.kind),
+                authors = listOf(it.pubkeyHex),
+                limit = 200
+            )
+        )
+    }
+
+    fun createUserReceivedZapsFilter() = user?.let {
+        TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(LnZapEvent.kind),
+                tags = mapOf("p" to listOf(it.pubkeyHex))
+            )
+        )
+    }
+
+    fun createFollowFilter() = user?.let {
+        TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(ContactListEvent.kind),
+                authors = listOf(it.pubkeyHex),
+                limit = 1
+            )
+        )
+    }
+
+    fun createFollowersFilter() = user?.let {
+        TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(ContactListEvent.kind),
+                tags = mapOf("p" to listOf(it.pubkeyHex))
+            )
+        )
+    }
+
+    fun createAcceptedAwardsFilter() = user?.let {
+        TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(BadgeProfilesEvent.kind),
+                authors = listOf(it.pubkeyHex),
+                limit = 1
+            )
+        )
+    }
+
+    fun createReceivedAwardsFilter() = user?.let {
+        TypedFilter(
+            types = FeedType.values().toSet(),
+            filter = JsonFilter(
+                kinds = listOf(BadgeAwardEvent.kind),
+                tags = mapOf("p" to listOf(it.pubkeyHex)),
+                limit = 20
+            )
+        )
+    }
+
+    val userInfoChannel = requestNewChannel()
+
+    override fun updateChannelFilters() {
+        userInfoChannel.typedFilters = listOfNotNull(
+            createUserInfoFilter(),
+            createUserPostsFilter(),
+            createFollowFilter(),
+            createFollowersFilter(),
+            createUserReceivedZapsFilter(),
+            createAcceptedAwardsFilter(),
+            createReceivedAwardsFilter()
+        ).ifEmpty { null }
+    }
+}
