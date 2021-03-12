@@ -40,4 +40,17 @@ object LanguageTranslatorService {
         }
 
     fun identifyLanguage(text: String): Task<String> {
-  
+        return languageIdentification.identifyLanguage(text)
+    }
+
+    fun translate(text: String, source: String, target: String): Task<ResultOrError> {
+        val sourceLangCode = TranslateLanguage.fromLanguageTag(source)
+        val targetLangCode = TranslateLanguage.fromLanguageTag(target)
+
+        if (sourceLangCode == null || targetLangCode == null) {
+            return Tasks.forCanceled()
+        }
+
+        val options = TranslatorOptions.Builder()
+            .setSourceLanguage(sourceLangCode)
+       
