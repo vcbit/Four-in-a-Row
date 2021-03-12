@@ -24,4 +24,20 @@ object LanguageTranslatorService {
     val lnRegex = Pattern.compile("\\blnbc[a-z0-9]+\\b")
 
     private val translators =
-     
+        object : LruCache<TranslatorOptions, Translator>(10) {
+            override fun create(options: TranslatorOptions): Translator {
+                return Translation.getClient(options)
+            }
+
+            override fun entryRemoved(
+                evicted: Boolean,
+                key: TranslatorOptions,
+                oldValue: Translator,
+                newValue: Translator?
+            ) {
+                oldValue.close()
+            }
+        }
+
+    fun identifyLanguage(text: String): Task<String> {
+  
