@@ -53,4 +53,18 @@ object LanguageTranslatorService {
 
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(sourceLangCode)
-       
+            .setTargetLanguage(targetLangCode)
+            .build()
+
+        val translator = translators[options]
+
+        return translator.downloadModelIfNeeded().onSuccessTask {
+            val tasks = mutableListOf<Task<String>>()
+
+            val dict = lnDictionary(text) + urlDictionary(text)
+
+            for (paragraph in encodeDictionary(text, dict).split("\n")) {
+                tasks.add(translator.translate(paragraph))
+            }
+
+        
