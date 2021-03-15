@@ -67,4 +67,15 @@ object LanguageTranslatorService {
                 tasks.add(translator.translate(paragraph))
             }
 
-        
+            Tasks.whenAll(tasks).continueWith {
+                val results: MutableList<String> = ArrayList()
+                for (task in tasks) {
+                    var fixedText = task.result.replace("# [", "#[") // fixes tags that always return with a space
+                    results.add(decodeDictionary(fixedText, dict))
+                }
+                ResultOrError(results.joinToString("\n"), source, target, null)
+            }
+        }
+    }
+
+    private fun encodeDictionary(text: String, dict: Map<String
