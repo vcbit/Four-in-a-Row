@@ -94,4 +94,17 @@ object LanguageTranslatorService {
         return newText
     }
 
-    private fun lnDictionary(text: String): Map<Str
+    private fun lnDictionary(text: String): Map<String, String> {
+        val matcher = lnRegex.matcher(text)
+        val returningList = mutableMapOf<String, String>()
+        val counter = 0
+        while (matcher.find()) {
+            try {
+                val lnInvoice = matcher.group()
+                val short = "Amethystlnindexer$counter"
+                returningList.put(short, lnInvoice)
+            } catch (e: Exception) {
+            }
+        }
+        return returningList
+ 
