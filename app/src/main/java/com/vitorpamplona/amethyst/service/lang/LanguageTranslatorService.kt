@@ -78,4 +78,20 @@ object LanguageTranslatorService {
         }
     }
 
-    private fun encodeDictionary(text: String, dict: Map<String
+    private fun encodeDictionary(text: String, dict: Map<String, String>): String {
+        var newText = text
+        for (pair in dict) {
+            newText = newText.replace(pair.value, pair.key, true)
+        }
+        return newText
+    }
+
+    private fun decodeDictionary(text: String, dict: Map<String, String>): String {
+        var newText = text
+        for (pair in dict) {
+            newText = newText.replace(pair.key, pair.value, true)
+        }
+        return newText
+    }
+
+    private fun lnDictionary(text: String): Map<Str
