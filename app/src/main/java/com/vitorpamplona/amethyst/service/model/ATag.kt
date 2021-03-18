@@ -18,3 +18,17 @@ data class ATag(val kind: Int, val pubKeyHex: String, val dTag: String, val rela
         val dTag = dTag.toByteArray(Charsets.UTF_8)
         val relay = relay?.toByteArray(Charsets.UTF_8)
 
+        var fullArray = byteArrayOf(Tlv.Type.SPECIAL.id, dTag.size.toByte()) + dTag
+
+        if (relay != null) {
+            fullArray = fullArray + byteArrayOf(Tlv.Type.RELAY.id, relay.size.toByte()) + relay
+        }
+
+        fullArray = fullArray +
+            byteArrayOf(Tlv.Type.AUTHOR.id, author.size.toByte()) + author +
+            byteArrayOf(Tlv.Type.KIND.id, kind.size.toByte()) + kind
+
+        return Bech32.encodeBytes(hrp = "naddr", fullArray, Bech32.Encoding.Bech32)
+    }
+
+    
