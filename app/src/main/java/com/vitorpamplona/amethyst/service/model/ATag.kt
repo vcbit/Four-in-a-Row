@@ -45,4 +45,19 @@ data class ATag(val kind: Int, val pubKeyHex: String, val dTag: String, val rela
         }
 
         fun parseAtag(atag: String, relay: String?): ATag? {
-            return 
+            return try {
+                val parts = atag.split(":")
+                Hex.decode(parts[1])
+                ATag(parts[0].toInt(), parts[1], parts[2], relay)
+            } catch (t: Throwable) {
+                Log.w("ATag", "Error parsing A Tag: $atag: ${t.message}")
+                null
+            }
+        }
+
+        fun parseNAddr(naddr: String): ATag? {
+            try {
+                val key = naddr.removePrefix("nostr:")
+
+                if (key.startsWith("naddr")) {
+                    val tlv = Tlv.parse(key.b
