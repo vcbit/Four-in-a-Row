@@ -113,3 +113,66 @@ class LightningAddressResolver {
 
                 override fun onFailure(call: Call, e: java.io.IOException) {
                     onError("Could not fetch an invoice from $lnCallback. Message ${e.message}")
+                    e.printStackTrace()
+                }
+            })
+        }
+    }
+
+    fun lnAddressToLnUrl(lnaddress: String, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
+        fetchLightningAddressJson(
+            lnaddress,
+            onSuccess = {
+                onSuccess(Bech32.encodeBytes("lnurl", it.toByteArray(), Bech32.Encoding.Bech32))
+            },
+            onError = onError
+        )
+    }
+
+    fun lnAddressInvoice(lnaddress: String, milliSats: Long, message: String, nostrRequest: String? = null, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
+        val mapper = jacksonObjectMapper()
+
+        fetchLightningAddressJson(
+            lnaddress,
+            onSuccess = { lnAddressJson ->
+                val lnurlp = try {
+                    mapper.readTree(lnAddressJson)
+                } catch (t: Throwable) {
+                    onError("Error Parsing JSON from Lightning Address. Check the user's lightning setup")
+                    null
+                }
+
+                val callback = lnurlp?.get("callback")?.asText()
+
+                if (callback == null) {
+                    onError("Callback URL not found in the User's lightning address server configuration")
+                }
+
+                val allowsNostr = lnurlp?.get("allowsNostr")?.asBoolean() ?: false
+
+                callback?.let { cb ->
+                    fetchLightningInvoice(
+                        cb,
+                        milliSats,
+                        message,
+                        if (allowsNostr) nostrRequest else null,
+                        onSuccess = {
+                            val lnInvoice = try {
+                                mapper.readTree(it)
+                            } catch (t: Throwable) {
+                                onError("Error Parsing JSON from Lightning Address's invoice fetch. Check the user's lightning setup")
+                                null
+                            }
+
+                            lnInvoice?.get("pr")?.asText()?.let { pr ->
+                                onSuccess(pr)
+                            } ?: onError("Invoice Not Created (element pr not found in the resulting JSON)")
+                        },
+                        onError = onError
+                    )
+                }
+            },
+            onError = onError
+        )
+    }
+}
