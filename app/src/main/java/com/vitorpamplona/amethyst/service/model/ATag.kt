@@ -68,4 +68,14 @@ data class ATag(val kind: Int, val pubKeyHex: String, val dTag: String, val rela
 
                     if (kind != null && author != null) {
                         return ATag(kind, author, d, relay)
-  
+                    }
+                }
+            } catch (e: Throwable) {
+                Log.w("ATag", "Issue trying to Decode NIP19 $this: ${e.message}")
+                // e.printStackTrace()
+            }
+
+            return null
+        }
+    }
+}
