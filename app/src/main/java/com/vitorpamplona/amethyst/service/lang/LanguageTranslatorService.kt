@@ -120,4 +120,15 @@ object LanguageTranslatorService {
         }
     }
 
-    fun autoTranslate(text: String, dontTranslateFrom: Set<String>, translateTo: Strin
+    fun autoTranslate(text: String, dontTranslateFrom: Set<String>, translateTo: String): Task<ResultOrError> {
+        return identifyLanguage(text).onSuccessTask {
+            if (it == translateTo) {
+                Tasks.forCanceled()
+            } else if (it != "und" && !dontTranslateFrom.contains(it)) {
+                translate(text, it, translateTo)
+            } else {
+                Tasks.forCanceled()
+            }
+        }
+    }
+}
