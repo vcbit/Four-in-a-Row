@@ -31,4 +31,18 @@ data class ATag(val kind: Int, val pubKeyHex: String, val dTag: String, val rela
         return Bech32.encodeBytes(hrp = "naddr", fullArray, Bech32.Encoding.Bech32)
     }
 
-    
+    companion object {
+        fun isATag(key: String): Boolean {
+            return key.startsWith("naddr1") || key.contains(":")
+        }
+
+        fun parse(address: String, relay: String?): ATag? {
+            return if (address.startsWith("naddr") || address.startsWith("nostr:naddr")) {
+                parseNAddr(address)
+            } else {
+                parseAtag(address, relay)
+            }
+        }
+
+        fun parseAtag(atag: String, relay: String?): ATag? {
+            return 
