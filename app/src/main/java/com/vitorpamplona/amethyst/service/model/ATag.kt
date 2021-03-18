@@ -60,4 +60,12 @@ data class ATag(val kind: Int, val pubKeyHex: String, val dTag: String, val rela
                 val key = naddr.removePrefix("nostr:")
 
                 if (key.startsWith("naddr")) {
-                    val tlv = Tlv.parse(key.b
+                    val tlv = Tlv.parse(key.bechToBytes())
+                    val d = tlv.get(Tlv.Type.SPECIAL.id)?.get(0)?.toString(Charsets.UTF_8) ?: ""
+                    val relay = tlv.get(Tlv.Type.RELAY.id)?.get(0)?.toString(Charsets.UTF_8)
+                    val author = tlv.get(Tlv.Type.AUTHOR.id)?.get(0)?.toHexKey()
+                    val kind = tlv.get(Tlv.Type.KIND.id)?.get(0)?.let { Tlv.toInt32(it) }
+
+                    if (kind != null && author != null) {
+                        return ATag(kind, author, d, relay)
+  
