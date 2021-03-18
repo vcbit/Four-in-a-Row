@@ -107,4 +107,17 @@ object LanguageTranslatorService {
             }
         }
         return returningList
- 
+    }
+
+    private fun urlDictionary(text: String): Map<String, String> {
+        val parser = UrlDetector(text, UrlDetectorOptions.Default)
+        val urlsInText = parser.detect()
+
+        val counter = 0
+
+        return urlsInText.filter { !it.originalUrl.contains("，") || !it.originalUrl.contains("。") }.associate {
+            "Amethysturlindexer$counter" to it.originalUrl
+        }
+    }
+
+    fun autoTranslate(text: String, dontTranslateFrom: Set<String>, translateTo: Strin
