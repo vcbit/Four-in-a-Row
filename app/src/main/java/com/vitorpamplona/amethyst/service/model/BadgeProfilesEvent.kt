@@ -18,4 +18,10 @@ class BadgeProfilesEvent(
         if (aTagValue != null) ATag.parse(aTagValue, relay) else null
     }
 
-    fun 
+    fun dTag() = tags.filter { it.firstOrNull() == "d" }.mapNotNull { it.getOrNull(1) }.firstOrNull() ?: ""
+    fun address() = ATag(kind, pubKey, dTag(), null)
+
+    companion object {
+        const val kind = 30008
+    }
+}
