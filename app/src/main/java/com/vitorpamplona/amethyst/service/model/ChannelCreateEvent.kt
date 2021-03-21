@@ -37,4 +37,12 @@ class ChannelCreateEvent(
             }
 
             val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
-            val tags = em
+            val tags = emptyList<List<String>>()
+            val id = generateId(pubKey, createdAt, kind, tags, content)
+            val sig = Utils.sign(id, privateKey)
+            return ChannelCreateEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+    }
+
+    data class ChannelData(var name: String?, var about: String?, var picture: String?)
+}
