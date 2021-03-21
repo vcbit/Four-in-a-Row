@@ -24,4 +24,17 @@ class ChannelCreateEvent(
     companion object {
         const val kind = 40
 
-        fun create(channelInfo: ChannelData?, privateKey: ByteArray, createdAt:
+        fun create(channelInfo: ChannelData?, privateKey: ByteArray, createdAt: Long = Date().time / 1000): ChannelCreateEvent {
+            val content = try {
+                if (channelInfo != null) {
+                    gson.toJson(channelInfo)
+                } else {
+                    ""
+                }
+            } catch (t: Throwable) {
+                Log.e("ChannelCreateEvent", "Couldn't parse channel information", t)
+                ""
+            }
+
+            val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
+            val tags = em
