@@ -38,4 +38,15 @@ class ContactListEvent(
     companion object {
         const val kind = 3
 
-        fun create(follows: List<Contact>, relayUse: Map<String, ReadWrite>?, priv
+        fun create(follows: List<Contact>, relayUse: Map<String, ReadWrite>?, privateKey: ByteArray, createdAt: Long = Date().time / 1000): ContactListEvent {
+            val content = if (relayUse != null) {
+                gson.toJson(relayUse)
+            } else {
+                ""
+            }
+            val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
+            val tags = follows.map {
+                if (it.relayUri != null) {
+                    listOf("p", it.pubKeyHex, it.relayUri)
+                } else {
+                    listOf("p", it.pubKeyHe
