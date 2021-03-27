@@ -49,4 +49,14 @@ class ContactListEvent(
                 if (it.relayUri != null) {
                     listOf("p", it.pubKeyHex, it.relayUri)
                 } else {
-                    listOf("p", it.pubKeyHe
+                    listOf("p", it.pubKeyHex)
+                }
+            }
+            val id = generateId(pubKey, createdAt, kind, tags, content)
+            val sig = Utils.sign(id, privateKey)
+            return ContactListEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+    }
+
+    data class ReadWrite(val read: Boolean, val write: Boolean)
+}
