@@ -35,4 +35,8 @@ class ChannelMessageEvent(
             }
 
             val id = generateId(pubKey, createdAt, kind, tags, content)
-            val sig = Utils.sign(id, 
+            val sig = Utils.sign(id, privateKey)
+            return ChannelMessageEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+    }
+}
