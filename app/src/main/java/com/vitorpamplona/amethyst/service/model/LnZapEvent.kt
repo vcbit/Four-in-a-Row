@@ -25,4 +25,20 @@ class LnZapEvent(
 
     override fun taggedAddresses(): List<ATag> = tags
         .filter { it.firstOrNull() == "a" }
-    
+        .mapNotNull {
+            val aTagValue = it.getOrNull(1)
+            val relay = it.getOrNull(2)
+
+            if (aTagValue != null) ATag.parse(aTagValue, relay) else null
+        }
+
+    override fun amount(): BigDecimal? {
+        return amount
+    }
+
+    // Keeps this as a field because it's a heavier function used everywhere.
+    val amount by lazy {
+        try {
+            lnInvoice()?.let { LnInvoiceUtil.getAmountInSats(it) }
+        } catch (e: Exception) {
+ 
