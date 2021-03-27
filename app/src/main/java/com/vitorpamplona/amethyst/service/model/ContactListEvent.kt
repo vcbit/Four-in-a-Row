@@ -22,4 +22,20 @@ class ContactListEvent(
     } catch (e: Exception) {
         Log.e("ContactListEvent", "can't parse tags as follows: $tags", e)
         null
- 
+    }
+
+    fun relayUse() = try {
+        if (content.isNotEmpty()) {
+            gson.fromJson(content, object : TypeToken<Map<String, ReadWrite>>() {}.type)
+        } else {
+            null
+        }
+    } catch (e: Exception) {
+        Log.e("ContactListEvent", "can't parse content as relay lists: $tags", e)
+        null
+    }
+
+    companion object {
+        const val kind = 3
+
+        fun create(follows: List<Contact>, relayUse: Map<String, ReadWrite>?, priv
