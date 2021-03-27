@@ -103,3 +103,109 @@ open class Event(
         override fun serialize(
             src: Event,
             typeOfSrc: Type?,
+            context: JsonSerializationContext?
+        ): JsonElement {
+            return JsonObject().apply {
+                addProperty("id", src.id)
+                addProperty("pubkey", src.pubKey)
+                addProperty("created_at", src.createdAt)
+                addProperty("kind", src.kind)
+                add(
+                    "tags",
+                    JsonArray().also { jsonTags ->
+                        src.tags.forEach { tag ->
+                            jsonTags.add(
+                                JsonArray().also { jsonTagElement ->
+                                    tag.forEach { tagElement ->
+                                        jsonTagElement.add(tagElement)
+                                    }
+                                }
+                            )
+                        }
+                    }
+                )
+                addProperty("content", src.content)
+                addProperty("sig", src.sig)
+            }
+        }
+    }
+
+    private class ByteArrayDeserializer : JsonDeserializer<ByteArray> {
+        override fun deserialize(
+            json: JsonElement,
+            typeOfT: Type?,
+            context: JsonDeserializationContext?
+        ): ByteArray = Hex.decode(json.asString)
+    }
+
+    private class ByteArraySerializer : JsonSerializer<ByteArray> {
+        override fun serialize(
+            src: ByteArray,
+            typeOfSrc: Type?,
+            context: JsonSerializationContext?
+        ) = JsonPrimitive(src.toHex())
+    }
+
+    companion object {
+        private val secp256k1 = Secp256k1.get()
+
+        val sha256: MessageDigest = MessageDigest.getInstance("SHA-256")
+        val gson: Gson = GsonBuilder()
+            .disableHtmlEscaping()
+            .registerTypeAdapter(Event::class.java, EventSerializer())
+            .registerTypeAdapter(Event::class.java, EventDeserializer())
+            .registerTypeAdapter(ByteArray::class.java, ByteArraySerializer())
+            .registerTypeAdapter(ByteArray::class.java, ByteArrayDeserializer())
+            .create()
+
+        fun fromJson(json: String, lenient: Boolean = false): Event = gson.fromJson(json, Event::class.java).getRefinedEvent(lenient)
+
+        fun fromJson(json: JsonElement, lenient: Boolean = false): Event = gson.fromJson(json, Event::class.java).getRefinedEvent(lenient)
+
+        fun Event.getRefinedEvent(lenient: Boolean = false): Event = when (kind) {
+            BadgeAwardEvent.kind -> BadgeAwardEvent(id, pubKey, createdAt, tags, content, sig)
+            BadgeDefinitionEvent.kind -> BadgeDefinitionEvent(id, pubKey, createdAt, tags, content, sig)
+            BadgeProfilesEvent.kind -> BadgeProfilesEvent(id, pubKey, createdAt, tags, content, sig)
+
+            ChannelCreateEvent.kind -> ChannelCreateEvent(id, pubKey, createdAt, tags, content, sig)
+            ChannelHideMessageEvent.kind -> ChannelHideMessageEvent(id, pubKey, createdAt, tags, content, sig)
+            ChannelMessageEvent.kind -> ChannelMessageEvent(id, pubKey, createdAt, tags, content, sig)
+            ChannelMetadataEvent.kind -> ChannelMetadataEvent(id, pubKey, createdAt, tags, content, sig)
+            ChannelMuteUserEvent.kind -> ChannelMuteUserEvent(id, pubKey, createdAt, tags, content, sig)
+            ContactListEvent.kind -> ContactListEvent(id, pubKey, createdAt, tags, content, sig)
+            DeletionEvent.kind -> DeletionEvent(id, pubKey, createdAt, tags, content, sig)
+
+            LnZapEvent.kind -> LnZapEvent(id, pubKey, createdAt, tags, content, sig)
+            LnZapRequestEvent.kind -> LnZapRequestEvent(id, pubKey, createdAt, tags, content, sig)
+            LongTextNoteEvent.kind -> LongTextNoteEvent(id, pubKey, createdAt, tags, content, sig)
+            MetadataEvent.kind -> MetadataEvent(id, pubKey, createdAt, tags, content, sig)
+            PrivateDmEvent.kind -> PrivateDmEvent(id, pubKey, createdAt, tags, content, sig)
+            ReactionEvent.kind -> ReactionEvent(id, pubKey, createdAt, tags, content, sig)
+            RecommendRelayEvent.kind -> RecommendRelayEvent(id, pubKey, createdAt, tags, content, sig, lenient)
+            ReportEvent.kind -> ReportEvent(id, pubKey, createdAt, tags, content, sig)
+            RepostEvent.kind -> RepostEvent(id, pubKey, createdAt, tags, content, sig)
+            TextNoteEvent.kind -> TextNoteEvent(id, pubKey, createdAt, tags, content, sig)
+            else -> this
+        }
+
+        fun generateId(pubKey: HexKey, createdAt: Long, kind: Int, tags: List<List<String>>, content: String): ByteArray {
+            val rawEvent = listOf(
+                0,
+                pubKey,
+                createdAt,
+                kind,
+                tags,
+                content
+            )
+            val rawEventJson = gson.toJson(rawEvent)
+            return sha256.digest(rawEventJson.toByteArray())
+        }
+
+        fun create(privateKey: ByteArray, kind: Int, tags: List<List<String>> = emptyList(), content: String = "", createdAt: Long = Date().time / 1000): Event {
+            val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
+            val id = Companion.generateId(pubKey, createdAt, kind, tags, content)
+            val sig = Utils.sign(id, privateKey).toHexKey()
+            return Event(id.toHexKey(), pubKey, createdAt, kind, tags, content, sig)
+        }
+    }
+}
