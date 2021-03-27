@@ -10,4 +10,19 @@ class LnZapEvent(
     id: HexKey,
     pubKey: HexKey,
     createdAt: Long,
-    tags: List<List<S
+    tags: List<List<String>>,
+    content: String,
+    sig: HexKey
+) : LnZapEventInterface, Event(id, pubKey, createdAt, kind, tags, content, sig) {
+
+    override fun zappedPost() = tags
+        .filter { it.firstOrNull() == "e" }
+        .mapNotNull { it.getOrNull(1) }
+
+    override fun zappedAuthor() = tags
+        .filter { it.firstOrNull() == "p" }
+        .mapNotNull { it.getOrNull(1) }
+
+    override fun taggedAddresses(): List<ATag> = tags
+        .filter { it.firstOrNull() == "a" }
+    
