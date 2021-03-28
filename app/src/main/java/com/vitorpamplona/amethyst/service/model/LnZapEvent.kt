@@ -41,4 +41,20 @@ class LnZapEvent(
         try {
             lnInvoice()?.let { LnInvoiceUtil.getAmountInSats(it) }
         } catch (e: Exception) {
- 
+            Log.e("LnZapEvent", "Failed to Parse LnInvoice ${description()}", e)
+            null
+        }
+    }
+
+    override fun containedPost(): Event? = try {
+        description()?.let {
+            fromJson(it, Client.lenient)
+        }
+    } catch (e: Exception) {
+        Log.e("LnZapEvent", "Failed to Parse Contained Post ${description()}", e)
+        null
+    }
+
+    private fun lnInvoice(): String? = tags
+        .filter { it.firstOrNull() == "bolt11" }
+        .mapNotNull { it.ge
