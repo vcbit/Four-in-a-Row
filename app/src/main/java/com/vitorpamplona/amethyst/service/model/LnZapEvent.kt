@@ -57,4 +57,15 @@ class LnZapEvent(
 
     private fun lnInvoice(): String? = tags
         .filter { it.firstOrNull() == "bolt11" }
-        .mapNotNull { it.ge
+        .mapNotNull { it.getOrNull(1) }
+        .firstOrNull()
+
+    private fun description(): String? = tags
+        .filter { it.firstOrNull() == "description" }
+        .mapNotNull { it.getOrNull(1) }
+        .firstOrNull()
+
+    companion object {
+        const val kind = 9735
+    }
+}
