@@ -16,4 +16,16 @@ class LnZapRequestEvent(
     fun zappedPost() = tags.filter { it.firstOrNull() == "e" }.mapNotNull { it.getOrNull(1) }
     fun zappedAuthor() = tags.filter { it.firstOrNull() == "p" }.mapNotNull { it.getOrNull(1) }
     fun taggedAddresses() = tags.filter { it.firstOrNull() == "a" }.mapNotNull {
-        va
+        val aTagValue = it.getOrNull(1)
+        val relay = it.getOrNull(2)
+
+        if (aTagValue != null) ATag.parse(aTagValue, relay) else null
+    }
+
+    companion object {
+        const val kind = 9734
+
+        fun create(originalNote: EventInterface, relays: Set<String>, privateKey: ByteArray, createdAt: Long = Date().time / 1000): LnZapRequestEvent {
+            val content = ""
+            val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
+            var tag
