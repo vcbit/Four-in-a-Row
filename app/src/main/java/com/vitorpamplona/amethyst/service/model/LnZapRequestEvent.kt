@@ -28,4 +28,15 @@ class LnZapRequestEvent(
         fun create(originalNote: EventInterface, relays: Set<String>, privateKey: ByteArray, createdAt: Long = Date().time / 1000): LnZapRequestEvent {
             val content = ""
             val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
-            var tag
+            var tags = listOf(
+                listOf("e", originalNote.id()),
+                listOf("p", originalNote.pubKey()),
+                listOf("relays") + relays
+            )
+            if (originalNote is LongTextNoteEvent) {
+                tags = tags + listOf(listOf("a", originalNote.address().toTag()))
+            }
+
+            val id = generateId(pubKey, createdAt, kind, tags, content)
+            val sig = Utils.sign(id, privateKey)
+            return LnZapRequestE
