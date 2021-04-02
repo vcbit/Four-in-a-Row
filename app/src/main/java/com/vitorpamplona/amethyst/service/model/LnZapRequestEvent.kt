@@ -39,4 +39,14 @@ class LnZapRequestEvent(
 
             val id = generateId(pubKey, createdAt, kind, tags, content)
             val sig = Utils.sign(id, privateKey)
-            return LnZapRequestE
+            return LnZapRequestEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+
+        fun create(userHex: String, relays: Set<String>, privateKey: ByteArray, createdAt: Long = Date().time / 1000): LnZapRequestEvent {
+            val content = ""
+            val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
+            val tags = listOf(
+                listOf("p", userHex),
+                listOf("relays") + relays
+            )
+            val id = generateId(pubKey, createdA
