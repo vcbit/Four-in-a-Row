@@ -80,4 +80,12 @@ class LnZapRequestEvent(
     "wss://nostr.fmt.wiz.biz",
     "wss://relay.nostr.bg",
     "wss://nostr.oxtr.dev",
-    "wss://n
+    "wss://nostr.v0l.io",
+    "wss://brb.io",
+    "wss://nostr.bitcoiner.social",
+    "ws://monad.jb55.com:8080",
+    "wss://relay.snort.social"
+  ]
+  ]
+}
+*/
