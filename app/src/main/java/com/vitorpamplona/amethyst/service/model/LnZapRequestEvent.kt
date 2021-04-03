@@ -49,4 +49,17 @@ class LnZapRequestEvent(
                 listOf("p", userHex),
                 listOf("relays") + relays
             )
-            val id = generateId(pubKey, createdA
+            val id = generateId(pubKey, createdAt, kind, tags, content)
+            val sig = Utils.sign(id, privateKey)
+            return LnZapRequestEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+    }
+}
+
+/*
+{
+  "pubkey": "32e1827635450ebb3c5a7d12c1f8e7b2b514439ac10a67eef3d9fd9c5c68e245",
+  "content": "",
+  "id": "d9cc14d50fcb8c27539aacf776882942c1a11ea4472f8cdec1dea82fab66279d",
+  "created_at": 1674164539,
+  "sig": "77127f636577e9029276be060332ea565deaf89ff215a
