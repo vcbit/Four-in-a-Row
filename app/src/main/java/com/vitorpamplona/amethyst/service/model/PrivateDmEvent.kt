@@ -26,4 +26,15 @@ class PrivateDmEvent(
     /**
      * To be fully compatible with nip-04, we read e-tags that are in violation to nip-18.
      *
-     * Nip-18 messages should refer to other events by inline references i
+     * Nip-18 messages should refer to other events by inline references in the content like
+     * `[](e/c06f795e1234a9a1aecc731d768d4f3ca73e80031734767067c82d67ce82e506).
+     */
+    fun replyTo() = tags.firstOrNull { it.firstOrNull() == "e" }?.getOrNull(1)
+
+    fun plainContent(privKey: ByteArray, pubKey: ByteArray): String? {
+        return try {
+            val sharedSecret = Utils.getSharedSecret(privKey, pubKey)
+
+            val retVal = Utils.decrypt(content, sharedSecret)
+
+            if (retVal.startsWith(nip18Advertisement)) 
