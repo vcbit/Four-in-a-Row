@@ -37,4 +37,24 @@ class PrivateDmEvent(
 
             val retVal = Utils.decrypt(content, sharedSecret)
 
-            if (retVal.startsWith(nip18Advertisement)) 
+            if (retVal.startsWith(nip18Advertisement)) {
+                retVal.substring(16)
+            } else {
+                retVal
+            }
+        } catch (e: Exception) {
+            Log.w("PrivateDM", "Error decrypting the message ${e.message}")
+            null
+        }
+    }
+
+    companion object {
+        const val kind = 4
+
+        const val nip18Advertisement = "[//]: # (nip18)\n"
+
+        fun create(
+            recipientPubKey: ByteArray,
+            msg: String,
+            replyTos: List<String>? = null,
+            mentio
