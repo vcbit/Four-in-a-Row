@@ -57,4 +57,15 @@ class PrivateDmEvent(
             recipientPubKey: ByteArray,
             msg: String,
             replyTos: List<String>? = null,
-            mentio
+            mentions: List<String>? = null,
+            privateKey: ByteArray,
+            createdAt: Long = Date().time / 1000,
+            publishedRecipientPubKey: ByteArray? = null,
+            advertiseNip18: Boolean = true
+        ): PrivateDmEvent {
+            val content = Utils.encrypt(
+                if (advertiseNip18) { nip18Advertisement } else { "" } + msg,
+                privateKey,
+                recipientPubKey
+            )
+            val pubKey = Utils.pubkeyCreate(
