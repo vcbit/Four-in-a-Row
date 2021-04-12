@@ -68,4 +68,16 @@ class PrivateDmEvent(
                 privateKey,
                 recipientPubKey
             )
-            val pubKey = Utils.pubkeyCreate(
+            val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
+            val tags = mutableListOf<List<String>>()
+            publishedRecipientPubKey?.let {
+                tags.add(listOf("p", publishedRecipientPubKey.toHex()))
+            }
+            replyTos?.forEach {
+                tags.add(listOf("e", it))
+            }
+            mentions?.forEach {
+                tags.add(listOf("p", it))
+            }
+            val id = generateId(pubKey, createdAt, kind, tags, content)
+       
