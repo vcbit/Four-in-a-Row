@@ -80,4 +80,8 @@ class PrivateDmEvent(
                 tags.add(listOf("p", it))
             }
             val id = generateId(pubKey, createdAt, kind, tags, content)
-       
+            val sig = Utils.sign(id, privateKey)
+            return PrivateDmEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+    }
+}
