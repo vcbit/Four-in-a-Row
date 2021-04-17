@@ -20,4 +20,15 @@ class ReactionEvent(
         val aTagValue = it.getOrNull(1)
         val relay = it.getOrNull(2)
 
-        if (aTagValu
+        if (aTagValue != null) ATag.parse(aTagValue, relay) else null
+    }
+
+    companion object {
+        const val kind = 7
+
+        fun createWarning(originalNote: EventInterface, privateKey: ByteArray, createdAt: Long = Date().time / 1000): ReactionEvent {
+            return create("\u26A0\uFE0F", originalNote, privateKey, createdAt)
+        }
+
+        fun createLike(originalNote: EventInterface, privateKey: ByteArray, createdAt: Long = Date().time / 1000): ReactionEvent {
+          
