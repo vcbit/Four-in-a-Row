@@ -1,3 +1,19 @@
 package com.vitorpamplona.amethyst.service.model
 
-import com.vi
+import com.vitorpamplona.amethyst.model.HexKey
+import com.vitorpamplona.amethyst.model.toHexKey
+import com.vitorpamplona.amethyst.service.relays.Client
+import nostr.postr.Utils
+import java.util.Date
+
+class RepostEvent(
+    id: HexKey,
+    pubKey: HexKey,
+    createdAt: Long,
+    tags: List<List<String>>,
+    content: String,
+    sig: HexKey
+) : Event(id, pubKey, createdAt, kind, tags, content, sig) {
+
+    fun boostedPost() = tags.filter { it.firstOrNull() == "e" }.mapNotNull { it.getOrNull(1) }
+  
