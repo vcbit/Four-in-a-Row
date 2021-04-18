@@ -31,4 +31,12 @@ class ReactionEvent(
         }
 
         fun createLike(originalNote: EventInterface, privateKey: ByteArray, createdAt: Long = Date().time / 1000): ReactionEvent {
-          
+            return create("+", originalNote, privateKey, createdAt)
+        }
+
+        fun create(content: String, originalNote: EventInterface, privateKey: ByteArray, createdAt: Long = Date().time / 1000): ReactionEvent {
+            val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
+
+            var tags = listOf(listOf("e", originalNote.id()), listOf("p", originalNote.pubKey()))
+            if (originalNote is LongTextNoteEvent) {
+                tags = tags + listOf(listOf("a", or
