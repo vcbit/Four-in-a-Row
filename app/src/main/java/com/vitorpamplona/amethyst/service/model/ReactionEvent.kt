@@ -39,4 +39,12 @@ class ReactionEvent(
 
             var tags = listOf(listOf("e", originalNote.id()), listOf("p", originalNote.pubKey()))
             if (originalNote is LongTextNoteEvent) {
-                tags = tags + listOf(listOf("a", or
+                tags = tags + listOf(listOf("a", originalNote.address().toTag()))
+            }
+
+            val id = generateId(pubKey, createdAt, kind, tags, content)
+            val sig = Utils.sign(id, privateKey)
+            return ReactionEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+    }
+}
