@@ -40,4 +40,15 @@ class RepostEvent(
             val replyToAuthor = listOf("p", boostedPost.pubKey())
 
             val pubKey = Utils.pubkeyCreate(privateKey).toHexKey()
-            var tags: List<List<String>> = boostedPost.tags().plus(listOf(replyToPo
+            var tags: List<List<String>> = boostedPost.tags().plus(listOf(replyToPost, replyToAuthor))
+
+            if (boostedPost is LongTextNoteEvent) {
+                tags = tags + listOf(listOf("a", boostedPost.address().toTag()))
+            }
+
+            val id = generateId(pubKey, createdAt, kind, tags, content)
+            val sig = Utils.sign(id, privateKey)
+            return RepostEvent(id.toHexKey(), pubKey, createdAt, tags, content, sig.toHexKey())
+        }
+    }
+}
