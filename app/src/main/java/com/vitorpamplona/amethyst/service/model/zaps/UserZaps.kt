@@ -13,4 +13,6 @@ object UserZaps {
                 .toList()
                 .sortedBy { (it.second?.event as? LnZapEventInterface)?.amount() }
                 .reversed()
-   
+            ) as List<Pair<Note, Note>>
+    }
+}
