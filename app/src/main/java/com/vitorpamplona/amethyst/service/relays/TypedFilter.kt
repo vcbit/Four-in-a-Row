@@ -38,4 +38,17 @@ class TypedFilter(
         filter.tags?.run {
             entries.forEach { kv ->
                 jsonObject.add("#${kv.key}", JsonArray().apply { kv.value.forEach { add(it) } })
-    
+            }
+        }
+        filter.since?.run {
+            jsonObject.addProperty("since", filter.since)
+        }
+        filter.until?.run {
+            jsonObject.addProperty("until", filter.until)
+        }
+        filter.limit?.run {
+            jsonObject.addProperty("limit", filter.limit)
+        }
+        return jsonObject
+    }
+}
