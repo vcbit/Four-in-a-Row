@@ -26,4 +26,11 @@ object Tlv {
             rest = rest.sliceArray(IntRange(2 + l, rest.size - 1))
             if (v.size < l) continue
 
-            if (!result.conta
+            if (!result.containsKey(t)) {
+                result[t] = mutableListOf()
+            }
+            result[t]?.add(v)
+        }
+        return result
+    }
+}
