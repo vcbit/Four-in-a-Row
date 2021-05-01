@@ -21,4 +21,10 @@ data class Subscription(
 
     fun toJsonObject(): JsonObject {
         val jsonObject = JsonObject()
-        jsonObject.
+        jsonObject.addProperty("id", id)
+        typedFilters?.run {
+            jsonObject.add("typedFilters", JsonArray().apply { typedFilters?.forEach { add(it.toJsonObject()) } })
+        }
+        return jsonObject
+    }
+}
