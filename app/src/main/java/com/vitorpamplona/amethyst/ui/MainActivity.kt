@@ -24,4 +24,18 @@ import com.vitorpamplona.amethyst.ui.theme.AmethystTheme
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.
+import kotlinx.coroutines.launch
+
+class MainActivity : FragmentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val nip19 = Nip19.uriToRoute(intent?.data?.toString())
+        val startingPage = when (nip19?.type) {
+            Nip19.Type.USER -> "User/${nip19.hex}"
+            Nip19.Type.NOTE -> "Note/${nip19.hex}"
+            else -> null
+        }
+
+        Coil.setImageLoader {
+       
