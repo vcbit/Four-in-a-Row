@@ -15,4 +15,13 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.decode.SvgDecoder
 import com.vitorpamplona.amethyst.LocalPreferences
-import com.vitorpamplona.ame
+import com.vitorpamplona.amethyst.ServiceManager
+import com.vitorpamplona.amethyst.service.nip19.Nip19
+import com.vitorpamplona.amethyst.service.relays.Client
+import com.vitorpamplona.amethyst.ui.screen.AccountScreen
+import com.vitorpamplona.amethyst.ui.screen.AccountStateViewModel
+import com.vitorpamplona.amethyst.ui.theme.AmethystTheme
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.
