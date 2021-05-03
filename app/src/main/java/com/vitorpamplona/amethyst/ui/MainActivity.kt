@@ -38,4 +38,20 @@ class MainActivity : FragmentActivity() {
         }
 
         Coil.setImageLoader {
-       
+            ImageLoader.Builder(this).components {
+                if (SDK_INT >= 28) {
+                    add(ImageDecoderDecoder.Factory())
+                } else {
+                    add(GifDecoder.Factory())
+                }
+                add(SvgDecoder.Factory())
+            } // .logger(DebugLogger())
+                .respectCacheHeaders(false)
+                .build()
+        }
+
+        LocalPreferences.migrateSingleUserPrefs()
+
+        setContent {
+            AmethystTheme {
+                // A surface contai
