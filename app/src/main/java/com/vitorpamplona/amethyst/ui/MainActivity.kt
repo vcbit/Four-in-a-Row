@@ -68,4 +68,25 @@ class MainActivity : FragmentActivity() {
         Client.lenient = true
     }
 
-    @OptIn(DelicateCoroutinesApi::c
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onResume() {
+        super.onResume()
+
+        // Only starts after login
+        GlobalScope.launch(Dispatchers.IO) {
+            ServiceManager.start()
+        }
+    }
+
+    override fun onPause() {
+        ServiceManager.pause()
+
+        super.onPause()
+    }
+
+    /**
+     * Release memory when the UI becomes hidden or when system resources become low.
+     * @param level the memory-related event that was raised.
+     */
+    override fun onTrimMemory(level: Int) {
+       
