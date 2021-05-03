@@ -54,4 +54,18 @@ class MainActivity : FragmentActivity() {
 
         setContent {
             AmethystTheme {
-                // A surface contai
+                // A surface container using the 'background' color from the theme
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+                    val accountStateViewModel: AccountStateViewModel = viewModel {
+                        AccountStateViewModel()
+                    }
+
+                    AccountScreen(accountStateViewModel, startingPage)
+                }
+            }
+        }
+
+        Client.lenient = true
+    }
+
+    @OptIn(DelicateCoroutinesApi::c
