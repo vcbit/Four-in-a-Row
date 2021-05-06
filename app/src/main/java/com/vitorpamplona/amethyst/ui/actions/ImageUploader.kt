@@ -4,4 +4,21 @@ import android.content.ContentResolver
 import android.net.Uri
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.*
-import okhttp3.MediaType.Companion.t
+import okhttp3.MediaType.Companion.toMediaType
+import okio.BufferedSink
+import okio.source
+import java.io.IOException
+import java.util.*
+
+object ImageUploader {
+    fun uploadImage(
+        uri: Uri,
+        contentResolver: ContentResolver,
+        onSuccess: (String) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
+        val contentType = contentResolver.getType(uri)
+
+        val client = OkHttpClient.Builder().build()
+
+        val requestBody: RequestBody = MultipartBody.Builder()
