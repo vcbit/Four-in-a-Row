@@ -22,3 +22,15 @@ object ImageUploader {
         val client = OkHttpClient.Builder().build()
 
         val requestBody: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart(
+                "image",
+                "${UUID.randomUUID()}",
+                object : RequestBody() {
+                    override fun contentType(): MediaType? =
+                        contentType?.toMediaType()
+
+                    override fun writeTo(sink: BufferedSink) {
+                        val imageInputStream = contentResolver.openInputStream(uri)
+                        checkNotNull(imageInputStream) {
+   
