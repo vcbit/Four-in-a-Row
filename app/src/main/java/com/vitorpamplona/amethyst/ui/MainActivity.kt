@@ -89,4 +89,8 @@ class MainActivity : FragmentActivity() {
      * @param level the memory-related event that was raised.
      */
     override fun onTrimMemory(level: Int) {
-       
+        super.onTrimMemory(level)
+        println("Trim Memory $level")
+        ServiceManager.cleanUp()
+    }
+}
