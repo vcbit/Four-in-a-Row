@@ -57,4 +57,21 @@ object ImageUploader {
                         val tree = jacksonObjectMapper().readTree(body.string())
                         val url = tree?.get("data")?.get("link")?.asText()
                         checkNotNull(url) {
-                            "T
+                            "There must be an uploaded image URL in the response"
+                        }
+
+                        onSuccess(url)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    onError(e)
+                }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                onError(e)
+            }
+        })
+    }
+}
