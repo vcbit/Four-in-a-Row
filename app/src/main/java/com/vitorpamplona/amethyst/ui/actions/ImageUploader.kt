@@ -47,4 +47,14 @@ object ImageUploader {
             .header("User-Agent", "Amethyst")
             .url("https://api.imgur.com/3/image")
             .post(requestBody)
-   
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                try {
+                    check(response.isSuccessful)
+                    response.body.use { body ->
+                        val tree = jacksonObjectMapper().readTree(body.string())
+                        val url = tree?.get("data")?.get("link")?.asText()
+                        checkNotNull(url) {
+                            "T
