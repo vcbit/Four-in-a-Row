@@ -33,4 +33,18 @@ object ImageUploader {
                     override fun writeTo(sink: BufferedSink) {
                         val imageInputStream = contentResolver.openInputStream(uri)
                         checkNotNull(imageInputStream) {
+                            "Can't open the image input stream"
+                        }
+
+                        imageInputStream.source().use(sink::writeAll)
+                    }
+                }
+            )
+            .build()
+
+        val request: Request = Request.Builder()
+            .header("Authorization", "Client-ID e6aea87296f3f96")
+            .header("User-Agent", "Amethyst")
+            .url("https://api.imgur.com/3/image")
+            .post(requestBody)
    
