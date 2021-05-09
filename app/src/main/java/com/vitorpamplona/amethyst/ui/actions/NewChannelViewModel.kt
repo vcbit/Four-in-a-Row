@@ -19,4 +19,19 @@ class NewChannelViewModel : ViewModel() {
         if (channel != null) {
             originalChannel = channel
             channelName.value = TextFieldValue(channel.info.name ?: "")
-            channelPicture.value = TextFieldValue(channel.info.
+            channelPicture.value = TextFieldValue(channel.info.picture ?: "")
+            channelDescription.value = TextFieldValue(channel.info.about ?: "")
+        }
+    }
+
+    fun create() {
+        this.account?.let { account ->
+            if (originalChannel == null) {
+                account.sendCreateNewChannel(
+                    channelName.value.text,
+                    channelDescription.value.text,
+                    channelPicture.value.text
+                )
+            } else {
+                account.sendChangeChannel(
+                   
