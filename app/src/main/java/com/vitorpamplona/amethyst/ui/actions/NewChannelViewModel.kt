@@ -34,4 +34,20 @@ class NewChannelViewModel : ViewModel() {
                 )
             } else {
                 account.sendChangeChannel(
-                   
+                    channelName.value.text,
+                    channelDescription.value.text,
+                    channelPicture.value.text,
+                    originalChannel!!
+                )
+            }
+        }
+
+        clear()
+    }
+
+    fun clear() {
+        channelName.value = TextFieldValue()
+        channelPicture.value = TextFieldValue()
+        channelDescription.value = TextFieldValue()
+    }
+}
