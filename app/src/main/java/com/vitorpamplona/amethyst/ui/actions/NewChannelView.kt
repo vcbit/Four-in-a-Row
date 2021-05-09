@@ -19,3 +19,105 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.model.Account
+import com.vitorpamplona.amethyst.model.Channel
+
+@Composable
+fun NewChannelView(onClose: () -> Unit, account: Account, channel: Channel? = null) {
+    val postViewModel: NewChannelViewModel = viewModel()
+    postViewModel.load(account, channel)
+
+    Dialog(
+        onDismissRequest = { onClose() },
+        properties = DialogProperties(
+            dismissOnClickOutside = false
+        )
+    ) {
+        Surface() {
+            Column(
+                modifier = Modifier.padding(10.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CloseButton(onCancel = {
+                        postViewModel.clear()
+                        onClose()
+                    })
+
+                    PostButton(
+                        onPost = {
+                            postViewModel.create()
+                            onClose()
+                        },
+                        postViewModel.channelName.value.text.isNotBlank()
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.channel_name)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    value = postViewModel.channelName.value,
+                    onValueChange = { postViewModel.channelName.value = it },
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.my_awesome_group),
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                        )
+                    },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        capitalization = KeyboardCapitalization.Sentences
+                    ),
+                    textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Content)
+                )
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.picture_url)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    value = postViewModel.channelPicture.value,
+                    onValueChange = { postViewModel.channelPicture.value = it },
+                    placeholder = {
+                        Text(
+                            text = "http://mygroup.com/logo.jpg",
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                        )
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.description)) },
+                    modifier = Modifier.fillMaxWidth().height(100.dp),
+                    value = postViewModel.channelDescription.value,
+                    onValueChange = { postViewModel.channelDescription.value = it },
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.about_us),
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                        )
+                    },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        capitalization = KeyboardCapitalization.Sentences
+                    ),
+                    textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Content),
+                    maxLines = 10
+
+                )
+            }
+        }
+    }
+}
