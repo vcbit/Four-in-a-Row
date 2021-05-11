@@ -32,4 +32,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
-imp
+import coil.compose.AsyncImage
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.model.Account
+import com.vitorpamplona.amethyst.model.Note
+import com.vitorpamplona.amethyst.service.model.TextNoteEvent
+import com.vitorpamplona.amethyst.ui.components.*
+import com.vitorpamplona.amethyst.ui.note.ReplyInformation
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.UserLine
+import kotlinx.coroutines.delay
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Compo
