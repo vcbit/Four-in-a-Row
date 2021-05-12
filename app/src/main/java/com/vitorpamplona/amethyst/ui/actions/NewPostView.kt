@@ -73,4 +73,17 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
             decorFitsSystemWindows = false
         )
     ) {
-        Surf
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(start = 10.dp, end = 10.dp, top = 10.dp)
+                        .imePadding()
