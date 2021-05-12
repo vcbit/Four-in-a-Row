@@ -87,3 +87,16 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                     modifier = Modifier
                         .padding(start = 10.dp, end = 10.dp, top = 10.dp)
                         .imePadding()
+                        .weight(1f)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CloseButton(onCancel = {
+                            postViewModel.cancel()
+                            onClose()
+                        })
+
+                      
