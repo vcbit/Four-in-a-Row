@@ -56,4 +56,21 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
     val scroolState = rememberScrollState()
 
     LaunchedEffect(Unit) {
-        postViewModel.lo
+        postViewModel.load(account, baseReplyTo, quote)
+        delay(100)
+        focusRequester.requestFocus()
+
+        postViewModel.imageUploadingError.collect { error ->
+            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    Dialog(
+        onDismissRequest = { onClose() },
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnClickOutside = false,
+            decorFitsSystemWindows = false
+        )
+    ) {
+        Surf
