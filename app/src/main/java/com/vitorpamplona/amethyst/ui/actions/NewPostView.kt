@@ -43,4 +43,17 @@ import com.vitorpamplona.amethyst.ui.screen.loggedIn.UserLine
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalComposeUiApi::class)
-@Compo
+@Composable
+fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = null, account: Account) {
+    val postViewModel: NewPostViewModel = viewModel()
+
+    val context = LocalContext.current
+
+    // initialize focus reference to be able to request focus programmatically
+    val focusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    val scroolState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        postViewModel.lo
