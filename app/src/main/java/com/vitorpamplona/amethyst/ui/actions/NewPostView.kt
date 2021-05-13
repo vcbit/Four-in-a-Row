@@ -99,4 +99,16 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                             onClose()
                         })
 
-                      
+                        PostButton(
+                            onPost = {
+                                postViewModel.sendPost()
+                                onClose()
+                            },
+                            isActive = postViewModel.message.text.isNotBlank() &&
+                                !postViewModel.isUploadingImage
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWi
