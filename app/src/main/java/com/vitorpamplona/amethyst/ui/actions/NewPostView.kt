@@ -111,4 +111,14 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
 
                     Row(
                         modifier = Modifier
-                            .fillMaxWi
+                            .fillMaxWidth()
+                            .weight(1f)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .verticalScroll(scroolState)
+                        ) {
+                            if (postViewModel.replyTos != null && baseReplyTo?.event is TextNoteEvent) {
+                                ReplyInformation(postViewModel.replyTos, postViewModel.mentions, account, "✖ ") {
+       
