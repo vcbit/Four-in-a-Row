@@ -121,4 +121,14 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                         ) {
                             if (postViewModel.replyTos != null && baseReplyTo?.event is TextNoteEvent) {
                                 ReplyInformation(postViewModel.replyTos, postViewModel.mentions, account, "✖ ") {
-       
+                                    postViewModel.removeFromReplyList(it)
+                                }
+                            }
+
+                            OutlinedTextField(
+                                value = postViewModel.message,
+                                onValueChange = {
+                                    postViewModel.updateMessage(it)
+                                },
+                                keyboardOptions = KeyboardOptions.Default.copy(
+                              
