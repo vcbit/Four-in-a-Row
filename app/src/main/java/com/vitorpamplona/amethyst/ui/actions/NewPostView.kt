@@ -131,4 +131,13 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                     postViewModel.updateMessage(it)
                                 },
                                 keyboardOptions = KeyboardOptions.Default.copy(
-                              
+                                    capitalization = KeyboardCapitalization.Sentences
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .border(
+                                        width = 1.dp,
+                                        color = MaterialTheme.colors.surface,
+                                        shape = RoundedCornerShape(8.dp)
+                                    )
+                      
