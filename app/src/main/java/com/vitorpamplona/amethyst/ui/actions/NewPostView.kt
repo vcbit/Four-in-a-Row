@@ -140,4 +140,13 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                         color = MaterialTheme.colors.surface,
                                         shape = RoundedCornerShape(8.dp)
                                     )
-                      
+                                    .focusRequester(focusRequester)
+                                    .onFocusChanged {
+                                        if (it.isFocused) {
+                                            keyboardController?.show()
+                                        }
+                                    },
+                                placeholder = {
+                                    Text(
+                                        text = stringResource(R.string.what_s_on_your_mind),
+               
