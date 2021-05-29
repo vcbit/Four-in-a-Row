@@ -157,4 +157,12 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                         unfocusedBorderColor = Color.Transparent,
                                         focusedBorderColor = Color.Transparent
                                     ),
-                        
+                                visualTransformation = UrlUserTagTransformation(MaterialTheme.colors.primary),
+                                textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Content)
+                            )
+
+                            val myUrlPreview = postViewModel.urlPreview
+                            if (myUrlPreview != null) {
+                                Row(modifier = Modifier.padding(top = 5.dp)) {
+                                    if (isValidURL(myUrlPreview)) {
+           
