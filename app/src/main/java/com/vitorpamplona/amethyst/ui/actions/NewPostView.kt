@@ -149,4 +149,12 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                 placeholder = {
                                     Text(
                                         text = stringResource(R.string.what_s_on_your_mind),
-               
+                                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                                    )
+                                },
+                                colors = TextFieldDefaults
+                                    .outlinedTextFieldColors(
+                                        unfocusedBorderColor = Color.Transparent,
+                                        focusedBorderColor = Color.Transparent
+                                    ),
+                        
