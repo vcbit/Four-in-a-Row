@@ -165,4 +165,10 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                             if (myUrlPreview != null) {
                                 Row(modifier = Modifier.padding(top = 5.dp)) {
                                     if (isValidURL(myUrlPreview)) {
-           
+                                        val removedParamsFromUrl =
+                                            myUrlPreview.split("?")[0].lowercase()
+                                        if (imageExtension.matcher(removedParamsFromUrl).matches()) {
+                                            AsyncImage(
+                                                model = myUrlPreview,
+                                                contentDescription = myUrlPreview,
+                                               
