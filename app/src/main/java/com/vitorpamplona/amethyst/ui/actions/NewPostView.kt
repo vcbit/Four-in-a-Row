@@ -171,4 +171,11 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                             AsyncImage(
                                                 model = myUrlPreview,
                                                 contentDescription = myUrlPreview,
-                                               
+                                                contentScale = ContentScale.FillWidth,
+                                                modifier = Modifier
+                                                    .padding(top = 4.dp)
+                                                    .fillMaxWidth()
+                                                    .clip(shape = RoundedCornerShape(15.dp))
+                                                    .border(
+                                                        1.dp,
+                 
