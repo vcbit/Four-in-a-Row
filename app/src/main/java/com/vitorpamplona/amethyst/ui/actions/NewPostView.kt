@@ -192,4 +192,16 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                     } else if (noProtocolUrlValidator.matcher(myUrlPreview).matches()) {
                                         UrlPreview("https://$myUrlPreview", myUrlPreview)
                                     }
-    
+                                }
+                            }
+                        }
+                    }
+
+                    val userSuggestions = postViewModel.userSuggestions
+                    if (userSuggestions.isNotEmpty()) {
+                        LazyColumn(
+                            contentPadding = PaddingValues(
+                                top = 10.dp
+                            ),
+                            modifier = Modifier.heightIn(0.dp, 300.dp)
+                   
