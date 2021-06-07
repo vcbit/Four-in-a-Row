@@ -235,4 +235,20 @@ fun CloseButton(onCancel: () -> Unit) {
         onClick = {
             onCancel()
         },
-        shape = RoundedCornerSha
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = Color.Gray
+            )
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_close),
+            contentDescription = stringResource(id = R.string.cancel),
+            modifier = Modifier.size(20.dp),
+            tint = Color.White
+        )
+    }
+}
+
+@Composable
+fun PostButton(onPost: () -> Unit = {}, isActive: Boolean, modifier: Modifier = Modifier) 
