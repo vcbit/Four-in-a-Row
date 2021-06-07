@@ -204,4 +204,16 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                 top = 10.dp
                             ),
                             modifier = Modifier.heightIn(0.dp, 300.dp)
-                   
+                        ) {
+                            itemsIndexed(
+                                userSuggestions,
+                                key = { _, item -> item.pubkeyHex }
+                            ) { _, item ->
+                                UserLine(item, account) {
+                                    postViewModel.autocompleteWithUser(item)
+                                }
+                            }
+                        }
+                    }
+
+                    Row(modifier =
