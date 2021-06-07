@@ -216,4 +216,23 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                         }
                     }
 
-                    Row(modifier =
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        UploadFromGallery(
+                            isUploading = postViewModel.isUploadingImage
+                        ) {
+                            postViewModel.upload(it, context)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CloseButton(onCancel: () -> Unit) {
+    Button(
+        onClick = {
+            onCancel()
+        },
+        shape = RoundedCornerSha
