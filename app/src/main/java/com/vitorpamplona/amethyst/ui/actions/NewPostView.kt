@@ -270,4 +270,18 @@ fun PostButton(onPost: () -> Unit = {}, isActive: Boolean, modifier: Modifier = 
 }
 
 @Composable
-fun SaveButton(onPost: 
+fun SaveButton(onPost: () -> Unit = {}, isActive: Boolean, modifier: Modifier = Modifier) {
+    Button(
+        modifier = modifier,
+        onClick = {
+            if (isActive) {
+                onPost()
+            }
+        },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = if (isActive) MaterialTheme.colors.primary else Color.Gray
+            )
+    ) {
+        Text(text = stringResource(R.s
