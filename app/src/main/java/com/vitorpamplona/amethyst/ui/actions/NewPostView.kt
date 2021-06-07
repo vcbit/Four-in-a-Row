@@ -178,4 +178,11 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                                     .clip(shape = RoundedCornerShape(15.dp))
                                                     .border(
                                                         1.dp,
-                 
+                                                        MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
+                                                        RoundedCornerShape(15.dp)
+                                                    )
+                                            )
+                                        } else if (videoExtension.matcher(removedParamsFromUrl)
+                                            .matches()
+                                        ) {
+                                    
