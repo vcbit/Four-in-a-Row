@@ -185,4 +185,11 @@ fun NewPostView(onClose: () -> Unit, baseReplyTo: Note? = null, quote: Note? = n
                                         } else if (videoExtension.matcher(removedParamsFromUrl)
                                             .matches()
                                         ) {
-                                    
+                                            VideoView(myUrlPreview)
+                                        } else {
+                                            UrlPreview(myUrlPreview, myUrlPreview)
+                                        }
+                                    } else if (noProtocolUrlValidator.matcher(myUrlPreview).matches()) {
+                                        UrlPreview("https://$myUrlPreview", myUrlPreview)
+                                    }
+    
