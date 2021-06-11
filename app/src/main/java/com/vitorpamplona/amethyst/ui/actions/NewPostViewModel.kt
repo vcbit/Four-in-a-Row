@@ -160,3 +160,40 @@ class NewPostViewModel : ViewModel() {
             paragraph.split(' ').firstOrNull { word: String ->
                 isValidURL(word) || noProtocolUrlValidator.matcher(word).matches()
             }
+        }
+    }
+
+    fun removeFromReplyList(it: User) {
+        mentions = mentions?.minus(it)
+    }
+
+    fun updateMessage(it: TextFieldValue) {
+        message = it
+        urlPreview = findUrlInMessage()
+
+        if (it.selection.collapsed) {
+            val lastWord = it.text.substring(0, it.selection.end).substringAfterLast("\n").substringAfterLast(" ")
+            userSuggestionAnchor = it.selection
+            if (lastWord.startsWith("@") && lastWord.length > 2) {
+                userSuggestions = LocalCache.findUsersStartingWith(lastWord.removePrefix("@"))
+            } else {
+                userSuggestions = emptyList()
+            }
+        }
+    }
+
+    fun autocompleteWithUser(item: User) {
+        userSuggestionAnchor?.let {
+            val lastWord = message.text.substring(0, it.end).substringAfterLast("\n").substringAfterLast(" ")
+            val lastWordStart = it.end - lastWord.length
+            val wordToInsert = "@${item.pubkeyNpub()} "
+
+            message = TextFieldValue(
+                message.text.replaceRange(lastWordStart, it.end, wordToInsert),
+                TextRange(lastWordStart + wordToInsert.length, lastWordStart + wordToInsert.length)
+            )
+            userSuggestionAnchor = null
+            userSuggestions = emptyList()
+        }
+    }
+}
