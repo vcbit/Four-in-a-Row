@@ -447,3 +447,78 @@ fun ServerConfig(
         Divider(
             thickness = 0.25.dp
         )
+    }
+}
+
+@Composable
+fun EditableServerConfig(relayToAdd: String, onNewRelay: (RelaySetupInfo) -> Unit) {
+    var url by remember { mutableStateOf<String>(relayToAdd) }
+    var read by remember { mutableStateOf(true) }
+    var write by remember { mutableStateOf(true) }
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        OutlinedTextField(
+            label = { Text(text = stringResource(R.string.add_a_relay)) },
+            modifier = Modifier.weight(1f),
+            value = url,
+            onValueChange = { url = it },
+            placeholder = {
+                Text(
+                    text = "server.com",
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                    maxLines = 1
+                )
+            },
+            singleLine = true
+        )
+
+        IconButton(onClick = { read = !read }) {
+            Icon(
+                imageVector = Icons.Default.Download,
+                null,
+                modifier = Modifier
+                    .size(35.dp)
+                    .padding(horizontal = 5.dp),
+                tint = if (read) Color.Green else MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+            )
+        }
+
+        IconButton(onClick = { write = !write }) {
+            Icon(
+                imageVector = Icons.Default.Upload,
+                null,
+                modifier = Modifier
+                    .size(35.dp)
+                    .padding(horizontal = 5.dp),
+                tint = if (write) Color.Green else MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+            )
+        }
+
+        Button(
+            onClick = {
+                if (url.isNotBlank() && url != "/") {
+                    var addedWSS = if (!url.startsWith("wss://") && !url.startsWith("ws://")) "wss://$url" else url
+                    if (url.endsWith("/")) addedWSS = addedWSS.dropLast(1)
+                    onNewRelay(RelaySetupInfo(addedWSS, read, write, feedTypes = FeedType.values().toSet()))
+                    url = ""
+                    write = true
+                    read = true
+                }
+            },
+            shape = RoundedCornerShape(20.dp),
+            colors = ButtonDefaults
+                .buttonColors(
+                    backgroundColor = if (url.isNotBlank()) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                )
+        ) {
+            Text(text = stringResource(id = R.string.add), color = Color.White)
+        }
+    }
+}
+
+fun countToHumanReadable(counter: Int) = when {
+    counter >= 1000000000 -> "${round(counter / 1000000000f)}G"
+    counter >= 1000000 -> "${round(counter / 1000000f)}M"
+    counter >= 1000 -> "${round(counter / 1000f)}k"
+    else -> "$counter"
+}
