@@ -319,3 +319,14 @@ fun SearchButton(onPost: () -> Unit = {}, isActive: Boolean, modifier: Modifier 
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults
             .buttonColors(
+                backgroundColor = if (isActive) MaterialTheme.colors.primary else Color.Gray
+            )
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_search),
+            null,
+            modifier = Modifier.size(26.dp),
+            tint = Color.White
+        )
+    }
+}
