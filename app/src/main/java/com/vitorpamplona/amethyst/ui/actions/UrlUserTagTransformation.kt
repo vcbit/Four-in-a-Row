@@ -141,3 +141,6 @@ fun buildAnnotatedStringWithUrlHighlighting(text: AnnotatedString, color: Color)
 
     return TransformedText(
         newText,
+        numberOffsetTranslator
+    )
+}
