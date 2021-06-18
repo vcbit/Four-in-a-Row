@@ -256,3 +256,19 @@ fun NewUserMetadataView(onClose: () -> Unit, account: Account) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     OutlinedTextField(
+                        label = { Text(text = stringResource(R.string.github)) },
+                        modifier = Modifier.fillMaxWidth(),
+                        value = postViewModel.github.value,
+                        onValueChange = { postViewModel.github.value = it },
+                        placeholder = {
+                            Text(
+                                text = stringResource(R.string.github_proof_url_template),
+                                color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                            )
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
