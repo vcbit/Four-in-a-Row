@@ -40,3 +40,10 @@ fun NewChannelButton(account: Account) {
         contentPadding = PaddingValues(0.dp)
     ) {
         Icon(
+            imageVector = Icons.Outlined.Add,
+            contentDescription = stringResource(R.string.new_channel),
+            modifier = Modifier.size(26.dp),
+            tint = Color.White
+        )
+    }
+}
