@@ -22,4 +22,21 @@ import com.vitorpamplona.amethyst.R
 import com.vitorpamplona.amethyst.model.Account
 import com.vitorpamplona.amethyst.ui.actions.NewChannelView
 
-@Composa
+@Composable
+fun NewChannelButton(account: Account) {
+    var wantsToPost by remember {
+        mutableStateOf(false)
+    }
+
+    if (wantsToPost) {
+        NewChannelView({ wantsToPost = false }, account = account)
+    }
+
+    OutlinedButton(
+        onClick = { wantsToPost = true },
+        modifier = Modifier.size(55.dp),
+        shape = CircleShape,
+        colors = ButtonDefaults.outlinedButtonColors(backgroundColor = MaterialTheme.colors.primary),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Icon(
