@@ -16,4 +16,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.model.Account
+import com.vitorpamplona.amethyst.ui.actions.NewPostView
+
+@Composable
+fun NewNoteButton(account: Account) {
+    var wantsToPost by remember {
+        mutableStateOf(false)
+    }
+
+    if (wantsToPost) {
+        NewPostView({ wantsToPost = false }, account = account)
+    }
+
+    OutlinedButton(
+        onClick = { wantsToPost = true },
+        modifier = Modifier.size(55.dp),
+        shape = CircleShape,
+        colors
