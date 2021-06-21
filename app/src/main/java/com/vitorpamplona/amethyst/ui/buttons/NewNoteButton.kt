@@ -34,4 +34,14 @@ fun NewNoteButton(account: Account) {
         onClick = { wantsToPost = true },
         modifier = Modifier.size(55.dp),
         shape = CircleShape,
-        colors
+        colors = ButtonDefaults.outlinedButtonColors(backgroundColor = MaterialTheme.colors.primary),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_compose),
+            null,
+            modifier = Modifier.size(26.dp),
+            tint = Color.White
+        )
+    }
+}
