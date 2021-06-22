@@ -26,4 +26,13 @@ fun Context.sendMail(to: String, subject: String? = null) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "vnd.android.cursor.item/email" // or "message/rfc822"
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(to))
-       
+        if (subject != null) {
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        }
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        // TODO: Handle case where no email app is available
+    } catch (t: Throwable) {
+        // TODO: Handle potential other type of exceptions
+    }
+}
