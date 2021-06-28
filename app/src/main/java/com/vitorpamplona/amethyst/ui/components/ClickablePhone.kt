@@ -23,4 +23,9 @@ fun ClickablePhone(phone: String) {
 
 fun Context.dial(phone: String) {
     try {
-        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", ph
+        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
+        startActivity(intent)
+    } catch (t: Throwable) {
+        // TODO: Handle potential exceptions
+    }
+}
