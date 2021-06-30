@@ -19,4 +19,17 @@ fun ClickableRoute(
     navController: NavController
 ) {
     if (nip19.type == Nip19.Type.USER) {
-        val userBase = LocalCach
+        val userBase = LocalCache.getOrCreateUser(nip19.hex)
+
+        val userState by userBase.live().metadata.observeAsState()
+        val user = userState?.user ?: return
+
+        val route = "User/${nip19.hex}"
+        val text = user.toBestDisplayName()
+
+        ClickableText(
+            text = AnnotatedString("@$text "),
+            onClick = { navController.navigate(route) },
+            style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary)
+        )
+    } else if (nip19.type ==
