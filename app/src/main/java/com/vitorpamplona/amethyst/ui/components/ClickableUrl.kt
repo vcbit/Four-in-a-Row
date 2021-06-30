@@ -13,4 +13,7 @@ fun ClickableUrl(urlText: String, url: String) {
 
     ClickableText(
         text = AnnotatedString("$urlText "),
-        onClick = { runCatching {
+        onClick = { runCatching { uri.openUri(url) } },
+        style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary)
+    )
+}
