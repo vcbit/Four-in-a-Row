@@ -32,4 +32,18 @@ fun ClickableRoute(
             onClick = { navController.navigate(route) },
             style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary)
         )
-    } else if (nip19.type ==
+    } else if (nip19.type == Nip19.Type.ADDRESS) {
+        val noteBase = LocalCache.checkGetOrCreateAddressableNote(nip19.hex)
+
+        if (noteBase == null) {
+            Text(
+                "@${nip19.hex} "
+            )
+        } else {
+            val noteState by noteBase.live().metadata.observeAsState()
+            val note = noteState?.note ?: return
+
+            ClickableText(
+                text = AnnotatedString("@${note.idDisplayNote()} "),
+                onClick = { navController.navigate("Note/${nip19.hex}") },
+                style
