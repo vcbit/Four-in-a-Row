@@ -65,4 +65,17 @@ fun ClickableRoute(
                 text = AnnotatedString("@${note.channel()?.toBestDisplayName()} "),
                 onClick = { navController.navigate("Channel/${note.channel()?.idHex}") },
                 style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary)
-       
+            )
+        } else {
+            ClickableText(
+                text = AnnotatedString("@${note.idDisplayNote()} "),
+                onClick = { navController.navigate("Note/${nip19.hex}") },
+                style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary)
+            )
+        }
+    } else {
+        Text(
+            "@${nip19.hex} "
+        )
+    }
+}
