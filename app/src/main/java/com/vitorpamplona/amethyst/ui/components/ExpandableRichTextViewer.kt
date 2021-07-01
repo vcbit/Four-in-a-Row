@@ -19,4 +19,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.service.lnurl.LnInvoiceUtil
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
+
+const val SHORT_TEXT_LENGTH = 350
+
+@Composable
+fun ExpandableRichTextViewer
