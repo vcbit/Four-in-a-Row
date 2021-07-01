@@ -19,4 +19,6 @@ fun ClickableUserTag(
     ClickableText(
         text = AnnotatedString("@${innerUserState?.user?.toBestDisplayName()} "),
         onClick = { navController.navigate("User/${innerUserState?.user?.pubkeyHex}") },
-        style = LocalTextStyle
+        style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary)
+    )
+}
