@@ -49,4 +49,23 @@ fun ExpandableRichTextViewer(
         val (lnStart, lnEnd) = LnInvoiceUtil.locateInvoice(content)
         if (lnStart < SHORT_TEXT_LENGTH && lnEnd > 0) {
             content.take(lnEnd)
-       
+        } else {
+            content.take(SHORT_TEXT_LENGTH)
+        }
+    }
+
+    Box(contentAlignment = Alignment.BottomCenter) {
+        // CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        RichTextViewer(
+            text,
+            canPreview,
+            modifier,
+            tags,
+            backgroundColor,
+            accountViewModel,
+            navController
+        )
+        // }
+
+        if (content.length > 350 && !showFullText) {
+           
