@@ -32,4 +32,21 @@ import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
 const val SHORT_TEXT_LENGTH = 350
 
 @Composable
-fun ExpandableRichTextViewer
+fun ExpandableRichTextViewer(
+    content: String,
+    canPreview: Boolean,
+    modifier: Modifier = Modifier,
+    tags: List<List<String>>?,
+    backgroundColor: Color,
+    accountViewModel: AccountViewModel,
+    navController: NavController
+) {
+    var showFullText by remember { mutableStateOf(false) }
+
+    val text = if (showFullText) {
+        content
+    } else {
+        val (lnStart, lnEnd) = LnInvoiceUtil.locateInvoice(content)
+        if (lnStart < SHORT_TEXT_LENGTH && lnEnd > 0) {
+            content.take(lnEnd)
+       
