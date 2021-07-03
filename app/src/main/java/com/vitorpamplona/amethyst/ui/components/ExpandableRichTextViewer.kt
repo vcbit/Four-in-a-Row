@@ -78,4 +78,15 @@ fun ExpandableRichTextViewer(
                             colors = listOf(
                                 backgroundColor.copy(alpha = 0f),
                                 backgroundColor
+                            )
+                        )
+                    )
+            ) {
+                Button(
+                    modifier = Modifier.padding(top = 10.dp),
+                    onClick = { showFullText = !showFullText },
+                    shape = RoundedCornerShape(20.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = MaterialTheme.colors.primary.copy(alpha = 0.32f).compositeOver(MaterialTheme.colors.background)
+                    ),
    
