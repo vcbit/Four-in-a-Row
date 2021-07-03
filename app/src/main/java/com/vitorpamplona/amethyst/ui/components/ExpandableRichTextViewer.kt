@@ -68,4 +68,14 @@ fun ExpandableRichTextViewer(
         // }
 
         if (content.length > 350 && !showFullText) {
-           
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                backgroundColor.copy(alpha = 0f),
+                                backgroundColor
+   
