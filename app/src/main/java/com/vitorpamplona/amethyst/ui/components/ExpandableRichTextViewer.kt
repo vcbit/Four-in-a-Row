@@ -89,4 +89,11 @@ fun ExpandableRichTextViewer(
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = MaterialTheme.colors.primary.copy(alpha = 0.32f).compositeOver(MaterialTheme.colors.background)
                     ),
-   
+                    contentPadding = PaddingValues(vertical = 6.dp, horizontal = 16.dp)
+                ) {
+                    Text(text = stringResource(R.string.show_more), color = Color.White)
+                }
+            }
+        }
+    }
+}
