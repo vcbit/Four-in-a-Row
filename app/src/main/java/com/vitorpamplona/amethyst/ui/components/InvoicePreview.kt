@@ -45,4 +45,18 @@ fun InvoicePreview(lnInvoice: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 30.dp, end = 
+            .padding(start = 30.dp, end = 30.dp)
+            .clip(shape = RoundedCornerShape(10.dp))
+            .border(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.12f), RoundedCornerShape(15.dp))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(30.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 10.dp)
+  
