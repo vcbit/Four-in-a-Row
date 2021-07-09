@@ -26,4 +26,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.c
+import androidx.core.content.ContextCompat.startActivity
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.service.lnurl.LnInvoiceUtil
+import java.text.NumberFormat
+
+@Composable
+fun InvoicePreview(lnInvoice: String) {
+    val amount = try {
+        LnInvoiceUtil.getAmountInSats(lnInvoice)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+
+    val context = LocalContext.current
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 30.dp, end = 
