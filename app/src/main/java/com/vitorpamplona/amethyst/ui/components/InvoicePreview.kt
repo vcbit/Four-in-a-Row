@@ -59,4 +59,16 @@ fun InvoicePreview(lnInvoice: String) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 10.dp)
-  
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.lightning),
+                    null,
+                    modifier = Modifier.size(20.dp),
+                    tint = Color.Unspecified
+                )
+
+                Text(
+                    text = stringResource(R.string.lightning_invoice),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.W500,
+                    modifier = M
