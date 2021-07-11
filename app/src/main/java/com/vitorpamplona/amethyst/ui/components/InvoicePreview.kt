@@ -87,3 +87,18 @@ fun InvoicePreview(lnInvoice: String) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp)
+                )
+            }
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp),
+                onClick = {
+                    runCatching {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("lightning:$lnInvoice"))
+                        startActivity(context, intent, null)
+                    }
+                },
+                shape = RoundedCornerShape(15.dp),
+   
