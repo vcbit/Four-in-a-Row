@@ -101,4 +101,12 @@ fun InvoicePreview(lnInvoice: String) {
                     }
                 },
                 shape = RoundedCornerShape(15.dp),
-   
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = MaterialTheme.colors.primary
+                )
+            ) {
+                Text(text = stringResource(R.string.pay), color = Color.White, fontSize = 20.sp)
+            }
+        }
+    }
+}
