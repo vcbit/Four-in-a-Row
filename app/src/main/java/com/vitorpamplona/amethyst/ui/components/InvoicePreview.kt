@@ -71,4 +71,19 @@ fun InvoicePreview(lnInvoice: String) {
                     text = stringResource(R.string.lightning_invoice),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.W500,
-                    modifier = M
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+            }
+
+            Divider()
+
+            amount?.let {
+                Text(
+                    text = "${
+                    NumberFormat.getInstance().format(amount)
+                    } ${stringResource(id = R.string.sats)}",
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.W500,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp)
