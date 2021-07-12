@@ -17,4 +17,14 @@ import coil.compose.rememberAsyncImagePainter
 fun RobohashAsyncImage(
     robot: String,
     modifier: Modifier = Modifier,
-    co
+    contentDescription: String? = null,
+    transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
+    onState: ((AsyncImagePainter.State) -> Unit)? = null,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale = ContentScale.Fit,
+    alpha: Float = DefaultAlpha,
+    colorFilter: ColorFilter? = null,
+    filterQuality: FilterQuality = DrawScope.DefaultFilterQuality
+) {
+    AsyncImage(
+        model = Robohas
