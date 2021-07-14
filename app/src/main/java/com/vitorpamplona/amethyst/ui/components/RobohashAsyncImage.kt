@@ -27,4 +27,22 @@ fun RobohashAsyncImage(
     filterQuality: FilterQuality = DrawScope.DefaultFilterQuality
 ) {
     AsyncImage(
-        model = Robohas
+        model = Robohash.imageRequest(LocalContext.current, robot),
+        contentDescription = contentDescription,
+        modifier = modifier,
+        transform = transform,
+        onState = onState,
+        alignment = alignment,
+        contentScale = contentScale,
+        alpha = alpha,
+        colorFilter = colorFilter,
+        filterQuality = filterQuality
+    )
+}
+
+@Composable
+fun RobohashFallbackAsyncImage(
+    robot: String,
+    model: String?,
+    contentDescription: String?,
+    modifier: Modifier
