@@ -93,4 +93,17 @@ fun RobohashAsyncImageProxy(
             colorFilter = colorFilter,
             filterQuality = filterQuality
         )
- 
+    } else {
+        RobohashFallbackAsyncImage(
+            robot = robot,
+            model = model.proxyUrl(),
+            contentDescription = contentDescription,
+            modifier = modifier,
+            alignment = alignment,
+            contentScale = contentScale,
+            alpha = alpha,
+            colorFilter = colorFilter,
+            filterQuality = filterQuality
+        )
+    }
+}
