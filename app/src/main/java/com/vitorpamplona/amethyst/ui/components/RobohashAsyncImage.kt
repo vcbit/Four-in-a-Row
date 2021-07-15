@@ -59,4 +59,22 @@ fun RobohashFallbackAsyncImage(
         model = model,
         contentDescription = contentDescription,
         modifier = modifier,
-  
+        placeholder = painter,
+        fallback = painter,
+        error = painter,
+        alignment = alignment,
+        contentScale = contentScale,
+        alpha = alpha,
+        colorFilter = colorFilter,
+        filterQuality = filterQuality
+    )
+}
+
+@Composable
+fun RobohashAsyncImageProxy(
+    robot: String,
+    model: ResizeImage,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale =
