@@ -77,4 +77,20 @@ fun RobohashAsyncImageProxy(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale =
+    contentScale: ContentScale = ContentScale.Fit,
+    alpha: Float = DefaultAlpha,
+    colorFilter: ColorFilter? = null,
+    filterQuality: FilterQuality = DrawScope.DefaultFilterQuality
+) {
+    if (model.url == null) {
+        RobohashAsyncImage(
+            robot = robot,
+            contentDescription = contentDescription,
+            modifier = modifier,
+            alignment = alignment,
+            contentScale = contentScale,
+            alpha = alpha,
+            colorFilter = colorFilter,
+            filterQuality = filterQuality
+        )
+ 
