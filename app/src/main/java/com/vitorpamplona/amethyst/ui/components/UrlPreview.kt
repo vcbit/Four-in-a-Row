@@ -49,4 +49,22 @@ fun UrlPreview(url: String, urlText: String) {
                                 context.getString(
                                     R.string.error_parsing_preview_for,
                                     url,
-                                    throwa
+                                    throwable.message
+                                )
+                            )
+                        }
+                    }
+                )
+            }
+        }
+    }
+
+    Crossfade(targetState = urlPreviewState, animationSpec = tween(durationMillis = 100)) { state ->
+        when (state) {
+            is UrlPreviewState.Loaded -> {
+                UrlPreviewCard(url, state.previewInfo)
+            }
+            else -> {
+                ClickableUrl(urlText, url)
+            }
+        }
