@@ -31,4 +31,12 @@ fun UrlPreview(url: String, urlText: String) {
 
     // Doesn't use a viewModel because of viewModel reusing issues (too many UrlPreview are created).
     LaunchedEffect(url) {
-   
+        if (urlPreviewState == UrlPreviewState.Loading) {
+            withContext(Dispatchers.IO) {
+                UrlCachedPreviewer.previewInfo(
+                    url,
+                    object : IUrlPreviewCallback {
+                        override fun onComplete(urlInfo: UrlInfoItem) {
+                            if (urlInfo.allFetchComplete() && urlInfo.url == url) {
+                                urlPreviewState = UrlPreviewState.Loaded(urlInfo)
+                     
