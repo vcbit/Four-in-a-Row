@@ -45,4 +45,18 @@ fun RobohashFallbackAsyncImage(
     robot: String,
     model: String?,
     contentDescription: String?,
-    modifier: Modifier
+    modifier: Modifier = Modifier,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale = ContentScale.Fit,
+    alpha: Float = DefaultAlpha,
+    colorFilter: ColorFilter? = null,
+    filterQuality: FilterQuality = DrawScope.DefaultFilterQuality
+) {
+    val context = LocalContext.current
+    val painter = rememberAsyncImagePainter(model = Robohash.imageRequest(context, robot))
+
+    AsyncImage(
+        model = model,
+        contentDescription = contentDescription,
+        modifier = modifier,
+  
