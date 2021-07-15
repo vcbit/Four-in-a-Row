@@ -39,4 +39,14 @@ fun UrlPreview(url: String, urlText: String) {
                         override fun onComplete(urlInfo: UrlInfoItem) {
                             if (urlInfo.allFetchComplete() && urlInfo.url == url) {
                                 urlPreviewState = UrlPreviewState.Loaded(urlInfo)
-                     
+                            } else {
+                                urlPreviewState = UrlPreviewState.Empty
+                            }
+                        }
+
+                        override fun onFailed(throwable: Throwable) {
+                            urlPreviewState = UrlPreviewState.Error(
+                                context.getString(
+                                    R.string.error_parsing_preview_for,
+                                    url,
+                                    throwa
