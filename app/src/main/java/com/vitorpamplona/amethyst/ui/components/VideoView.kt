@@ -18,4 +18,17 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.vitorpamplona.amethyst.VideoCache
 
-@
+@Composable
+fun VideoView(videoUri: String) {
+    val context = LocalContext.current
+
+    val exoPlayer = remember {
+        ExoPlayer.Builder(context).build().apply {
+            repeatMode = Player.REPEAT_MODE_ALL
+            videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
+        }
+    }
+
+    DisposableEffect(exoPlayer) {
+        exoPlayer.setMediaSource(
+            ProgressiveMediaSource.Factory(VideoCache.get(context.applicationConte
