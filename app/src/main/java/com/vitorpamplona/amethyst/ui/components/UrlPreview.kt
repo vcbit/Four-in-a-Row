@@ -68,3 +68,5 @@ fun UrlPreview(url: String, urlText: String) {
                 ClickableUrl(urlText, url)
             }
         }
+    }
+}
