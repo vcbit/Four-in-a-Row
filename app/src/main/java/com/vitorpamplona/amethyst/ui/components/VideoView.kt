@@ -31,4 +31,21 @@ fun VideoView(videoUri: String) {
 
     DisposableEffect(exoPlayer) {
         exoPlayer.setMediaSource(
-            ProgressiveMediaSource.Factory(VideoCache.get(context.applicationConte
+            ProgressiveMediaSource.Factory(VideoCache.get(context.applicationContext)).createMediaSource(MediaItem.fromUri(videoUri))
+        )
+        exoPlayer.prepare()
+        onDispose {
+            exoPlayer.release()
+        }
+    }
+
+    AndroidView(
+        modifier = Modifier.fillMaxWidth(),
+        factory = {
+            StyledPlayerView(context).apply {
+                player = exoPlayer
+                layoutParams = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                resizeMode = Aspec
