@@ -48,4 +48,8 @@ fun VideoView(videoUri: String) {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
-                resizeMode = Aspec
+                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH
+            }
+        }
+    )
+}
