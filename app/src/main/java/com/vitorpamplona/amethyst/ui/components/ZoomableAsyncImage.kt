@@ -17,4 +17,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.r
+import androidx.compose.ui.res.stringResource
+import coil.compose.AsyncImage
+import com.vitorpamplona.amethyst.R
+
+@Composable
+fun ZoomableAsyncImage(imageUrl: String) {
+    var scale by remember { mutableStateOf(1f) }
+    var offsetX by remember { mutableStateOf(0f) }
+    var offsetY by remember { mutableStateOf(0f) }
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .pointerInput(Unit) {
+      
