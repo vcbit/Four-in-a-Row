@@ -32,4 +32,17 @@ fun ZoomableAsyncImage(imageUrl: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .pointerInput(Unit) {
-      
+                awaitEachGesture {
+                    awaitFirstDown()
+                    do {
+                        val event = awaitPointerEvent()
+                        scale *= event.calculateZoom()
+                        val offset = event.calculatePan()
+                        offsetX += offset.x
+                        offsetY += offset.y
+                    } while (event.changes.any { it.pressed })
+                }
+            }
+    ) {
+        AsyncImage(
+            model = imageUrl,
