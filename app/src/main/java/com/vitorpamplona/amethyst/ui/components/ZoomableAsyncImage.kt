@@ -46,3 +46,16 @@ fun ZoomableAsyncImage(imageUrl: String) {
     ) {
         AsyncImage(
             model = imageUrl,
+            contentDescription = stringResource(id = R.string.profile_image),
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer(
+                    scaleX = scale,
+                    scaleY = scale,
+                    translationX = offsetX,
+                    translationY = offsetY
+                )
+        )
+    }
+}
