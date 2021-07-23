@@ -32,4 +32,20 @@ import com.vitorpamplona.amethyst.ui.actions.CloseButton
 import com.vitorpamplona.amethyst.ui.actions.SaveToGallery
 
 @Composable
-@OptIn(ExperimentalComposeUiApi::clas
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
+fun ZoomableImageView(word: String) {
+    val clipboardManager = LocalClipboardManager.current
+
+    // store the dialog open or close state
+    var dialogOpen by remember {
+        mutableStateOf(false)
+    }
+
+    AsyncImage(
+        model = word,
+        contentDescription = word,
+        contentScale = ContentScale.FillWidth,
+        modifier = Modifier
+            .padding(top = 4.dp)
+            .fillMaxWidth()
+            .clip(shape = RoundedCornerSh
