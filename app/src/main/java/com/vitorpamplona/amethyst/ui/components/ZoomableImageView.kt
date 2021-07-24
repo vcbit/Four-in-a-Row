@@ -48,4 +48,18 @@ fun ZoomableImageView(word: String) {
         modifier = Modifier
             .padding(top = 4.dp)
             .fillMaxWidth()
-            .clip(shape = RoundedCornerSh
+            .clip(shape = RoundedCornerShape(15.dp))
+            .border(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.12f), RoundedCornerShape(15.dp))
+            .combinedClickable(
+                onClick = { dialogOpen = true },
+                onLongClick = { clipboardManager.setText(AnnotatedString(word)) }
+            )
+    )
+
+    if (dialogOpen) {
+        ZoomableImageDialog(word, onDismiss = { dialogOpen = false })
+    }
+}
+
+@Composable
+fun ZoomableImageDialog(ima
