@@ -62,4 +62,16 @@ fun ZoomableImageView(word: String) {
 }
 
 @Composable
-fun ZoomableImageDialog(ima
+fun ZoomableImageDialog(imageUrl: String, onDismiss: () -> Unit) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(usePlatformDefaultWidth = false)
+    ) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+            Column(
+                modifier = Modifier.padding(10.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Spa
