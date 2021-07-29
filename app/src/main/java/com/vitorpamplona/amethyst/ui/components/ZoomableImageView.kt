@@ -74,4 +74,16 @@ fun ZoomableImageDialog(imageUrl: String, onDismiss: () -> Unit) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Spa
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CloseButton(onCancel = onDismiss)
+
+                    SaveToGallery(url = imageUrl)
+                }
+
+                ZoomableAsyncImage(imageUrl)
+            }
+        }
+    }
+}
