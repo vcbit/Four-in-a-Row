@@ -18,4 +18,8 @@ object ChannelFeedFilter : FeedFilter<Note>() {
     override fun feed(): List<Note> {
         return channel.notes
             .values
-            .filter { 
+            .filter { account.isAcceptable(it) }
+            .sortedBy { it.createdAt() }
+            .reversed()
+    }
+}
