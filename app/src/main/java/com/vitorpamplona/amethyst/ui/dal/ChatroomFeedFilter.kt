@@ -26,4 +26,8 @@ object ChatroomFeedFilter : FeedFilter<Note>() {
             .privateChatrooms[myUser] ?: return emptyList()
 
         return messages.roomMessages
-     
+            .filter { myAccount.isAcceptable(it) }
+            .sortedBy { it.createdAt() }
+            .reversed()
+    }
+}
