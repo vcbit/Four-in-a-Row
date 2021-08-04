@@ -23,4 +23,15 @@ object ChatroomListKnownFeedFilter : FeedFilter<Note>() {
         }
 
         val publicChannels = account.followingChannels().map { it ->
-            i
+            it.notes.values
+                .filter { account.isAcceptable(it) }
+                .sortedBy { it.createdAt() }
+                .lastOrNull { it.event != null }
+        }
+
+        return (privateMessages + publicChannels)
+            .filterNotNull()
+            .sortedBy { it.createdAt() }
+            .reversed()
+    }
+}
