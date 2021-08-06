@@ -13,4 +13,15 @@ object GlobalFeedFilter : FeedFilter<Note>() {
     override fun feed() = LocalCache.notes.values
         .filter {
             (it.event is TextNoteEvent || it.event is LongTextNoteEvent || it.event is ChannelMessageEvent) &&
-                it.replyTo.isNullOrEmpt
+                it.replyTo.isNullOrEmpty()
+        }
+        .filter {
+            // does not show events already in the public chat list
+            (it.channel() == null || it.channel() !in account.followingChannels()) &&
+                // does not show people the user already follows
+                (it.author !in account.userProfile().follows)
+        }
+        .filter { account.isAcceptable(it) }
+        .sortedBy { it.createdAt() }
+        .reversed()
+}
