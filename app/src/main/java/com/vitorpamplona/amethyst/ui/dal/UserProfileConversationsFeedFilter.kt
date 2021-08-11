@@ -11,4 +11,13 @@ object UserProfileConversationsFeedFilter : FeedFilter<Note>() {
 
     fun loadUserProfile(accountLoggedIn: Account, userId: String) {
         account = accountLoggedIn
-        user = LocalCache.checkGetOrCr
+        user = LocalCache.checkGetOrCreateUser(userId)
+    }
+
+    override fun feed(): List<Note> {
+        return user?.notes
+            ?.filter { account?.isAcceptable(it) == true && !it.isNewThread() }
+            ?.sortedBy { it.createdAt() }
+            ?.reversed() ?: emptyList()
+    }
+}
