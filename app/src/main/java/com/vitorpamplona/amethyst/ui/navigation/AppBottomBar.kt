@@ -83,3 +83,119 @@ fun keyboardAsState(): State<Keyboard> {
 
 @Composable
 fun AppBottomBar(navController: NavHostController, accountViewModel: AccountViewModel) {
+    val currentRoute = currentRoute(navController)
+    val currentRouteBase = currentRoute?.substringBefore("?")
+    val coroutineScope = rememberCoroutineScope()
+    val isKeyboardOpen by keyboardAsState()
+
+    if (isKeyboardOpen == Keyboard.Closed) {
+        Column() {
+            Divider(
+                thickness = 0.25.dp
+            )
+            BottomNavigation(
+                modifier = Modifier,
+                elevation = 0.dp,
+                backgroundColor = MaterialTheme.colors.background
+            ) {
+                bottomNavigationItems.forEach { item ->
+                    val selected = currentRouteBase == item.base
+
+                    BottomNavigationItem(
+                        icon = { NotifiableIcon(item, selected, accountViewModel) },
+                        selected = selected,
+                        onClick = {
+                            coroutineScope.launch {
+                                if (currentRouteBase != item.base) {
+                                    navController.navigate(item.base) {
+                                        navController.graph.startDestinationRoute?.let { start ->
+                                            popUpTo(start)
+                                            restoreState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                } else {
+                                    val route = currentRoute.replace("{scrollToTop}", "true")
+                                    navController.navigate(route) {
+                                        navController.graph.startDestinationRoute?.let { start ->
+                                            popUpTo(start) { inclusive = item.route == Route.Home.route }
+                                            restoreState = true
+                                        }
+
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun NotifiableIcon(route: Route, selected: Boolean, accountViewModel: AccountViewModel) {
+    Box(Modifier.size(if ("Home" == route.base) 25.dp else 23.dp)) {
+        Icon(
+            painter = painterResource(id = route.icon),
+            contentDescription = null,
+            modifier = Modifier.size(if ("Home" == route.base) 24.dp else 20.dp),
+            tint = if (selected) MaterialTheme.colors.primary else Color.Unspecified
+        )
+
+        val accountState by accountViewModel.accountLiveData.observeAsState()
+        val account = accountState?.account ?: return
+
+        // Notification
+        val dbState = LocalCache.live.observeAsState()
+        val db = dbState.value ?: return
+
+        val notifState = NotificationCache.live.observeAsState()
+        val notif = notifState.value ?: return
+
+        var hasNewItems by remember { mutableStateOf<Boolean>(false) }
+
+        LaunchedEffect(key1 = notif) {
+            withContext(Dispatchers.IO) {
+                hasNewItems = route.hasNewItems(account, notif.cache)
+            }
+        }
+
+        LaunchedEffect(key1 = db) {
+            withContext(Dispatchers.IO) {
+                hasNewItems = route.hasNewItems(account, notif.cache)
+            }
+        }
+
+        if (hasNewItems) {
+            Box(
+                Modifier
+                    .width(10.dp)
+                    .height(10.dp)
+                    .align(Alignment.TopEnd)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(10.dp)
+                        .height(10.dp)
+                        .clip(shape = CircleShape)
+                        .background(MaterialTheme.colors.primary),
+                    contentAlignment = Alignment.TopEnd
+                ) {
+                    Text(
+                        "",
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .align(Alignment.TopEnd)
+                    )
+                }
+            }
+        }
+    }
+}
