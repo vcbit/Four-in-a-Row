@@ -20,4 +20,17 @@ import com.vitorpamplona.amethyst.ui.screen.loggedIn.ChannelScreen
 import com.vitorpamplona.amethyst.ui.screen.loggedIn.ChatroomListScreen
 import com.vitorpamplona.amethyst.ui.screen.loggedIn.ChatroomScreen
 import com.vitorpamplona.amethyst.ui.screen.loggedIn.FiltersScreen
-import com.vitorpamplona.amethyst.ui.screen.l
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.HomeScreen
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.NotificationScreen
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.ProfileScreen
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.SearchScreen
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.ThreadScreen
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun AppNavigation(
+    navController: NavHostController,
+    accountViewModel: AccountViewModel,
+    nextPage: String? = null
+) {
+    val accountState by accountViewModel.
