@@ -33,4 +33,14 @@ fun AppNavigation(
     accountViewModel: AccountViewModel,
     nextPage: String? = null
 ) {
-    val accountState by accountViewModel.
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    GlobalFeedFilter.account = account
+    HomeNewThreadFeedFilter.account = account
+    HomeConversationsFeedFilter.account = account
+
+    val globalFeedViewModel: NostrGlobalFeedViewModel = viewModel()
+    val homeFeedViewModel: NostrHomeFeedViewModel = viewModel()
+    val homeRepliesFeedViewModel: NostrHomeRepliesFeedViewModel = viewModel()
+    val homePagerState = rememberPagerState()
