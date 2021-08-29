@@ -44,3 +44,15 @@ fun AppNavigation(
     val homeFeedViewModel: NostrHomeFeedViewModel = viewModel()
     val homeRepliesFeedViewModel: NostrHomeRepliesFeedViewModel = viewModel()
     val homePagerState = rememberPagerState()
+
+    NavHost(navController, startDestination = Route.Home.route) {
+        Route.Search.let { route ->
+            composable(route.route, route.arguments, content = {
+                SearchScreen(
+                    accountViewModel = accountViewModel,
+                    feedViewModel = globalFeedViewModel,
+                    navController = navController,
+                    scrollToTop = it.arguments?.getBoolean("scrollToTop") ?: false
+                )
+            })
+      
