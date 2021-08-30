@@ -55,4 +55,16 @@ fun AppNavigation(
                     scrollToTop = it.arguments?.getBoolean("scrollToTop") ?: false
                 )
             })
+        }
+
+        Route.Home.let { route ->
+            composable(route.route, route.arguments, content = {
+                HomeScreen(
+                    accountViewModel = accountViewModel,
+                    navController = navController,
+                    homeFeedViewModel = homeFeedViewModel,
+                    repliesFeedViewModel = homeRepliesFeedViewModel,
+                    pagerState = homePagerState,
+                    scrollToTop = it.arguments?.getBoolean("scrollToTop") ?: false
+                )
       
