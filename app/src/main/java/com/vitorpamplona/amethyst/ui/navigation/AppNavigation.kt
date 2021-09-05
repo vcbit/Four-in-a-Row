@@ -67,4 +67,14 @@ fun AppNavigation(
                     pagerState = homePagerState,
                     scrollToTop = it.arguments?.getBoolean("scrollToTop") ?: false
                 )
-      
+            })
+        }
+
+        composable(Route.Message.route, content = { ChatroomListScreen(accountViewModel, navController) })
+        composable(Route.Notification.route, content = { NotificationScreen(accountViewModel, navController) })
+        composable(Route.Filters.route, content = { FiltersScreen(accountViewModel, navController) })
+
+        Route.Profile.let { route ->
+            composable(route.route, route.arguments, content = {
+                ProfileScreen(
+                    userId 
