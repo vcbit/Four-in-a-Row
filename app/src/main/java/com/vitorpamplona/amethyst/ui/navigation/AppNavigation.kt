@@ -77,4 +77,18 @@ fun AppNavigation(
         Route.Profile.let { route ->
             composable(route.route, route.arguments, content = {
                 ProfileScreen(
-                    userId 
+                    userId = it.arguments?.getString("id"),
+                    accountViewModel = accountViewModel,
+                    navController = navController
+                )
+            })
+        }
+
+        Route.Note.let { route ->
+            composable(route.route, route.arguments, content = {
+                ThreadScreen(
+                    noteId = it.arguments?.getString("id"),
+                    accountViewModel = accountViewModel,
+                    navController = navController
+                )
+     
