@@ -106,4 +106,16 @@ fun AppNavigation(
 
         Route.Channel.let { route ->
             composable(route.route, route.arguments, content = {
-              
+                ChannelScreen(
+                    channelId = it.arguments?.getString("id"),
+                    accountViewModel = accountViewModel,
+                    navController = navController
+                )
+            })
+        }
+    }
+
+    if (nextPage != null) {
+        navController.navigate(nextPage)
+    }
+}
