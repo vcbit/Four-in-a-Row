@@ -156,3 +156,98 @@ fun MainTopBar(scaffoldState: ScaffoldState, accountViewModel: AccountViewModel)
                                     null,
                                     modifier = Modifier.size(40.dp),
                                     tint = Color.Unspecified
+                                )
+                            }
+                        }
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(),
+                            horizontalAlignment = Alignment.End
+
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxHeight(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    "${connectedRelaysLiveData ?: "--"}/${availableRelaysLiveData ?: "--"}",
+                                    color = if (connectedRelaysLiveData == 0) Color.Red else MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                                    style = MaterialTheme.typography.subtitle1,
+                                    modifier = Modifier.clickable(
+                                        onClick = {
+                                            wantsToEditRelays = true
+                                        }
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }
+            },
+            navigationIcon = {
+                IconButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            scaffoldState.drawerState.open()
+                        }
+                    },
+                    modifier = Modifier
+                ) {
+                    RobohashAsyncImageProxy(
+                        robot = accountUser.pubkeyHex,
+                        model = ResizeImage(accountUser.profilePicture(), 34.dp),
+                        contentDescription = stringResource(id = R.string.profile_image),
+                        modifier = Modifier
+                            .width(34.dp)
+                            .height(34.dp)
+                            .clip(shape = CircleShape)
+                    )
+                }
+            },
+            actions = {
+                IconButton(
+                    onClick = { wantsToEditRelays = true },
+                    modifier = Modifier
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_trends),
+                        null,
+                        modifier = Modifier.size(24.dp),
+                        tint = Color.Unspecified
+                    )
+                }
+            }
+        )
+        Divider(thickness = 0.25.dp)
+    }
+}
+
+@Composable
+fun TopBarWithBackButton(navController: NavHostController) {
+    Column() {
+        TopAppBar(
+            elevation = 0.dp,
+            backgroundColor = Color(0xFFFFFF),
+            title = {},
+            navigationIcon = {
+                IconButton(
+                    onClick = {
+                        navController.popBackStack()
+                    },
+                    modifier = Modifier
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        null,
+                        modifier = Modifier.size(28.dp),
+                        tint = MaterialTheme.colors.primary
+                    )
+                }
+            },
+            actions = {}
+        )
+        Divider(thickness = 0.25.dp)
+    }
+}
