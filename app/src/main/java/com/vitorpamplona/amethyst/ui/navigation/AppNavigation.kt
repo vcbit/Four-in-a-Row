@@ -91,4 +91,19 @@ fun AppNavigation(
                     accountViewModel = accountViewModel,
                     navController = navController
                 )
-     
+            })
+        }
+
+        Route.Room.let { route ->
+            composable(route.route, route.arguments, content = {
+                ChatroomScreen(
+                    userId = it.arguments?.getString("id"),
+                    accountViewModel = accountViewModel,
+                    navController = navController
+                )
+            })
+        }
+
+        Route.Channel.let { route ->
+            composable(route.route, route.arguments, content = {
+              
