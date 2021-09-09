@@ -119,4 +119,18 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
-         
+            )
+        } else {
+            Image(
+                painter = painterResource(R.drawable.profile_banner),
+                contentDescription = stringResource(R.string.profile_banner),
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+            )
+        }
+
+        Column(modifier = modifier) {
+            RobohashAsyncImageProxy(
+                robot = acco
