@@ -63,4 +63,18 @@ fun DrawerContent(
     accountViewModel: AccountViewModel
 ) {
     val accountState by accountViewModel.accountLiveData.observeAsState()
-   
+    val account = accountState?.account ?: return
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colors.background
+    ) {
+        Column() {
+            ProfileContent(
+                account.userProfile(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 25.dp)
+                    .padding(top = 100.dp),
+                scaffoldState,
+             
