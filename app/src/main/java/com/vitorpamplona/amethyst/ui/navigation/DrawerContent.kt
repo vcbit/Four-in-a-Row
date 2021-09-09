@@ -106,4 +106,17 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
     val accountUserState by baseAccountUser.live().metadata.observeAsState()
     val accountUser = accountUserState?.user ?: return
 
-    val accountUserFollowsState by baseAccountUser.live().follows.obs
+    val accountUserFollowsState by baseAccountUser.live().follows.observeAsState()
+    val accountUserFollows = accountUserFollowsState?.user ?: return
+
+    Box {
+        val banner = accountUser.info?.banner
+        if (!banner.isNullOrBlank()) {
+            AsyncImage(
+                model = banner,
+                contentDescription = stringResource(id = R.string.profile_image),
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+         
