@@ -77,4 +77,19 @@ fun DrawerContent(
                     .padding(horizontal = 25.dp)
                     .padding(top = 100.dp),
                 scaffoldState,
-             
+                navController
+            )
+            Divider(
+                thickness = 0.25.dp,
+                modifier = Modifier.padding(top = 20.dp)
+            )
+            ListContent(
+                account.userProfile(),
+                navController,
+                scaffoldState,
+                sheetState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                account
+            )
