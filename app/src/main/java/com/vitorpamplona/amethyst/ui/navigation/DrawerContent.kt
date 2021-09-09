@@ -93,3 +93,17 @@ fun DrawerContent(
                     .weight(1f),
                 account
             )
+
+            BottomContent(account.userProfile(), scaffoldState, navController)
+        }
+    }
+}
+
+@Composable
+fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffoldState: ScaffoldState, navController: NavController) {
+    val coroutineScope = rememberCoroutineScope()
+
+    val accountUserState by baseAccountUser.live().metadata.observeAsState()
+    val accountUser = accountUserState?.user ?: return
+
+    val accountUserFollowsState by baseAccountUser.live().follows.obs
