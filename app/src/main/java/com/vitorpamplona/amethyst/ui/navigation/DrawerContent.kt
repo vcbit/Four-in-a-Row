@@ -133,4 +133,13 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
 
         Column(modifier = modifier) {
             RobohashAsyncImageProxy(
-                robot = acco
+                robot = accountUser.pubkeyHex,
+                model = ResizeImage(accountUser.profilePicture(), 100.dp),
+                contentDescription = stringResource(id = R.string.profile_image),
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(100.dp)
+                    .clip(shape = CircleShape)
+                    .border(3.dp, MaterialTheme.colors.background, CircleShape)
+                    .background(MaterialTheme.colors.background)
+    
