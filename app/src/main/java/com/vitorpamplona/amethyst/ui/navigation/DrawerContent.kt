@@ -142,4 +142,16 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
                     .clip(shape = CircleShape)
                     .border(3.dp, MaterialTheme.colors.background, CircleShape)
                     .background(MaterialTheme.colors.background)
-    
+                    .clickable(onClick = {
+                        accountUser.let {
+                            navController.navigate("User/${it.pubkeyHex}")
+                        }
+                        coroutineScope.launch {
+                            scaffoldState.drawerState.close()
+                        }
+                    })
+            )
+            if (accountUser.bestDisplayName() != null) {
+                Text(
+                    accountUser.bestDisplayName() ?: "",
+        
