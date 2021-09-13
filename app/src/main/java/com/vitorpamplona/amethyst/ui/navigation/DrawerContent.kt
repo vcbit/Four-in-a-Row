@@ -154,4 +154,14 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
             if (accountUser.bestDisplayName() != null) {
                 Text(
                     accountUser.bestDisplayName() ?: "",
+                    modifier = Modifier
+                        .padding(top = 7.dp)
+                        .clickable(onClick = {
+                            accountUser.let {
+                                navController.navigate("User/${it.pubkeyHex}")
+                            }
+                            coroutineScope.launch {
+                                scaffoldState.drawerState.close()
+                            }
+                        }),
         
