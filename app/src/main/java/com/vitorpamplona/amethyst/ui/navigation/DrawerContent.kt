@@ -176,4 +176,16 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
                         .padding(top = 15.dp)
                         .clickable(onClick = {
                             accountUser.let {
-                   
+                                navController.navigate("User/${it.pubkeyHex}")
+                            }
+                            coroutineScope.launch {
+                                scaffoldState.drawerState.close()
+                            }
+                        })
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .padding(top = 15.dp)
+                    .clickable(onClick = {
+           
