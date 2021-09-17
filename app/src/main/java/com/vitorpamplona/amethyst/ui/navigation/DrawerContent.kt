@@ -164,4 +164,16 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
                                 scaffoldState.drawerState.close()
                             }
                         }),
-        
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
+            if (accountUser.bestUsername() != null) {
+                Text(
+                    " @${accountUser.bestUsername()}",
+                    color = Color.LightGray,
+                    modifier = Modifier
+                        .padding(top = 15.dp)
+                        .clickable(onClick = {
+                            accountUser.let {
+                   
