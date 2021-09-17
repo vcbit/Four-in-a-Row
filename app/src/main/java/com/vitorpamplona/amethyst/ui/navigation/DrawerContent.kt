@@ -188,4 +188,14 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
                 modifier = Modifier
                     .padding(top = 15.dp)
                     .clickable(onClick = {
-           
+                        accountUser.let {
+                            navController.navigate("User/${it.pubkeyHex}")
+                        }
+                        coroutineScope.launch {
+                            scaffoldState.drawerState.close()
+                        }
+                    })
+            ) {
+                Row() {
+                    Text("${accountUserFollows.follows.size}", fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.following))
