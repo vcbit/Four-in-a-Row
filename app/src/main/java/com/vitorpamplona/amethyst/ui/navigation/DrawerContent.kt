@@ -199,3 +199,20 @@ fun ProfileContent(baseAccountUser: User, modifier: Modifier = Modifier, scaffol
                 Row() {
                     Text("${accountUserFollows.follows.size}", fontWeight = FontWeight.Bold)
                     Text(stringResource(R.string.following))
+                }
+                Row(modifier = Modifier.padding(start = 10.dp)) {
+                    Text("${accountUserFollows.followers.size}", fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.followers))
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun ListContent(
+    accountUser: User?,
+    navController: NavHostController,
+    scaffoldState: ScaffoldState,
+    sh
