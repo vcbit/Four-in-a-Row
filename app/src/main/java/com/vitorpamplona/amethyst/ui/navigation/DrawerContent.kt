@@ -215,4 +215,17 @@ fun ListContent(
     accountUser: User?,
     navController: NavHostController,
     scaffoldState: ScaffoldState,
-    sh
+    sheetState: ModalBottomSheetState,
+    modifier: Modifier,
+    account: Account
+) {
+    val coroutineScope = rememberCoroutineScope()
+    var backupDialogOpen by remember { mutableStateOf(false) }
+
+    Column(modifier = modifier.fillMaxHeight()) {
+        if (accountUser != null) {
+            NavigationRow(
+                title = stringResource(R.string.profile),
+                icon = Route.Profile.icon,
+                tint = MaterialTheme.colors.primary,
+                navCo
