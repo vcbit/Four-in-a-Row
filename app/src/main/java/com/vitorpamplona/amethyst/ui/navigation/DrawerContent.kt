@@ -279,4 +279,23 @@ fun NavigationRow(
     route: String
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val currentRoute = current
+    val currentRoute = currentRoute(navController)
+    IconRow(title, icon, tint, onClick = {
+        if (currentRoute != route) {
+            navController.navigate(route)
+        }
+        coroutineScope.launch {
+            scaffoldState.drawerState.close()
+        }
+    })
+}
+
+@Composable
+fun IconRow(title: String, icon: Int, tint: Color, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+    ) {
+        Row(
+    
