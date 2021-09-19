@@ -298,4 +298,16 @@ fun IconRow(title: String, icon: Int, tint: Color, onClick: () -> Unit) {
             .clickable(onClick = onClick)
     ) {
         Row(
-    
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 15.dp, horizontal = 25.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(icon),
+                null,
+                modifier = Modifier.size(22.dp),
+                tint = tint
+            )
+            Text(
+                modifier = Modifier.padding(start = 16.dp),
