@@ -242,4 +242,21 @@ fun ListContent(
             tint = MaterialTheme.colors.onBackground,
             navController = navController,
             scaffoldState = scaffoldState,
-            route = Route.Filters.
+            route = Route.Filters.route
+        )
+
+        Divider(thickness = 0.25.dp)
+
+        IconRow(
+            title = stringResource(R.string.backup_keys),
+            icon = R.drawable.ic_key,
+            tint = MaterialTheme.colors.onBackground,
+            onClick = { backupDialogOpen = true }
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        IconRow(
+            title = stringResource(R.string.drawer_accounts),
+            icon = R.drawable.manage_accounts,
+        
