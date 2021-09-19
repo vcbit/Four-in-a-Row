@@ -259,4 +259,24 @@ fun ListContent(
         IconRow(
             title = stringResource(R.string.drawer_accounts),
             icon = R.drawable.manage_accounts,
-        
+            tint = MaterialTheme.colors.onBackground,
+            onClick = { coroutineScope.launch { sheetState.show() } }
+        )
+    }
+
+    if (backupDialogOpen) {
+        AccountBackupDialog(account, onClose = { backupDialogOpen = false })
+    }
+}
+
+@Composable
+fun NavigationRow(
+    title: String,
+    icon: Int,
+    tint: Color,
+    navController: NavHostController,
+    scaffoldState: ScaffoldState,
+    route: String
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val currentRoute = current
