@@ -228,4 +228,18 @@ fun ListContent(
                 title = stringResource(R.string.profile),
                 icon = Route.Profile.icon,
                 tint = MaterialTheme.colors.primary,
-                navCo
+                navController = navController,
+                scaffoldState = scaffoldState,
+                route = "User/${accountUser.pubkeyHex}"
+            )
+        }
+
+        Divider(thickness = 0.25.dp)
+
+        NavigationRow(
+            title = stringResource(R.string.security_filters),
+            icon = Route.Filters.icon,
+            tint = MaterialTheme.colors.onBackground,
+            navController = navController,
+            scaffoldState = scaffoldState,
+            route = Route.Filters.
