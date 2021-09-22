@@ -352,4 +352,18 @@ fun BottomContent(user: User, scaffoldState: ScaffoldState, navController: NavCo
                         AppCompatDelegate.MODE_NIGHT_YES -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     }
-      
+                }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_theme),
+                    null,
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colors.primary
+                )
+            }*/
+            Box(modifier = Modifier.weight(1F))
+            IconButton(onClick = {
+                dialogOpen = true
+                coroutineScope.launch {
+                    scaffoldState.drawerState.close()
+            
