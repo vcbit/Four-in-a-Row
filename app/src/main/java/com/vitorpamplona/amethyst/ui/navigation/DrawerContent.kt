@@ -311,3 +311,23 @@ fun IconRow(title: String, icon: Int, tint: Color, onClick: () -> Unit) {
             )
             Text(
                 modifier = Modifier.padding(start = 16.dp),
+                text = title,
+                fontSize = 18.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun BottomContent(user: User, scaffoldState: ScaffoldState, navController: NavController) {
+    val coroutineScope = rememberCoroutineScope()
+
+    // store the dialog open or close state
+    var dialogOpen by remember {
+        mutableStateOf(false)
+    }
+
+    Column(modifier = Modifier) {
+        Divider(
+            modifier = Modifier.padding(top = 15.dp),
+            thickne
