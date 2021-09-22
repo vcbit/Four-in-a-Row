@@ -330,4 +330,20 @@ fun BottomContent(user: User, scaffoldState: ScaffoldState, navController: NavCo
     Column(modifier = Modifier) {
         Divider(
             modifier = Modifier.padding(top = 15.dp),
-            thickne
+            thickness = 0.25.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                modifier = Modifier.padding(start = 16.dp),
+                text = "v" + BuildConfig.VERSION_NAME,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+            /*
+            IconButton(
+              
