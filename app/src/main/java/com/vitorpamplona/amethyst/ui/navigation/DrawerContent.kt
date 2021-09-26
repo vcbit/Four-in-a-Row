@@ -366,4 +366,22 @@ fun BottomContent(user: User, scaffoldState: ScaffoldState, navController: NavCo
                 dialogOpen = true
                 coroutineScope.launch {
                     scaffoldState.drawerState.close()
+                }
+            }) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_qrcode),
+                    null,
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colors.primary
+                )
+            }
+        }
+    }
+
+    if (dialogOpen) {
+        ShowQRDialog(
+            user,
+            onScan = {
+                dialogOpen = false
+                coroutineScope.launch {
             
