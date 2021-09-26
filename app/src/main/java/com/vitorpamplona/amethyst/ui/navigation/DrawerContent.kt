@@ -384,4 +384,11 @@ fun BottomContent(user: User, scaffoldState: ScaffoldState, navController: NavCo
             onScan = {
                 dialogOpen = false
                 coroutineScope.launch {
-            
+                    scaffoldState.drawerState.close()
+                }
+                navController.navigate(it)
+            },
+            onClose = { dialogOpen = false }
+        )
+    }
+}
