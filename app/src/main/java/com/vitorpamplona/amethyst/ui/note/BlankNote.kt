@@ -42,4 +42,19 @@ fun BlankNote(modifier: Modifier = Modifier, isQuote: Boolean = false) {
                         text = stringResource(R.string.post_not_found),
                         modifier = Modifier.padding(30.dp),
                         color = Color.Gray
-            
+                    )
+                }
+
+                Divider(
+                    modifier = Modifier.padding(vertical = 10.dp),
+                    thickness = 0.25.dp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun HiddenNote(reports: Set<Note>, loggedIn: User, modifier: Modifier = Modifier, isQuote: Boolean = false, navController: NavController, onClick: () -> Unit) {
+    Column(modifier = modifier) {
+        Row(modifier = Modifier.padding(horizontal = if (!isQuote) 12.dp else
