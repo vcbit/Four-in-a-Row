@@ -30,4 +30,16 @@ fun BlankNote(modifier: Modifier = Modifier, isQuote: Boolean = false) {
             Column(modifier = Modifier.padding(start = if (!isQuote) 10.dp else 5.dp)) {
                 Row(
                     modifier = Modifier.padding(
-                      
+                        start = 20.dp,
+                        end = 20.dp,
+                        bottom = 8.dp,
+                        top = 15.dp
+                    ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.post_not_found),
+                        modifier = Modifier.padding(30.dp),
+                        color = Color.Gray
+            
