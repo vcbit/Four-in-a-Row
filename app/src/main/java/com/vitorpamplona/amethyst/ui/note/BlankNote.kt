@@ -20,4 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowRow
 import com.vitorpamplona.amethyst.R
-import com.vit
+import com.vitorpamplona.amethyst.model.Note
+import com.vitorpamplona.amethyst.model.User
+
+@Composable
+fun BlankNote(modifier: Modifier = Modifier, isQuote: Boolean = false) {
+    Column(modifier = modifier) {
+        Row(modifier = Modifier.padding(horizontal = if (!isQuote) 12.dp else 6.dp)) {
+            Column(modifier = Modifier.padding(start = if (!isQuote) 10.dp else 5.dp)) {
+                Row(
+                    modifier = Modifier.padding(
+                      
