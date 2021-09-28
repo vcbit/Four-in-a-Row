@@ -57,4 +57,14 @@ fun BlankNote(modifier: Modifier = Modifier, isQuote: Boolean = false) {
 @Composable
 fun HiddenNote(reports: Set<Note>, loggedIn: User, modifier: Modifier = Modifier, isQuote: Boolean = false, navController: NavController, onClick: () -> Unit) {
     Column(modifier = modifier) {
-        Row(modifier = Modifier.padding(horizontal = if (!isQuote) 12.dp else
+        Row(modifier = Modifier.padding(horizontal = if (!isQuote) 12.dp else 6.dp)) {
+            Column(modifier = Modifier.padding(start = if (!isQuote) 10.dp else 5.dp)) {
+                Row(
+                    modifier = Modifier.padding(
+                        start = 20.dp,
+                        end = 20.dp
+                    ),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(30.dp)) {
+       
