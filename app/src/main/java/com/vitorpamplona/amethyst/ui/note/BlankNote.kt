@@ -67,4 +67,12 @@ fun HiddenNote(reports: Set<Note>, loggedIn: User, modifier: Modifier = Modifier
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(30.dp)) {
-       
+                        Text(
+                            text = stringResource(R.string.post_was_flagged_as_inappropriate_by),
+                            color = Color.Gray
+                        )
+                        FlowRow(modifier = Modifier.padding(top = 10.dp)) {
+                            reports.forEach {
+                                NoteAuthorPicture(
+                                    note = it,
+                                    navController = navControll
