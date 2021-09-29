@@ -75,4 +75,15 @@ fun HiddenNote(reports: Set<Note>, loggedIn: User, modifier: Modifier = Modifier
                             reports.forEach {
                                 NoteAuthorPicture(
                                     note = it,
-                                    navController = navControll
+                                    navController = navController,
+                                    userAccount = loggedIn,
+                                    size = 35.dp
+                                )
+                            }
+                        }
+
+                        Button(
+                            modifier = Modifier.padding(top = 10.dp),
+                            onClick = onClick,
+                            shape = RoundedCornerShape(20.dp),
+                            color
