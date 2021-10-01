@@ -97,4 +97,10 @@ fun HiddenNote(reports: Set<Note>, loggedIn: User, modifier: Modifier = Modifier
                     }
                 }
 
-                Di
+                Divider(
+                    thickness = 0.25.dp
+                )
+            }
+        }
+    }
+}
