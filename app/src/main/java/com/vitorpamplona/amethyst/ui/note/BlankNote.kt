@@ -86,4 +86,15 @@ fun HiddenNote(reports: Set<Note>, loggedIn: User, modifier: Modifier = Modifier
                             modifier = Modifier.padding(top = 10.dp),
                             onClick = onClick,
                             shape = RoundedCornerShape(20.dp),
-                            color
+                            colors = ButtonDefaults
+                                .buttonColors(
+                                    backgroundColor = MaterialTheme.colors.primary
+                                ),
+                            contentPadding = PaddingValues(vertical = 6.dp, horizontal = 16.dp)
+                        ) {
+                            Text(text = stringResource(R.string.show_anyway), color = Color.White)
+                        }
+                    }
+                }
+
+                Di
