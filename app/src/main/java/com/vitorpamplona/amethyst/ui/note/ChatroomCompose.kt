@@ -46,4 +46,18 @@ import com.vitorpamplona.amethyst.service.model.ChannelCreateEvent
 import com.vitorpamplona.amethyst.service.model.ChannelMetadataEvent
 import com.vitorpamplona.amethyst.ui.components.ResizeImage
 import com.vitorpamplona.amethyst.ui.components.RobohashAsyncImageProxy
-import com.vitor
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+@Composable
+fun ChatroomCompose(
+    baseNote: Note,
+    accountViewModel: AccountViewModel,
+    navController: NavController
+) {
+    val noteState by baseNote.live().metadata.observeAsState()
+    val note = noteState?.note
+
+    val notificationCacheState = NotificationCache.live.observeAsState()
+    val notificationCache = notificationCacheState.value ?: 
