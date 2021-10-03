@@ -110,4 +110,14 @@ fun ChatroomCompose(
                                 SpanStyle(
                                     color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
                                     fontWeight = FontWeight.Normal
-                          
+                                )
+                            ) {
+                                append(" ${stringResource(id = R.string.public_chat)}")
+                            }
+                        },
+                        fontWeight = FontWeight.Bold,
+                        modifier = modifier,
+                        style = LocalTextStyle.current.copy(textDirection = TextDirection.Content)
+                    )
+                },
+               
