@@ -60,4 +60,18 @@ fun ChatroomCompose(
     val note = noteState?.note
 
     val notificationCacheState = NotificationCache.live.observeAsState()
-    val notificationCache = notificationCacheState.value ?: 
+    val notificationCache = notificationCacheState.value ?: return
+
+    if (note?.event == null) {
+        BlankNote(Modifier)
+    } else if (note.channel() != null) {
+        val authorState by note.author!!.live().metadata.observeAsState()
+        val author = authorState?.user
+
+        val channelState by note.channel()!!.live.observeAsState()
+        val channel = channelState?.channel
+
+        val noteEvent = note.event
+
+        val description = if (noteEvent is ChannelCreateEvent) {
+            stringResource(R.string.channel_c
