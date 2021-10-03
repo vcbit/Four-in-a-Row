@@ -74,4 +74,15 @@ fun ChatroomCompose(
         val noteEvent = note.event
 
         val description = if (noteEvent is ChannelCreateEvent) {
-            stringResource(R.string.channel_c
+            stringResource(R.string.channel_created)
+        } else if (noteEvent is ChannelMetadataEvent) {
+            "${stringResource(R.string.channel_information_changed_to)} "
+        } else {
+            noteEvent?.content()
+        }
+        channel?.let { chan ->
+            var hasNewMessages by remember { mutableStateOf<Boolean>(false) }
+
+            LaunchedEffect(key1 = notificationCache, key2 = note) {
+                withContext(Dispatchers.IO) {
+                    note.createdAt()?.let { timestamp -
