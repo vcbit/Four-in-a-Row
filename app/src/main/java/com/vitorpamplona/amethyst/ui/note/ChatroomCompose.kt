@@ -98,4 +98,16 @@ fun ChatroomCompose(
                 channelTitle = { modifier ->
                     Text(
                         text = buildAnnotatedString {
-                            withSt
+                            withStyle(
+                                SpanStyle(
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ) {
+                                append(chan.info.name)
+                            }
+
+                            withStyle(
+                                SpanStyle(
+                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                                    fontWeight = FontWeight.Normal
+                          
