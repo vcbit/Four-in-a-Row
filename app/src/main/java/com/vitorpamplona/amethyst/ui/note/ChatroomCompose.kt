@@ -85,4 +85,17 @@ fun ChatroomCompose(
 
             LaunchedEffect(key1 = notificationCache, key2 = note) {
                 withContext(Dispatchers.IO) {
-                    note.createdAt()?.let { timestamp -
+                    note.createdAt()?.let { timestamp ->
+                        hasNewMessages =
+                            timestamp > notificationCache.cache.load("Channel/${chan.idHex}")
+                    }
+                }
+            }
+
+            ChannelName(
+                channelIdHex = chan.idHex,
+                channelPicture = chan.profilePicture(),
+                channelTitle = { modifier ->
+                    Text(
+                        text = buildAnnotatedString {
+                            withSt
