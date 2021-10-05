@@ -146,4 +146,18 @@ fun ChatroomCompose(
                 withContext(Dispatchers.IO) {
                     noteEvent?.let {
                         hasNewMessages = it.createdAt() > notificationCache.cache.load(
-          
+                            "Room/${userToComposeOn.pubkeyHex}"
+                        )
+                    }
+                }
+            }
+
+            ChannelName(
+                channelPicture = {
+                    UserPicture(
+                        userToComposeOn,
+                        accountViewModel.userProfile(),
+                        size = 55.dp
+                    )
+                },
+                channelTitle = { UsernameDisplay(use
