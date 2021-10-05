@@ -133,4 +133,17 @@ fun ChatroomCompose(
 
         if (replyAuthorBase != null) {
             if (note.author == accountViewModel.userProfile()) {
-                
+                userToComposeOn = replyAuthorBase
+            }
+        }
+
+        val noteEvent = note.event
+
+        userToComposeOn.let { user ->
+            var hasNewMessages by remember { mutableStateOf<Boolean>(false) }
+
+            LaunchedEffect(key1 = notificationCache, key2 = note) {
+                withContext(Dispatchers.IO) {
+                    noteEvent?.let {
+                        hasNewMessages = it.createdAt() > notificationCache.cache.load(
+          
