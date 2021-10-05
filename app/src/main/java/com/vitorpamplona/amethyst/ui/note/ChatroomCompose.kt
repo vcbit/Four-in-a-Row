@@ -120,4 +120,17 @@ fun ChatroomCompose(
                         style = LocalTextStyle.current.copy(textDirection = TextDirection.Content)
                     )
                 },
-               
+                channelLastTime = note.createdAt(),
+                channelLastContent = "${author?.toBestDisplayName()}: " + description,
+                hasNewMessages = hasNewMessages,
+                onClick = { navController.navigate("Channel/${chan.idHex}") }
+            )
+        }
+    } else {
+        val replyAuthorBase = note.mentions?.first()
+
+        var userToComposeOn = note.author!!
+
+        if (replyAuthorBase != null) {
+            if (note.author == accountViewModel.userProfile()) {
+                
