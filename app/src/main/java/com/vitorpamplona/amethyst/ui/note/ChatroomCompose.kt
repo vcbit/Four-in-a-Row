@@ -174,4 +174,17 @@ fun ChatroomCompose(
 fun ChannelName(
     channelIdHex: String,
     channelPicture: String?,
-    channelTitle: @Composable (Modif
+    channelTitle: @Composable (Modifier) -> Unit,
+    channelLastTime: Long?,
+    channelLastContent: String?,
+    hasNewMessages: Boolean,
+    onClick: () -> Unit
+) {
+    ChannelName(
+        channelPicture = {
+            RobohashAsyncImageProxy(
+                robot = channelIdHex,
+                model = ResizeImage(channelPicture, 55.dp),
+                contentDescription = stringResource(R.string.channel_image),
+                modifier = Modifier
+                    .width(55.dp
