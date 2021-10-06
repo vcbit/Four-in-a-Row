@@ -160,4 +160,18 @@ fun ChatroomCompose(
                         size = 55.dp
                     )
                 },
-                channelTitle = { UsernameDisplay(use
+                channelTitle = { UsernameDisplay(userToComposeOn, it) },
+                channelLastTime = note.createdAt(),
+                channelLastContent = accountViewModel.decrypt(note),
+                hasNewMessages = hasNewMessages,
+                onClick = { navController.navigate("Room/${user.pubkeyHex}") }
+            )
+        }
+    }
+}
+
+@Composable
+fun ChannelName(
+    channelIdHex: String,
+    channelPicture: String?,
+    channelTitle: @Composable (Modif
