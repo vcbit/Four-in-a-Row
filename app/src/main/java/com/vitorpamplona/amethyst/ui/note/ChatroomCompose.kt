@@ -187,4 +187,27 @@ fun ChannelName(
                 model = ResizeImage(channelPicture, 55.dp),
                 contentDescription = stringResource(R.string.channel_image),
                 modifier = Modifier
-                    .width(55.dp
+                    .width(55.dp)
+                    .height(55.dp)
+                    .clip(shape = CircleShape)
+            )
+        },
+        channelTitle,
+        channelLastTime,
+        channelLastContent,
+        hasNewMessages,
+        onClick
+    )
+}
+
+@Composable
+fun ChannelName(
+    channelPicture: @Composable () -> Unit,
+    channelTitle: @Composable (Modifier) -> Unit,
+    channelLastTime: Long?,
+    channelLastContent: String?,
+    hasNewMessages: Boolean,
+    onClick: () -> Unit
+) {
+    val context = LocalContext.current
+    C
