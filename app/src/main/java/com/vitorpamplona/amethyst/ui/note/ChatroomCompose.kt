@@ -210,4 +210,16 @@ fun ChannelName(
     onClick: () -> Unit
 ) {
     val context = LocalContext.current
-    C
+    Column(modifier = Modifier.clickable(onClick = onClick)) {
+        Row(
+            modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 10.dp)
+        ) {
+            channelPicture()
+
+            Column(
+                modifier = Modifier.padding(start = 10.dp),
+                verticalArrangement = Arrangement.SpaceAround
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+ 
