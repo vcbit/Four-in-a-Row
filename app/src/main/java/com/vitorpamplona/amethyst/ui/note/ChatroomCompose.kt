@@ -222,4 +222,17 @@ fun ChannelName(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
- 
+                    modifier = Modifier.padding(bottom = 4.dp)
+                ) {
+                    channelTitle(Modifier.weight(1f))
+
+                    channelLastTime?.let {
+                        Text(
+                            timeAgo(channelLastTime, context),
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.52f)
+                        )
+                    }
+                }
+
+                Row(
+           
