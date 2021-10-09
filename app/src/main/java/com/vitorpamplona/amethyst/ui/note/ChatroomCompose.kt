@@ -235,4 +235,13 @@ fun ChannelName(
                 }
 
                 Row(
-           
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (channelLastContent != null) {
+                        Text(
+                            channelLastContent,
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.52f),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            st
