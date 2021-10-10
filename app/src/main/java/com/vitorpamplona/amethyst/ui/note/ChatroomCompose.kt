@@ -275,4 +275,18 @@ fun ChannelName(
 fun NewItemsBubble() {
     Box(
         modifier = Modifier
-            .padding(
+            .padding(start = 3.dp)
+            .width(10.dp)
+            .height(10.dp)
+            .clip(shape = CircleShape)
+            .background(MaterialTheme.colors.primary),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            "",
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            fontSize = 12.sp,
+            modifier = Modifier
+                .wrapContentHeight()
+                .align(Alignment.Cente
