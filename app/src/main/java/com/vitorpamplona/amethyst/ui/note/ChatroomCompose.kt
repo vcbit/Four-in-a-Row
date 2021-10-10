@@ -289,4 +289,7 @@ fun NewItemsBubble() {
             fontSize = 12.sp,
             modifier = Modifier
                 .wrapContentHeight()
-                .align(Alignment.Cente
+                .align(Alignment.Center)
+        )
+    }
+}
