@@ -252,4 +252,27 @@ fun ChannelName(
                             stringResource(R.string.referenced_event_not_found),
                             color = MaterialTheme.colors.onSurface.copy(alpha = 0.52f),
                             maxLines = 1,
-                            overflow = TextOverf
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+
+                    if (hasNewMessages) {
+                        NewItemsBubble()
+                    }
+                }
+            }
+        }
+
+        Divider(
+            modifier = Modifier.padding(top = 10.dp),
+            thickness = 0.25.dp
+        )
+    }
+}
+
+@Composable
+fun NewItemsBubble() {
+    Box(
+        modifier = Modifier
+            .padding(
