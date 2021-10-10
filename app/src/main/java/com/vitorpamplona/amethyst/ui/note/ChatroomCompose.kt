@@ -244,4 +244,12 @@ fun ChannelName(
                             color = MaterialTheme.colors.onSurface.copy(alpha = 0.52f),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            st
+                            style = LocalTextStyle.current.copy(textDirection = TextDirection.Content),
+                            modifier = Modifier.weight(1f)
+                        )
+                    } else {
+                        Text(
+                            stringResource(R.string.referenced_event_not_found),
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.52f),
+                            maxLines = 1,
+                            overflow = TextOverf
