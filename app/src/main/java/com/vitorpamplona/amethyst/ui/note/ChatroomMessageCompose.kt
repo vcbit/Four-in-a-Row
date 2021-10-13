@@ -50,3 +50,11 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.accompanist.flowlayout.FlowRow
+import com.vitorpamplona.amethyst.NotificationCache
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.model.Note
+import com.vitorpamplona.amethyst.service.model.ChannelCreateEvent
+import com.vitorpamplona.amethyst.service.model.ChannelMessageEvent
+import com.vitorpamplona.amethyst.service.model.ChannelMetadataEvent
+import com.vitorpamplona.amethyst.ui.components.Resiz
