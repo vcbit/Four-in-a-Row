@@ -57,4 +57,13 @@ import com.vitorpamplona.amethyst.model.Note
 import com.vitorpamplona.amethyst.service.model.ChannelCreateEvent
 import com.vitorpamplona.amethyst.service.model.ChannelMessageEvent
 import com.vitorpamplona.amethyst.service.model.ChannelMetadataEvent
-import com.vitorpamplona.amethyst.ui.components.Resiz
+import com.vitorpamplona.amethyst.ui.components.ResizeImage
+import com.vitorpamplona.amethyst.ui.components.RobohashAsyncImageProxy
+import com.vitorpamplona.amethyst.ui.components.RobohashFallbackAsyncImage
+import com.vitorpamplona.amethyst.ui.components.TranslateableRichTextViewer
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+val ChatBubbleShapeMe = RoundedCornerShape(15.dp, 15.dp, 3.dp, 15.dp)
+val 
