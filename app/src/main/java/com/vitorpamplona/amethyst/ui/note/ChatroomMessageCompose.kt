@@ -66,4 +66,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 val ChatBubbleShapeMe = RoundedCornerShape(15.dp, 15.dp, 3.dp, 15.dp)
-val 
+val ChatBubbleShapeThem = RoundedCornerShape(3.dp, 15.dp, 15.dp, 15.dp)
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ChatroomMessageCompose(
+    baseNote: Note,
+    routeForLastRead: String?,
+    innerQuote: Boolean = false,
+    parentBackgroundColor: Color? = null,
+    accountViewModel: AccountViewModel,
+    navController: NavController,
+    onWantsToReply: (Note) -> Unit
+) {
+    val noteState by baseNote.live().metadata.observeAsState()
+    val note = noteState?.note
+
+    val accountSta
