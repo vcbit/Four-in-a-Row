@@ -111,4 +111,15 @@ fun ChatroomMessageCompose(
         var alignment: Arrangement.Horizontal
         var shape: Shape
 
-        if (note.author =
+        if (note.author == accountUser) {
+            backgroundBubbleColor = MaterialTheme.colors.primary.copy(alpha = 0.32f)
+            alignment = Arrangement.End
+            shape = ChatBubbleShapeMe
+        } else {
+            backgroundBubbleColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+            alignment = Arrangement.Start
+            shape = ChatBubbleShapeThem
+        }
+
+        if (parentBackgroundColor != null) {
+            backgroundBubbleColor = backgroundBubbleColor.compositeOver(parentBackgro
