@@ -96,4 +96,19 @@ fun ChatroomMessageCompose(
     val context = LocalContext.current.applicationContext
 
     if (note?.event == null) {
-        BlankNote(Modi
+        BlankNote(Modifier)
+    } else if (!account.isAcceptable(noteForReports) && !showHiddenNote) {
+        HiddenNote(
+            account.getRelevantReports(noteForReports),
+            account.userProfile(),
+            Modifier,
+            innerQuote,
+            navController,
+            onClick = { showHiddenNote = true }
+        )
+    } else {
+        var backgroundBubbleColor: Color
+        var alignment: Arrangement.Horizontal
+        var shape: Shape
+
+        if (note.author =
