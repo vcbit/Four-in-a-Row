@@ -151,4 +151,19 @@ fun ChatroomMessageCompose(
                     .fillMaxWidth(1f)
                     .padding(
                         start = 12.dp,
-                 
+                        end = 12.dp,
+                        top = 5.dp,
+                        bottom = 5.dp
+                    )
+            }
+
+            Row(
+                modifier = modif,
+                horizontalArrangement = alignment
+            ) {
+                var availableBubbleSize by remember { mutableStateOf(IntSize.Zero) }
+                val modif2 = if (innerQuote) Modifier else Modifier.fillMaxWidth(0.85f)
+
+                Row(
+                    horizontalArrangement = alignment,
+                    modi
