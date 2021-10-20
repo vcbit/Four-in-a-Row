@@ -166,4 +166,15 @@ fun ChatroomMessageCompose(
 
                 Row(
                     horizontalArrangement = alignment,
-                    modi
+                    modifier = modif2.onSizeChanged {
+                        availableBubbleSize = it
+                    }
+                ) {
+                    Surface(
+                        color = backgroundBubbleColor,
+                        shape = shape,
+                        modifier = Modifier
+                            .combinedClickable(
+                                onClick = { },
+                                onLongClick = { popupExpanded = true }
+         
