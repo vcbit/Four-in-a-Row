@@ -135,4 +135,20 @@ fun ChatroomMessageCompose(
                     val lastTime = NotificationCache.load(it)
 
                     val createdAt = note.createdAt()
-        
+                    if (createdAt != null) {
+                        NotificationCache.markAsRead(it, createdAt)
+                        isNew = createdAt > lastTime
+                    }
+                }
+            }
+        }
+
+        Column() {
+            val modif = if (innerQuote) {
+                Modifier.padding(top = 10.dp, end = 5.dp)
+            } else {
+                Modifier
+                    .fillMaxWidth(1f)
+                    .padding(
+                        start = 12.dp,
+                 
