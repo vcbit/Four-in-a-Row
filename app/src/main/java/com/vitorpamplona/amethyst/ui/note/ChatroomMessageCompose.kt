@@ -122,4 +122,17 @@ fun ChatroomMessageCompose(
         }
 
         if (parentBackgroundColor != null) {
-            backgroundBubbleColor = backgroundBubbleColor.compositeOver(parentBackgro
+            backgroundBubbleColor = backgroundBubbleColor.compositeOver(parentBackgroundColor)
+        } else {
+            backgroundBubbleColor = backgroundBubbleColor.compositeOver(MaterialTheme.colors.background)
+        }
+
+        var isNew by remember { mutableStateOf<Boolean>(false) }
+
+        LaunchedEffect(key1 = routeForLastRead) {
+            routeForLastRead?.let {
+                withContext(Dispatchers.IO) {
+                    val lastTime = NotificationCache.load(it)
+
+                    val createdAt = note.createdAt()
+        
