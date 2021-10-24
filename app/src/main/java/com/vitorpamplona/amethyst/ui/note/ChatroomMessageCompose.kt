@@ -188,4 +188,12 @@ fun ChatroomMessageCompose(
                                     bubbleSize = it
                                 }
                         ) {
-                        
+                            val authorState by note.author!!.live().metadata.observeAsState()
+                            val author = authorState?.user!!
+
+                            if (innerQuote || author != accountUser && note.event is ChannelMessageEvent) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = alignment,
+                                    modifier = Modifier.padding(top = 5.dp)
+      
