@@ -177,4 +177,15 @@ fun ChatroomMessageCompose(
                             .combinedClickable(
                                 onClick = { },
                                 onLongClick = { popupExpanded = true }
-         
+                            )
+                    ) {
+                        var bubbleSize by remember { mutableStateOf(IntSize.Zero) }
+
+                        Column(
+                            modifier = Modifier
+                                .padding(start = 10.dp, end = 5.dp, bottom = 5.dp)
+                                .onSizeChanged {
+                                    bubbleSize = it
+                                }
+                        ) {
+                        
