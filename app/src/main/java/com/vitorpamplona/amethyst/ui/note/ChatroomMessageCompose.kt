@@ -212,4 +212,11 @@ fun ChatroomMessageCompose(
                                             })
                                     )
 
-            
+                                    Text(
+                                        "  ${author.toBestDisplayName()}",
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.clickable(onClick = {
+                                            author.let {
+                                                navController.navigate("User/${it.pubkeyHex}")
+                                            }
+                 
