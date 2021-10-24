@@ -196,4 +196,11 @@ fun ChatroomMessageCompose(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = alignment,
                                     modifier = Modifier.padding(top = 5.dp)
-      
+                                ) {
+                                    RobohashAsyncImageProxy(
+                                        robot = author.pubkeyHex,
+                                        model = ResizeImage(author.profilePicture(), 25.dp),
+                                        contentDescription = stringResource(id = R.string.profile_image),
+                                        modifier = Modifier
+                                            .width(25.dp)
+                                 
