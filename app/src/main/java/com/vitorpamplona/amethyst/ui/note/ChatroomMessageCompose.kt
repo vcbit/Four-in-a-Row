@@ -203,4 +203,13 @@ fun ChatroomMessageCompose(
                                         contentDescription = stringResource(id = R.string.profile_image),
                                         modifier = Modifier
                                             .width(25.dp)
-                                 
+                                            .height(25.dp)
+                                            .clip(shape = CircleShape)
+                                            .clickable(onClick = {
+                                                author.let {
+                                                    navController.navigate("User/${it.pubkeyHex}")
+                                                }
+                                            })
+                                    )
+
+            
