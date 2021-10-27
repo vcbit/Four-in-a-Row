@@ -219,4 +219,13 @@ fun ChatroomMessageCompose(
                                             author.let {
                                                 navController.navigate("User/${it.pubkeyHex}")
                                             }
-                 
+                                        })
+                                    )
+                                }
+                            }
+
+                            val replyTo = note.replyTo
+                            if (!innerQuote && !replyTo.isNullOrEmpty()) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    replyTo.toSet().mapIndexed { _, note ->
+                                        if (note.event != 
