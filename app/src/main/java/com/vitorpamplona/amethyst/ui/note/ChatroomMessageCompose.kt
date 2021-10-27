@@ -235,4 +235,15 @@ fun ChatroomMessageCompose(
                                                 innerQuote = true,
                                                 parentBackgroundColor = backgroundBubbleColor,
                                                 accountViewModel = accountViewModel,
-                                                navController =
+                                                navController = navController,
+                                                onWantsToReply = onWantsToReply
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                val event = note.event
+                                if (event is ChannelCreateEvent) {
+                                    
