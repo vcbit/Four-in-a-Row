@@ -228,4 +228,11 @@ fun ChatroomMessageCompose(
                             if (!innerQuote && !replyTo.isNullOrEmpty()) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     replyTo.toSet().mapIndexed { _, note ->
-                                        if (note.event != 
+                                        if (note.event != null) {
+                                            ChatroomMessageCompose(
+                                                note,
+                                                null,
+                                                innerQuote = true,
+                                                parentBackgroundColor = backgroundBubbleColor,
+                                                accountViewModel = accountViewModel,
+                                                navController =
