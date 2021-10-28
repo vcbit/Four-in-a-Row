@@ -261,4 +261,10 @@ fun ChatroomMessageCompose(
                                     )
                                 } else if (event is ChannelMetadataEvent) {
                                     Text(
-                                  
+                                        text = note.author?.toBestDisplayName()
+                                            .toString() + " ${stringResource(R.string.changed_chat_name_to)} '" + (
+                                            event.channelInfo().name
+                                                ?: ""
+                                            ) + "$', {stringResource(R.string.description_to)} '" + (
+                                            event.channelInfo().about
+                                     
