@@ -246,4 +246,11 @@ fun ChatroomMessageCompose(
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 val event = note.event
                                 if (event is ChannelCreateEvent) {
-                                    
+                                    Text(
+                                        text = note.author?.toBestDisplayName()
+                                            .toString() + " ${stringResource(R.string.created)} " + (
+                                            event.channelInfo().name
+                                                ?: ""
+                                            ) + " ${stringResource(R.string.with_description_of)} '" + (
+                                            event.channelInfo().about
+ 
