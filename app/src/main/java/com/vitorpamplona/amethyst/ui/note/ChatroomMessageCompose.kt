@@ -253,4 +253,12 @@ fun ChatroomMessageCompose(
                                                 ?: ""
                                             ) + " ${stringResource(R.string.with_description_of)} '" + (
                                             event.channelInfo().about
- 
+                                                ?: ""
+                                            ) + "', ${stringResource(R.string.and_picture)} '" + (
+                                            event.channelInfo().picture
+                                                ?: ""
+                                            ) + "'"
+                                    )
+                                } else if (event is ChannelMetadataEvent) {
+                                    Text(
+                                  
