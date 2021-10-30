@@ -276,4 +276,12 @@ fun ChatroomMessageCompose(
                                 } else {
                                     val eventContent = accountViewModel.decrypt(note)
 
-                                    val can
+                                    val canPreview = note.author == accountUser ||
+                                        (note.author?.let { accountUser.isFollowing(it) } ?: true) ||
+                                        !noteForReports.hasAnyReports()
+
+                                    if (eventContent != null) {
+                                        TranslateableRichTextViewer(
+                                            eventContent,
+                                            canPreview,
+                                    
