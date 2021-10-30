@@ -267,4 +267,13 @@ fun ChatroomMessageCompose(
                                                 ?: ""
                                             ) + "$', {stringResource(R.string.description_to)} '" + (
                                             event.channelInfo().about
-                                     
+                                                ?: ""
+                                            ) + "', ${stringResource(R.string.and_picture_to)} '" + (
+                                            event.channelInfo().picture
+                                                ?: ""
+                                            ) + "'"
+                                    )
+                                } else {
+                                    val eventContent = accountViewModel.decrypt(note)
+
+                                    val can
