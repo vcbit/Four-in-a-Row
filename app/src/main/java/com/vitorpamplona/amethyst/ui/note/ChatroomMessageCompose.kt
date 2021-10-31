@@ -284,4 +284,12 @@ fun ChatroomMessageCompose(
                                         TranslateableRichTextViewer(
                                             eventContent,
                                             canPreview,
-                                    
+                                            Modifier,
+                                            note.event?.tags(),
+                                            backgroundBubbleColor,
+                                            accountViewModel,
+                                            navController
+                                        )
+                                    } else {
+                                        TranslateableRichTextViewer(
+                                           
