@@ -310,4 +310,14 @@ fun ChatroomMessageCompose(
                                 modifier = Modifier
                                     .padding(top = 5.dp)
                                     .then(
-                                        wit
+                                        with(LocalDensity.current) {
+                                            Modifier.widthIn(
+                                                bubbleSize.width.toDp(),
+                                                availableBubbleSize.width.toDp()
+                                            )
+                                        }
+                                    )
+                            ) {
+                                Row() {
+                                    Text(
+            
