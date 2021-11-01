@@ -300,4 +300,14 @@ fun ChatroomMessageCompose(
                                             accountViewModel,
                                             navController
                                         )
-         
+                                    }
+                                }
+                            }
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier
+                                    .padding(top = 5.dp)
+                                    .then(
+                                        wit
