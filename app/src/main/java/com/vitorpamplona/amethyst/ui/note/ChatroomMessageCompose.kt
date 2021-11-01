@@ -320,4 +320,14 @@ fun ChatroomMessageCompose(
                             ) {
                                 Row() {
                                     Text(
-            
+                                        timeAgoShort(note.createdAt(), context),
+                                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                                        fontSize = 12.sp
+                                    )
+
+                                    RelayBadges(note)
+
+                                    Spacer(modifier = Modifier.width(10.dp))
+                                }
+
+                                R
