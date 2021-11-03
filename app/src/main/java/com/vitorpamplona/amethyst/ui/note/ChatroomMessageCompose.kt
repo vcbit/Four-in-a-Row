@@ -330,4 +330,10 @@ fun ChatroomMessageCompose(
                                     Spacer(modifier = Modifier.width(10.dp))
                                 }
 
-                                R
+                                Row() {
+                                    LikeReaction(baseNote, accountViewModel)
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    ZapReaction(baseNote, accountViewModel)
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    ReplyReaction(baseNote, accountViewModel, showCounter = false) {
+                                        onWantsToR
