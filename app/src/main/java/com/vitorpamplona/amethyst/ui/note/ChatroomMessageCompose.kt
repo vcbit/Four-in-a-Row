@@ -336,4 +336,21 @@ fun ChatroomMessageCompose(
                                     ZapReaction(baseNote, accountViewModel)
                                     Spacer(modifier = Modifier.width(5.dp))
                                     ReplyReaction(baseNote, accountViewModel, showCounter = false) {
-                                        onWantsToR
+                                        onWantsToReply(baseNote)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                NoteDropDownMenu(note, popupExpanded, { popupExpanded = false }, accountViewModel)
+            }
+        }
+    }
+}
+
+@Composable
+private fun RelayBadges(baseNote: Note) {
+    val noteRelaysState by baseNote.live().relays.observeAsState()
+    val noteRelays = noteRel
