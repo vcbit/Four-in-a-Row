@@ -377,4 +377,18 @@ private fun RelayBadges(baseNote: Note) {
                     modifier = Modifier
                         .fillMaxSize(1f)
                         .clip(shape = CircleShape)
-                        .background(Materi
+                        .background(MaterialTheme.colors.background)
+                        .clickable(onClick = { uri.openUri("https://$url") })
+                )
+            }
+        }
+
+        if (noteRelays.size > 3 && !expanded) {
+            IconButton(
+                modifier = Modifier.then(Modifier.size(15.dp)),
+                onClick = { expanded = true }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ChevronRight,
+                    null,
+   
