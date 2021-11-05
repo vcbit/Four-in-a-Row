@@ -369,4 +369,12 @@ private fun RelayBadges(baseNote: Note) {
                     .size(15.dp)
                     .padding(1.dp)
             ) {
-                R
+                RobohashFallbackAsyncImage(
+                    robot = "https://$url/favicon.ico",
+                    model = "https://$url/favicon.ico",
+                    contentDescription = stringResource(id = R.string.relay_icon),
+                    colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) }),
+                    modifier = Modifier
+                        .fillMaxSize(1f)
+                        .clip(shape = CircleShape)
+                        .background(Materi
