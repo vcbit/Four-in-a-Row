@@ -353,4 +353,20 @@ fun ChatroomMessageCompose(
 @Composable
 private fun RelayBadges(baseNote: Note) {
     val noteRelaysState by baseNote.live().relays.observeAsState()
-    val noteRelays = noteRel
+    val noteRelays = noteRelaysState?.note?.relays ?: emptySet()
+
+    var expanded by remember { mutableStateOf(false) }
+
+    val relaysToDisplay = if (expanded) noteRelays else noteRelays.take(3)
+
+    val uri = LocalUriHandler.current
+
+    FlowRow(Modifier.padding(start = 10.dp)) {
+        relaysToDisplay.forEach {
+            val url = it.removePrefix("wss://")
+            Box(
+                Modifier
+                    .size(15.dp)
+                    .padding(1.dp)
+            ) {
+                R
