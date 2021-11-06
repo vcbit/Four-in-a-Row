@@ -26,4 +26,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowRow
-import com.vitorpamplona.
+import com.vitorpamplona.amethyst.NotificationCache
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.service.model.ChannelMessageEvent
+import com.vitorpamplona.amethyst.ui.screen.LikeSetCard
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, routeForLastRead: Strin
