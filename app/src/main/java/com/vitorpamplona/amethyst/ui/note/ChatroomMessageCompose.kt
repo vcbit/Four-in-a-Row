@@ -391,4 +391,10 @@ private fun RelayBadges(baseNote: Note) {
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
                     null,
-   
+                    modifier = Modifier.size(15.dp),
+                    tint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                )
+            }
+        }
+    }
+}
