@@ -36,4 +36,17 @@ import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, routeForLastRead: Strin
+fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, routeForLastRead: String, accountViewModel: AccountViewModel, navController: NavController) {
+    val noteState by likeSetCard.note.live().metadata.observeAsState()
+    val note = noteState?.note
+
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    val noteEvent = note?.event
+    var popupExpanded by remember { mutableStateOf(false) }
+
+    if (note == null) {
+        BlankNote(Modifier, isInnerNote)
+    } else {
+        var isNew by remember 
