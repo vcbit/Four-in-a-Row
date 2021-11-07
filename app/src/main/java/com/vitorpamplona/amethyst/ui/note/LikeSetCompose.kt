@@ -49,4 +49,16 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
     if (note == null) {
         BlankNote(Modifier, isInnerNote)
     } else {
-        var isNew by remember 
+        var isNew by remember { mutableStateOf<Boolean>(false) }
+
+        LaunchedEffect(key1 = likeSetCard) {
+            withContext(Dispatchers.IO) {
+                isNew = likeSetCard.createdAt > NotificationCache.load(routeForLastRead)
+
+                NotificationCache.markAsRead(routeForLastRead, likeSetCard.createdAt)
+            }
+        }
+
+        val backgroundColor = if (isNew) {
+            MaterialTheme.colors.primary.copy(0.12f).compositeOver(MaterialTheme.colors.background)
+     
