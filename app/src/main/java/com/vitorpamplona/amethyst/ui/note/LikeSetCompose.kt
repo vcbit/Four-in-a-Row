@@ -61,4 +61,16 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
 
         val backgroundColor = if (isNew) {
             MaterialTheme.colors.primary.copy(0.12f).compositeOver(MaterialTheme.colors.background)
-     
+        } else {
+            MaterialTheme.colors.background
+        }
+
+        Column(
+            modifier = Modifier.background(backgroundColor).combinedClickable(
+                onClick = {
+                    if (noteEvent !is ChannelMessageEvent) {
+                        navController.navigate("Note/${note.idHex}") {
+                            launchSingleTop = true
+                        }
+                    } else {
+                     
