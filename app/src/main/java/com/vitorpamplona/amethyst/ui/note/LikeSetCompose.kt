@@ -73,4 +73,17 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
                             launchSingleTop = true
                         }
                     } else {
-                     
+                        note.channel()?.let {
+                            navController.navigate("Channel/${it.idHex}")
+                        }
+                    }
+                },
+                onLongClick = { popupExpanded = true }
+            )
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(
+                        start = if (!isInnerNote) 12.dp else 0.dp,
+                        end = if (!isInnerNote) 12.dp else 0.dp,
+                        
