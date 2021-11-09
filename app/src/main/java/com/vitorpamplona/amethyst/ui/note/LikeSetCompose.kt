@@ -86,4 +86,16 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
                     .padding(
                         start = if (!isInnerNote) 12.dp else 0.dp,
                         end = if (!isInnerNote) 12.dp else 0.dp,
-                        
+                        top = 10.dp
+                    )
+            ) {
+                // Draws the like picture outside the boosted card.
+                if (!isInnerNote) {
+                    Box(
+                        modifier = Modifier
+                            .width(55.dp)
+                            .padding(0.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_liked),
+                 
