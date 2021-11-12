@@ -98,4 +98,15 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_liked),
-                 
+                            null,
+                            modifier = Modifier.size(16.dp).align(Alignment.TopEnd),
+                            tint = Color.Unspecified
+                        )
+                    }
+                }
+
+                Column(modifier = Modifier.padding(start = if (!isInnerNote) 10.dp else 0.dp)) {
+                    FlowRow() {
+                        likeSetCard.likeEvents.forEach {
+                            NoteAuthorPicture(
+                      
