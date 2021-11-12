@@ -1,3 +1,4 @@
+
 package com.vitorpamplona.amethyst.ui.note
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -20,28 +21,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.google.accompanist.flowlayout.FlowRow
 import com.vitorpamplona.amethyst.NotificationCache
 import com.vitorpamplona.amethyst.R
 import com.vitorpamplona.amethyst.service.model.ChannelMessageEvent
-import com.vitorpamplona.amethyst.ui.screen.LikeSetCard
+import com.vitorpamplona.amethyst.ui.screen.MessageSetCard
 import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, routeForLastRead: String, accountViewModel: AccountViewModel, navController: NavController) {
-    val noteState by likeSetCard.note.live().metadata.observeAsState()
+fun MessageSetCompose(messageSetCard: MessageSetCard, isInnerNote: Boolean = false, routeForLastRead: String, accountViewModel: AccountViewModel, navController: NavController) {
+    val noteState by messageSetCard.note.live().metadata.observeAsState()
     val note = noteState?.note
-
-    val accountState by accountViewModel.accountLiveData.observeAsState()
-    val account = accountState?.account ?: return
 
     val noteEvent = note?.event
     var popupExpanded by remember { mutableStateOf(false) }
@@ -51,11 +47,12 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
     } else {
         var isNew by remember { mutableStateOf<Boolean>(false) }
 
-        LaunchedEffect(key1 = likeSetCard) {
+        LaunchedEffect(key1 = messageSetCard) {
             withContext(Dispatchers.IO) {
-                isNew = likeSetCard.createdAt > NotificationCache.load(routeForLastRead)
+                isNew =
+                    messageSetCard.createdAt() > NotificationCache.load(routeForLastRead)
 
-                NotificationCache.markAsRead(routeForLastRead, likeSetCard.createdAt)
+                NotificationCache.markAsRead(routeForLastRead, messageSetCard.createdAt())
             }
         }
 
@@ -94,34 +91,23 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
                     Box(
                         modifier = Modifier
                             .width(55.dp)
-                            .padding(0.dp)
+                            .padding(top = 5.dp)
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_liked),
+                            painter = painterResource(R.drawable.ic_dm),
                             null,
                             modifier = Modifier.size(16.dp).align(Alignment.TopEnd),
-                            tint = Color.Unspecified
+                            tint = MaterialTheme.colors.primary
                         )
                     }
                 }
 
                 Column(modifier = Modifier.padding(start = if (!isInnerNote) 10.dp else 0.dp)) {
-                    FlowRow() {
-                        likeSetCard.likeEvents.forEach {
-                            NoteAuthorPicture(
-                                note = it,
-                                navController = navController,
-                                userAccount = account.userProfile(),
-                                size = 35.dp
-                            )
-                        }
-                    }
-
                     NoteCompose(
                         baseNote = note,
                         routeForLastRead = null,
-                        modifier = Modifier.padding(top = 5.dp),
                         isBoostedNote = true,
+                        addMarginTop = false,
                         parentBackgroundColor = backgroundColor,
                         accountViewModel = accountViewModel,
                         navController = navController
@@ -131,5 +117,3 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
                 }
             }
         }
-    }
-}
