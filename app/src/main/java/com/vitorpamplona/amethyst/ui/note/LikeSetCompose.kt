@@ -109,4 +109,16 @@ fun LikeSetCompose(likeSetCard: LikeSetCard, isInnerNote: Boolean = false, route
                     FlowRow() {
                         likeSetCard.likeEvents.forEach {
                             NoteAuthorPicture(
-                      
+                                note = it,
+                                navController = navController,
+                                userAccount = account.userProfile(),
+                                size = 35.dp
+                            )
+                        }
+                    }
+
+                    NoteCompose(
+                        baseNote = note,
+                        routeForLastRead = null,
+                        modifier = Modifier.padding(top = 5.dp),
+                        isBoostedNote 
