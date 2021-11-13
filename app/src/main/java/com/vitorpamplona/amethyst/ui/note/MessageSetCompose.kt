@@ -117,3 +117,5 @@ fun MessageSetCompose(messageSetCard: MessageSetCard, isInnerNote: Boolean = fal
                 }
             }
         }
+    }
+}
