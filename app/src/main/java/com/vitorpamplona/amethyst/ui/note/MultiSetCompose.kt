@@ -40,4 +40,19 @@ import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accountViewModel: AccountViewModel,
+fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accountViewModel: AccountViewModel, navController: NavController) {
+    val noteState by multiSetCard.note.live().metadata.observeAsState()
+    val note = noteState?.note
+
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    val noteEvent = note?.event
+    var popupExpanded by remember { mutableStateOf(false) }
+
+    if (note == null) {
+        BlankNote(Modifier, false)
+    } else {
+        var isNew by remember { mutableStateOf<Boolean>(false) }
+
+        La
