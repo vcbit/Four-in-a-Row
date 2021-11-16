@@ -69,4 +69,15 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
             MaterialTheme.colors.background
         }
 
-        Colum
+        Column(
+            modifier = Modifier
+                .background(backgroundColor)
+                .combinedClickable(
+                    onClick = {
+                        if (noteEvent !is ChannelMessageEvent) {
+                            navController.navigate("Note/${note.idHex}") {
+                                launchSingleTop = true
+                            }
+                        } else {
+                            note.channel()?.let {
+                                navController.
