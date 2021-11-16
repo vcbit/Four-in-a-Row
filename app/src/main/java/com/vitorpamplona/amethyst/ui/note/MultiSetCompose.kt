@@ -55,4 +55,18 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
     } else {
         var isNew by remember { mutableStateOf<Boolean>(false) }
 
-        La
+        LaunchedEffect(key1 = multiSetCard) {
+            withContext(Dispatchers.IO) {
+                isNew = multiSetCard.createdAt > NotificationCache.load(routeForLastRead)
+
+                NotificationCache.markAsRead(routeForLastRead, multiSetCard.createdAt)
+            }
+        }
+
+        val backgroundColor = if (isNew) {
+            MaterialTheme.colors.primary.copy(0.12f).compositeOver(MaterialTheme.colors.background)
+        } else {
+            MaterialTheme.colors.background
+        }
+
+        Colum
