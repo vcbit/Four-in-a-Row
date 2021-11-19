@@ -80,4 +80,20 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                             }
                         } else {
                             note.channel()?.let {
-                                navController.
+                                navController.navigate("Channel/${it.idHex}")
+                            }
+                        }
+                    },
+                    onLongClick = { popupExpanded = true }
+                )
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(
+                        start = 12.dp,
+                        end = 12.dp,
+                        top = 10.dp
+                    )
+            ) {
+                Column(Modifier.fillMaxWidth()) {
+                    if (multi
