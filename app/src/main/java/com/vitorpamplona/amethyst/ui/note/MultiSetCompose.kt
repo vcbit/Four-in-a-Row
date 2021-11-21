@@ -96,4 +96,14 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                     )
             ) {
                 Column(Modifier.fillMaxWidth()) {
-                    if (multi
+                    if (multiSetCard.zapEvents.isNotEmpty()) {
+                        Row(Modifier.fillMaxWidth()) {
+                            // Draws the like picture outside the boosted card.
+                            Box(
+                                modifier = Modifier
+                                    .width(55.dp)
+                                    .padding(0.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Bolt,
+ 
