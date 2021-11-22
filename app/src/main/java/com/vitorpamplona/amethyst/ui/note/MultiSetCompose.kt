@@ -106,4 +106,13 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Bolt,
- 
+                                    contentDescription = "Zaps",
+                                    tint = BitcoinOrange,
+                                    modifier = Modifier
+                                        .size(25.dp)
+                                        .align(Alignment.TopEnd)
+                                )
+                            }
+
+                            Column(modifier = Modifier.padding(start = 10.dp)) {
+                               
