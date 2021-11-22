@@ -115,4 +115,12 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                             }
 
                             Column(modifier = Modifier.padding(start = 10.dp)) {
-                               
+                                FlowRow() {
+                                    multiSetCard.zapEvents.forEach {
+                                        NoteAuthorPicture(
+                                            note = it.key,
+                                            navController = navController,
+                                            userAccount = account.userProfile(),
+                                            size = 35.dp
+                                        )
+   
