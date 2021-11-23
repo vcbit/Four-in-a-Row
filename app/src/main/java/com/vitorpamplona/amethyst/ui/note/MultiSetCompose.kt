@@ -123,4 +123,17 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                                             userAccount = account.userProfile(),
                                             size = 35.dp
                                         )
-   
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (multiSetCard.boostEvents.isNotEmpty()) {
+                        Row(Modifier.fillMaxWidth()) {
+                            Box(
+                                modifier = Modifier
+                                    .width(55.dp)
+                                    .padding(end = 4.dp)
+                            ) {
+                      
