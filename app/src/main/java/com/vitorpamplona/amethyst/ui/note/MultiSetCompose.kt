@@ -136,4 +136,14 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                                     .width(55.dp)
                                     .padding(end = 4.dp)
                             ) {
-                      
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_retweeted),
+                                    null,
+                                    modifier = Modifier
+                                        .size(18.dp)
+                                        .align(Alignment.TopEnd),
+                                    tint = Color.Unspecified
+                                )
+                            }
+
+                            Column(modifier = Modifier.padding(start =
