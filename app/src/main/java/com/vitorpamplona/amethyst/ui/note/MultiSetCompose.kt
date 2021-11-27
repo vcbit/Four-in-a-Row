@@ -154,4 +154,16 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                                             navController = navController,
                                             userAccount = account.userProfile(),
                                             size = 35.dp
- 
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (multiSetCard.likeEvents.isNotEmpty()) {
+                        Row(Modifier.fillMaxWidth()) {
+                            Box(
+                                modifier = Modifier
+                                    .width(55.dp)
+                                    .
