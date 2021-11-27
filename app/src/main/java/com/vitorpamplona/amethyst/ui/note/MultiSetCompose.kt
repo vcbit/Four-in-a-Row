@@ -166,4 +166,14 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                             Box(
                                 modifier = Modifier
                                     .width(55.dp)
-                                    .
+                                    .padding(end = 5.dp)
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_liked),
+                                    null,
+                                    modifier = Modifier
+                                        .size(16.dp)
+                                        .align(Alignment.TopEnd),
+                                    tint = Color.Unspecified
+                                )
+           
