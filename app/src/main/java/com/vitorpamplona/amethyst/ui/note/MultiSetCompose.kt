@@ -176,4 +176,12 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                                         .align(Alignment.TopEnd),
                                     tint = Color.Unspecified
                                 )
-           
+                            }
+
+                            Column(modifier = Modifier.padding(start = 10.dp)) {
+                                FlowRow() {
+                                    multiSetCard.likeEvents.forEach {
+                                        NoteAuthorPicture(
+                                            note = it,
+                                            navController = navController,
+                                            userAccount = account.userProfile(
