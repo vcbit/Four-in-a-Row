@@ -158,3 +158,48 @@ fun DisplayNip05ProfileStatus(user: User) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (nip05Verified == null) {
                     Icon(
+                        tint = Color.Yellow,
+                        imageVector = Icons.Default.Downloading,
+                        contentDescription = "Downloading",
+                        modifier = Modifier.size(16.dp)
+                    )
+                } else if (nip05Verified == true) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_verified),
+                        "NIP-05 Verified",
+                        tint = Nip05,
+                        modifier = Modifier.size(16.dp)
+                    )
+                } else {
+                    Icon(
+                        tint = Color.Red,
+                        imageVector = Icons.Default.Report,
+                        contentDescription = "Invalid Nip05",
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+
+                var domainPadStart = 5.dp
+
+                if (nip05.split("@")[0] != "_") {
+                    Text(
+                        text = AnnotatedString(nip05.split("@")[0] + "@"),
+                        modifier = Modifier.padding(top = 1.dp, bottom = 1.dp, start = 5.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    domainPadStart = 0.dp
+                }
+
+                ClickableText(
+                    text = AnnotatedString(nip05.split("@")[1]),
+                    onClick = { nip05.let { runCatching { uri.openUri("https://${it.split("@")[1]}") } } },
+                    style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary),
+                    modifier = Modifier.padding(top = 1.dp, bottom = 1.dp, start = domainPadStart),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+    }
+}
