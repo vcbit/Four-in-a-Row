@@ -184,4 +184,17 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                                         NoteAuthorPicture(
                                             note = it,
                                             navController = navController,
-                                            userAccount = account.userProfile(
+                                            userAccount = account.userProfile(),
+                                            size = 35.dp
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Row(Modifier.fillMaxWidth()) {
+                        Box(
+                            modifier = Modifier
+                                .width(65.dp)
+          
