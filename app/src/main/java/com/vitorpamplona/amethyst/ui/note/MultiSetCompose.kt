@@ -197,4 +197,14 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                         Box(
                             modifier = Modifier
                                 .width(65.dp)
-          
+                                .padding(0.dp)
+                        ) {
+                        }
+
+                        NoteCompose(
+                            baseNote = note,
+                            routeForLastRead = null,
+                            modifier = Modifier.padding(top = 5.dp),
+                            isBoostedNote = true,
+                            parentBackgroundColor = backgroundColor,
+      
