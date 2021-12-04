@@ -207,4 +207,14 @@ fun MultiSetCompose(multiSetCard: MultiSetCard, routeForLastRead: String, accoun
                             modifier = Modifier.padding(top = 5.dp),
                             isBoostedNote = true,
                             parentBackgroundColor = backgroundColor,
-      
+                            accountViewModel = accountViewModel,
+                            navController = navController
+                        )
+
+                        NoteDropDownMenu(note, popupExpanded, { popupExpanded = false }, accountViewModel)
+                    }
+                }
+            }
+        }
+    }
+}
