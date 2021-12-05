@@ -430,3 +430,442 @@ fun NoteCompose(
                             accountViewModel,
                             navController
                         )
+
+                        if (!makeItShort) {
+                            ReactionsRow(note, accountViewModel)
+                        }
+
+                        Divider(
+                            modifier = Modifier.padding(top = 10.dp),
+                            thickness = 0.25.dp
+                        )
+                    } else {
+                        val eventContent = accountViewModel.decrypt(note)
+
+                        val canPreview = note.author == account.userProfile() ||
+                            (note.author?.let { account.userProfile().isFollowing(it) } ?: true) ||
+                            !noteForReports.hasAnyReports()
+
+                        if (eventContent != null) {
+                            TranslateableRichTextViewer(
+                                eventContent,
+                                canPreview = canPreview && !makeItShort,
+                                Modifier.fillMaxWidth(),
+                                noteEvent.tags(),
+                                backgroundColor,
+                                accountViewModel,
+                                navController
+                            )
+                        }
+
+                        if (!makeItShort) {
+                            ReactionsRow(note, accountViewModel)
+                        }
+
+                        Divider(
+                            modifier = Modifier.padding(top = 10.dp),
+                            thickness = 0.25.dp
+                        )
+                    }
+
+                    NoteQuickActionMenu(note, popupExpanded, { popupExpanded = false }, accountViewModel)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun BadgeDisplay(baseNote: Note) {
+    val badgeData = baseNote.event as? BadgeDefinitionEvent ?: return
+
+    Row(
+        modifier = Modifier
+            .padding(10.dp)
+            .clip(shape = CutCornerShape(20, 20, 0, 0))
+            .border(
+                5.dp,
+                MaterialTheme.colors.primary.copy(alpha = 0.32f),
+                CutCornerShape(20)
+            )
+    ) {
+        Column {
+            badgeData.image()?.let {
+                AsyncImage(
+                    model = it,
+                    contentDescription = stringResource(
+                        R.string.badge_award_image_for,
+                        it
+                    ),
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            badgeData.name()?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.body1,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, top = 10.dp)
+                )
+            }
+
+            badgeData.description()?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.caption,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
+                    color = Color.Gray,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun LongFormHeader(noteEvent: LongTextNoteEvent) {
+    Row(
+        modifier = Modifier
+            .clip(shape = RoundedCornerShape(15.dp))
+            .border(
+                1.dp,
+                MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
+                RoundedCornerShape(15.dp)
+            )
+    ) {
+        Column {
+            noteEvent.image()?.let {
+                AsyncImage(
+                    model = it,
+                    contentDescription = stringResource(
+                        R.string.preview_card_image_for,
+                        it
+                    ),
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            noteEvent.title()?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, top = 10.dp)
+                )
+            }
+
+            noteEvent.summary()?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
+                    color = Color.Gray,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RelayBadges(baseNote: Note) {
+    val noteRelaysState by baseNote.live().relays.observeAsState()
+    val noteRelays = noteRelaysState?.note?.relays ?: emptySet()
+
+    var expanded by remember { mutableStateOf(false) }
+
+    val relaysToDisplay = if (expanded) noteRelays else noteRelays.take(3)
+
+    val uri = LocalUriHandler.current
+
+    FlowRow(Modifier.padding(top = 10.dp, start = 5.dp, end = 4.dp)) {
+        relaysToDisplay.forEach {
+            val url = it.removePrefix("wss://").removePrefix("ws://")
+            Box(
+                Modifier
+                    .size(15.dp)
+                    .padding(1.dp)
+            ) {
+                RobohashFallbackAsyncImage(
+                    robot = "https://$url/favicon.ico",
+                    model = "https://$url/favicon.ico",
+                    contentDescription = stringResource(R.string.relay_icon),
+                    colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) }),
+                    modifier = Modifier
+                        .fillMaxSize(1f)
+                        .clip(shape = CircleShape)
+                        .background(MaterialTheme.colors.background)
+                        .clickable(onClick = { uri.openUri("https://" + url) })
+                )
+            }
+        }
+    }
+
+    if (noteRelays.size > 3 && !expanded) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .height(25.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Top
+        ) {
+            IconButton(
+                modifier = Modifier.then(Modifier.size(24.dp)),
+                onClick = { expanded = true }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ExpandMore,
+                    null,
+                    modifier = Modifier.size(15.dp),
+                    tint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun NoteAuthorPicture(
+    note: Note,
+    navController: NavController,
+    userAccount: User,
+    size: Dp,
+    pictureModifier: Modifier = Modifier
+) {
+    NoteAuthorPicture(note, userAccount, size, pictureModifier) {
+        navController.navigate("User/${it.pubkeyHex}")
+    }
+}
+
+@Composable
+fun NoteAuthorPicture(
+    baseNote: Note,
+    baseUserAccount: User,
+    size: Dp,
+    modifier: Modifier = Modifier,
+    onClick: ((User) -> Unit)? = null
+) {
+    val noteState by baseNote.live().metadata.observeAsState()
+    val note = noteState?.note ?: return
+
+    val author = note.author
+
+    Box(
+        Modifier
+            .width(size)
+            .height(size)
+    ) {
+        if (author == null) {
+            RobohashAsyncImage(
+                robot = "authornotfound",
+                contentDescription = stringResource(R.string.unknown_author),
+                modifier = modifier
+                    .fillMaxSize(1f)
+                    .clip(shape = CircleShape)
+                    .background(MaterialTheme.colors.background)
+            )
+        } else {
+            UserPicture(author, baseUserAccount, size, modifier, onClick)
+        }
+    }
+}
+
+@Composable
+fun UserPicture(
+    user: User,
+    navController: NavController,
+    userAccount: User,
+    size: Dp,
+    pictureModifier: Modifier = Modifier
+) {
+    UserPicture(user, userAccount, size, pictureModifier) {
+        navController.navigate("User/${it.pubkeyHex}")
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun UserPicture(
+    baseUser: User,
+    baseUserAccount: User,
+    size: Dp,
+    modifier: Modifier = Modifier,
+    onClick: ((User) -> Unit)? = null,
+    onLongClick: ((User) -> Unit)? = null
+) {
+    val userState by baseUser.live().metadata.observeAsState()
+    val user = userState?.user ?: return
+
+    Box(
+        Modifier
+            .width(size)
+            .height(size)
+    ) {
+        RobohashAsyncImageProxy(
+            robot = user.pubkeyHex,
+            model = ResizeImage(user.profilePicture(), size),
+            contentDescription = stringResource(id = R.string.profile_image),
+            modifier = modifier
+                .fillMaxSize(1f)
+                .clip(shape = CircleShape)
+                .background(MaterialTheme.colors.background)
+                .run {
+                    if (onClick != null && onLongClick != null) {
+                        this.combinedClickable(onClick = { onClick(user) }, onLongClick = { onLongClick(user) })
+                    } else if (onClick != null) {
+                        this.clickable(onClick = { onClick(user) })
+                    } else {
+                        this
+                    }
+                }
+
+        )
+
+        val accountState by baseUserAccount.live().follows.observeAsState()
+        val accountUser = accountState?.user ?: return
+
+        if (accountUser.isFollowing(user) || user == accountUser) {
+            Box(
+                Modifier
+                    .width(size.div(3.5f))
+                    .height(size.div(3.5f))
+                    .align(Alignment.TopEnd),
+                contentAlignment = Alignment.Center
+            ) {
+                // Background for the transparent checkmark
+                Box(
+                    Modifier
+                        .clip(CircleShape)
+                        .fillMaxSize(0.6f)
+                        .align(Alignment.Center)
+                        .background(MaterialTheme.colors.background)
+                )
+
+                Icon(
+                    painter = painterResource(R.drawable.ic_verified),
+                    stringResource(id = R.string.following),
+                    modifier = Modifier.fillMaxSize(),
+                    tint = Following
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun NoteDropDownMenu(note: Note, popupExpanded: Boolean, onDismiss: () -> Unit, accountViewModel: AccountViewModel) {
+    val clipboardManager = LocalClipboardManager.current
+    val appContext = LocalContext.current.applicationContext
+    val actContext = LocalContext.current
+
+    DropdownMenu(
+        expanded = popupExpanded,
+        onDismissRequest = onDismiss
+    ) {
+        if (note.author != accountViewModel.accountLiveData.value?.account?.userProfile() && !accountViewModel.accountLiveData.value?.account?.userProfile()!!.isFollowing(note.author!!)) {
+            DropdownMenuItem(onClick = {
+                accountViewModel.follow(
+                    note.author ?: return@DropdownMenuItem
+                ); onDismiss()
+            }) {
+                Text(stringResource(R.string.follow))
+            }
+            Divider()
+        }
+        DropdownMenuItem(onClick = { clipboardManager.setText(AnnotatedString(accountViewModel.decrypt(note) ?: "")); onDismiss() }) {
+            Text(stringResource(R.string.copy_text))
+        }
+        DropdownMenuItem(onClick = { clipboardManager.setText(AnnotatedString("@${note.author?.pubkeyNpub()}")); onDismiss() }) {
+            Text(stringResource(R.string.copy_user_pubkey))
+        }
+        DropdownMenuItem(onClick = { clipboardManager.setText(AnnotatedString(note.idNote())); onDismiss() }) {
+            Text(stringResource(R.string.copy_note_id))
+        }
+        DropdownMenuItem(onClick = {
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain"
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    externalLinkForNote(note)
+                )
+                putExtra(Intent.EXTRA_TITLE, actContext.getString(R.string.quick_action_share_browser_link))
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, appContext.getString(R.string.quick_action_share))
+            ContextCompat.startActivity(actContext, shareIntent, null)
+            onDismiss()
+        }) {
+            Text(stringResource(R.string.quick_action_share))
+        }
+        Divider()
+        DropdownMenuItem(onClick = { accountViewModel.broadcast(note); onDismiss() }) {
+            Text(stringResource(R.string.broadcast))
+        }
+        if (note.author == accountViewModel.accountLiveData.value?.account?.userProfile()) {
+            Divider()
+            DropdownMenuItem(onClick = { accountViewModel.delete(note); onDismiss() }) {
+                Text(stringResource(R.string.request_deletion))
+            }
+        }
+        if (note.author != accountViewModel.accountLiveData.value?.account?.userProfile()) {
+            Divider()
+            DropdownMenuItem(onClick = {
+                note.author?.let {
+                    accountViewModel.hide(it)
+                }; onDismiss()
+            }) {
+                Text(stringResource(R.string.block_hide_user))
+            }
+            Divider()
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(note, ReportEvent.ReportType.SPAM)
+                note.author?.let { accountViewModel.hide(it) }
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.report_spam_scam))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(note, ReportEvent.ReportType.PROFANITY)
+                note.author?.let { accountViewModel.hide(it) }
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.report_hateful_speech))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(note, ReportEvent.ReportType.IMPERSONATION)
+                note.author?.let { accountViewModel.hide(it) }
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.report_impersonation))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(note, ReportEvent.ReportType.NUDITY)
+                note.author?.let { accountViewModel.hide(it) }
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.report_nudity_porn))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(note, ReportEvent.ReportType.ILLEGAL)
+                note.author?.let { accountViewModel.hide(it) }
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.report_illegal_behaviour))
+            }
+        }
+    }
+}
