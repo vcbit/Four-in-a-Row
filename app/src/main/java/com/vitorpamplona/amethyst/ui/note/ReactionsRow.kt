@@ -55,4 +55,16 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogPr
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.Popup
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.model.Account
+import com.vitorpamplona.amethyst.model.Note
+import com.vitorpamplona.amethyst.ui.actions.CloseButton
+import com.vitorpamplona.amethyst.ui.actions.NewPostView
+imp
