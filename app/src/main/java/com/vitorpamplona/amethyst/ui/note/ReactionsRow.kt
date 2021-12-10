@@ -79,4 +79,20 @@ import java.math.RoundingMode
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReactionsRow(baseNote: Note, accountViewModel: AccountViewModel) {
-    val
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    var wantsToReplyTo by remember {
+        mutableStateOf<Note?>(null)
+    }
+
+    var wantsToQuote by remember {
+        mutableStateOf<Note?>(null)
+    }
+
+    if (wantsToReplyTo != null) {
+        NewPostView({ wantsToReplyTo = null }, wantsToReplyTo, null, account)
+    }
+
+    if (wantsToQuote != null) {
+        NewPostView({ wantsTo
