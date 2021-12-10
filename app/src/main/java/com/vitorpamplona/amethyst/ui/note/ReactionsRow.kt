@@ -67,4 +67,16 @@ import com.vitorpamplona.amethyst.model.Account
 import com.vitorpamplona.amethyst.model.Note
 import com.vitorpamplona.amethyst.ui.actions.CloseButton
 import com.vitorpamplona.amethyst.ui.actions.NewPostView
-imp
+import com.vitorpamplona.amethyst.ui.actions.SaveButton
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
+import com.vitorpamplona.amethyst.ui.theme.BitcoinOrange
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.math.BigDecimal
+import java.math.RoundingMode
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ReactionsRow(baseNote: Note, accountViewModel: AccountViewModel) {
+    val
