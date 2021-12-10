@@ -95,4 +95,19 @@ fun ReactionsRow(baseNote: Note, accountViewModel: AccountViewModel) {
     }
 
     if (wantsToQuote != null) {
-        NewPostView({ wantsTo
+        NewPostView({ wantsToQuote = null }, null, wantsToQuote, account)
+    }
+
+    Row(
+        modifier = Modifier
+            .padding(top = 8.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        ReplyReaction(baseNote, accountViewModel, Modifier.weight(1f)) {
+            wantsToReplyTo = baseNote
+        }
+
+        BoostReaction(baseNote, accountViewModel, Modifier.weight(1f)) {
+      
