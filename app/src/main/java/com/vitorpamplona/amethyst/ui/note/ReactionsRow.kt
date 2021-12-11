@@ -162,4 +162,23 @@ fun ReplyReaction(
 
     if (showCounter) {
         Text(
-            " ${sh
+            " ${showCount(replies.size)}",
+            fontSize = 14.sp,
+            color = grayTint,
+            modifier = textModifier
+        )
+    }
+}
+
+@Composable
+private fun BoostReaction(
+    baseNote: Note,
+    accountViewModel: AccountViewModel,
+    textModifier: Modifier = Modifier,
+    onQuotePress: () -> Unit
+) {
+    val boostsState by baseNote.live().boosts.observeAsState()
+    val boostedNote = boostsState?.note
+
+    val grayTint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+    val conte
