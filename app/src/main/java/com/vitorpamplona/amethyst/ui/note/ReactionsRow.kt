@@ -110,4 +110,23 @@ fun ReactionsRow(baseNote: Note, accountViewModel: AccountViewModel) {
         }
 
         BoostReaction(baseNote, accountViewModel, Modifier.weight(1f)) {
-      
+            wantsToQuote = baseNote
+        }
+
+        LikeReaction(baseNote, accountViewModel, Modifier.weight(1f))
+
+        ZapReaction(baseNote, accountViewModel, Modifier.weight(1f))
+
+        ViewCountReaction(baseNote, Modifier.weight(1f))
+    }
+}
+
+@Composable
+fun ReplyReaction(
+    baseNote: Note,
+    accountViewModel: AccountViewModel,
+    textModifier: Modifier = Modifier,
+    showCounter: Boolean = true,
+    onPress: () -> Unit
+) {
+    val repliesState by baseNote.live().replies.observeAsSta
