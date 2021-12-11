@@ -129,4 +129,19 @@ fun ReplyReaction(
     showCounter: Boolean = true,
     onPress: () -> Unit
 ) {
-    val repliesState by baseNote.live().replies.observeAsSta
+    val repliesState by baseNote.live().replies.observeAsState()
+    val replies = repliesState?.note?.replies ?: emptySet()
+
+    val grayTint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    IconButton(
+        modifier = Modifier.then(Modifier.size(20.dp)),
+        onClick = {
+            if (accountViewModel.isWriteable()) {
+                onPress()
+            } else {
+                scope.launch {
+                    Toast.makeText(
+            
