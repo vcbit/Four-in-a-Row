@@ -144,4 +144,22 @@ fun ReplyReaction(
             } else {
                 scope.launch {
                     Toast.makeText(
-            
+                        context,
+                        context.getString(R.string.login_with_a_private_key_to_be_able_to_reply),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_comment),
+            null,
+            modifier = Modifier.size(15.dp),
+            tint = grayTint
+        )
+    }
+
+    if (showCounter) {
+        Text(
+            " ${sh
