@@ -195,4 +195,20 @@ private fun BoostReaction(
                 } else {
                     wantsToBoost = true
                 }
-           
+            } else {
+                scope.launch {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.login_with_a_private_key_to_be_able_to_boost_posts),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    ) {
+        if (wantsToBoost) {
+            BoostTypeChoicePopup(
+                baseNote,
+                accountViewModel,
+                onDismiss = {
+  
