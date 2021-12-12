@@ -211,4 +211,19 @@ private fun BoostReaction(
                 baseNote,
                 accountViewModel,
                 onDismiss = {
-  
+                    wantsToBoost = false
+                },
+                onQuote = {
+                    wantsToBoost = false
+                    onQuotePress()
+                }
+            )
+        }
+
+        if (boostedNote?.isBoostedBy(accountViewModel.userProfile()) == true) {
+            Icon(
+                painter = painterResource(R.drawable.ic_retweeted),
+                null,
+                modifier = Modifier.size(20.dp),
+                tint = Color.Unspecified
+            )
