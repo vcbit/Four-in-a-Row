@@ -227,3 +227,25 @@ private fun BoostReaction(
                 modifier = Modifier.size(20.dp),
                 tint = Color.Unspecified
             )
+        } else {
+            Icon(
+                painter = painterResource(R.drawable.ic_retweet),
+                null,
+                modifier = Modifier.size(20.dp),
+                tint = grayTint
+            )
+        }
+    }
+
+    Text(
+        " ${showCount(boostedNote?.boosts?.size)}",
+        fontSize = 14.sp,
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+        modifier = textModifier
+    )
+}
+
+@Composable
+fun LikeReaction(
+    baseNote: Note,
+    a
