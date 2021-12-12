@@ -181,4 +181,18 @@ private fun BoostReaction(
     val boostedNote = boostsState?.note
 
     val grayTint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
-    val conte
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    var wantsToBoost by remember { mutableStateOf(false) }
+
+    IconButton(
+        modifier = Modifier.then(Modifier.size(20.dp)),
+        onClick = {
+            if (accountViewModel.isWriteable()) {
+                if (accountViewModel.hasBoosted(baseNote)) {
+                    accountViewModel.deleteBoostsTo(baseNote)
+                } else {
+                    wantsToBoost = true
+                }
+           
