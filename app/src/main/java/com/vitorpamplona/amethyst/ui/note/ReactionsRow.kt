@@ -261,4 +261,15 @@ fun LikeReaction(
     IconButton(
         modifier = Modifier.then(Modifier.size(20.dp)),
         onClick = {
-  
+            if (accountViewModel.isWriteable()) {
+                if (accountViewModel.hasReactedTo(baseNote)) {
+                    accountViewModel.deleteReactionTo(baseNote)
+                } else {
+                    accountViewModel.reactTo(baseNote)
+                }
+            } else {
+                scope.launch {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.login_with_a_private_key_to_like_posts),
+     
