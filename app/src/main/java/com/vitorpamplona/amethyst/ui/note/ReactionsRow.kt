@@ -272,4 +272,21 @@ fun LikeReaction(
                     Toast.makeText(
                         context,
                         context.getString(R.string.login_with_a_private_key_to_like_posts),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    ) {
+        if (reactedNote.isReactedBy(accountViewModel.userProfile())) {
+            Icon(
+                painter = painterResource(R.drawable.ic_liked),
+                null,
+                modifier = Modifier.size(16.dp),
+                tint = Color.Unspecified
+            )
+        } else {
+            Icon(
+                painter = painterResource(R.drawable.ic_like),
+                null,
      
