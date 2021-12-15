@@ -289,4 +289,25 @@ fun LikeReaction(
             Icon(
                 painter = painterResource(R.drawable.ic_like),
                 null,
-     
+                modifier = Modifier.size(16.dp),
+                tint = grayTint
+            )
+        }
+    }
+
+    Text(
+        " ${showCount(reactedNote.reactions.size)}",
+        fontSize = 14.sp,
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+        modifier = textModifier
+    )
+}
+
+@Composable
+@OptIn(ExperimentalFoundationApi::class)
+fun ZapReaction(
+    baseNote: Note,
+    accountViewModel: AccountViewModel,
+    textModifier: Modifier = Modifier
+) {
+   
