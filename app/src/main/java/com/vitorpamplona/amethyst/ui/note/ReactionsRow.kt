@@ -321,4 +321,17 @@ fun ZapReaction(
 
     val grayTint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
     val context = LocalContext.current
-    val scope = rememberCoroutin
+    val scope = rememberCoroutineScope()
+
+    Row(
+        modifier = Modifier
+            .then(Modifier.size(20.dp))
+            .combinedClickable(
+                role = Role.Button,
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = false, radius = 24.dp),
+                onClick = {
+                    if (account.zapAmountChoices.isEmpty()) {
+                        scope.launch {
+                            Toast
+ 
