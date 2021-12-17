@@ -334,4 +334,13 @@ fun ZapReaction(
                     if (account.zapAmountChoices.isEmpty()) {
                         scope.launch {
                             Toast
- 
+                                .makeText(
+                                    context,
+                                    context.getString(R.string.no_zap_amount_setup_long_press_to_change),
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
+                        }
+                    } else if (!accountViewModel.isWriteable()) {
+                        scope.launch {
+                           
