@@ -310,4 +310,15 @@ fun ZapReaction(
     accountViewModel: AccountViewModel,
     textModifier: Modifier = Modifier
 ) {
-   
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    val zapsState by baseNote.live().zaps.observeAsState()
+    val zappedNote = zapsState?.note
+
+    var wantsToZap by remember { mutableStateOf(false) }
+    var wantsToChangeZapAmount by remember { mutableStateOf(false) }
+
+    val grayTint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+    val context = LocalContext.current
+    val scope = rememberCoroutin
