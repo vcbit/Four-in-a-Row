@@ -363,3 +363,20 @@ fun ZapReaction(
                                     .makeText(context, it, Toast.LENGTH_SHORT)
                                     .show()
                             }
+                        }
+                    } else if (account.zapAmountChoices.size > 1) {
+                        wantsToZap = true
+                    }
+                },
+                onLongClick = {
+                    wantsToChangeZapAmount = true
+                }
+            )
+    ) {
+        if (wantsToZap) {
+            ZapAmountChoicePopup(
+                baseNote,
+                accountViewModel,
+                onDismiss = {
+                    wantsToZap = false
+ 
