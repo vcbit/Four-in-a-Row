@@ -352,4 +352,14 @@ fun ZapReaction(
                                 .show()
                         }
                     } else if (account.zapAmountChoices.size == 1) {
-                        accountV
+                        accountViewModel.zap(
+                            baseNote,
+                            account.zapAmountChoices.first() * 1000,
+                            "",
+                            context
+                        ) {
+                            scope.launch {
+                                Toast
+                                    .makeText(context, it, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
