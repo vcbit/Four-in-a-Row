@@ -343,4 +343,13 @@ fun ZapReaction(
                         }
                     } else if (!accountViewModel.isWriteable()) {
                         scope.launch {
-                           
+                            Toast
+                                .makeText(
+                                    context,
+                                    context.getString(R.string.login_with_a_private_key_to_be_able_to_send_zaps),
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
+                        }
+                    } else if (account.zapAmountChoices.size == 1) {
+                        accountV
