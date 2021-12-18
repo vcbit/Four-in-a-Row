@@ -379,4 +379,20 @@ fun ZapReaction(
                 accountViewModel,
                 onDismiss = {
                     wantsToZap = false
- 
+                },
+                onChangeAmount = {
+                    wantsToZap = false
+                    wantsToChangeZapAmount = true
+                },
+                onError = {
+                    scope.launch {
+                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
+        }
+        if (wantsToChangeZapAmount) {
+            UpdateZapAmountDialog({ wantsToChangeZapAmount = false }, account = account)
+        }
+
+        if (
