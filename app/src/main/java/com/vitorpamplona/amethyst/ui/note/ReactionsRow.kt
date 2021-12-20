@@ -395,4 +395,15 @@ fun ZapReaction(
             UpdateZapAmountDialog({ wantsToChangeZapAmount = false }, account = account)
         }
 
-        if (
+        if (zappedNote?.isZappedBy(account.userProfile()) == true) {
+            Icon(
+                imageVector = Icons.Default.Bolt,
+                contentDescription = stringResource(R.string.zaps),
+                modifier = Modifier.size(20.dp),
+                tint = BitcoinOrange
+            )
+        } else {
+            Icon(
+                imageVector = Icons.Outlined.Bolt,
+                contentDescription = stringResource(id = R.string.zaps),
+                modifier = Modifier.size(20.dp),
