@@ -407,3 +407,26 @@ fun ZapReaction(
                 imageVector = Icons.Outlined.Bolt,
                 contentDescription = stringResource(id = R.string.zaps),
                 modifier = Modifier.size(20.dp),
+                tint = grayTint
+            )
+        }
+    }
+
+    var zapAmount by remember { mutableStateOf<BigDecimal?>(null) }
+
+    LaunchedEffect(key1 = zappedNote) {
+        withContext(Dispatchers.IO) {
+            zapAmount = zappedNote?.zappedAmount()
+        }
+    }
+
+    Text(
+        showAmount(zapAmount),
+        fontSize = 14.sp,
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+        modifier = textModifier
+    )
+}
+
+@Composable
+private fun ViewCountReac
