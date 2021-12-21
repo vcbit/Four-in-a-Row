@@ -429,4 +429,16 @@ fun ZapReaction(
 }
 
 @Composable
-private fun ViewCountReac
+private fun ViewCountReaction(baseNote: Note, textModifier: Modifier = Modifier) {
+    val uri = LocalUriHandler.current
+    val grayTint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+
+    IconButton(
+        modifier = Modifier.then(Modifier.size(20.dp)),
+        onClick = { uri.openUri("https://counter.amethyst.social/${baseNote.idHex}/") }
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.BarChart,
+            null,
+            modifier = Modifier.size(19.dp),
+            tint = grayTin
