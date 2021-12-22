@@ -453,4 +453,21 @@ private fun ViewCountReaction(baseNote: Note, textModifier: Modifier = Modifier)
                 .diskCachePolicy(CachePolicy.DISABLED)
                 .memoryCachePolicy(CachePolicy.ENABLED)
                 .build(),
-            contentDescription = s
+            contentDescription = stringResource(R.string.view_count),
+            modifier = Modifier.height(24.dp),
+            colorFilter = ColorFilter.tint(grayTint)
+        )
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun BoostTypeChoicePopup(baseNote: Note, accountViewModel: AccountViewModel, onDismiss: () -> Unit, onQuote: () -> Unit) {
+    Popup(
+        alignment = Alignment.BottomCenter,
+        offset = IntOffset(0, -50),
+        onDismissRequest = { onDismiss() }
+    ) {
+        FlowRow() {
+            Button(
+  
