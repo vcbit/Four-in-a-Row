@@ -441,4 +441,16 @@ private fun ViewCountReaction(baseNote: Note, textModifier: Modifier = Modifier)
             imageVector = Icons.Outlined.BarChart,
             null,
             modifier = Modifier.size(19.dp),
-            tint = grayTin
+            tint = grayTint
+        )
+    }
+
+    Row(modifier = textModifier) {
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data("https://counter.amethyst.social/${baseNote.idHex}.svg?label=+&color=00000000")
+                .crossfade(true)
+                .diskCachePolicy(CachePolicy.DISABLED)
+                .memoryCachePolicy(CachePolicy.ENABLED)
+                .build(),
+            contentDescription = s
