@@ -481,4 +481,16 @@ private fun BoostTypeChoicePopup(baseNote: Note, accountViewModel: AccountViewMo
                         backgroundColor = MaterialTheme.colors.primary
                     )
             ) {
-                Text(stringResource(R.string.boost),
+                Text(stringResource(R.string.boost), color = Color.White, textAlign = TextAlign.Center)
+            }
+
+            Button(
+                modifier = Modifier.padding(horizontal = 3.dp),
+                onClick = onQuote,
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults
+                    .buttonColors(
+                        backgroundColor = MaterialTheme.colors.primary
+                    )
+            ) {
+                Text(stringResource(R.string.quote), color = Color.White, textAlign = Text
