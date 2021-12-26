@@ -493,4 +493,19 @@ private fun BoostTypeChoicePopup(baseNote: Note, accountViewModel: AccountViewMo
                         backgroundColor = MaterialTheme.colors.primary
                     )
             ) {
-                Text(stringResource(R.string.quote), color = Color.White, textAlign = Text
+                Text(stringResource(R.string.quote), color = Color.White, textAlign = TextAlign.Center)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
+@Composable
+fun ZapAmountChoicePopup(baseNote: Note, accountViewModel: AccountViewModel, onDismiss: () -> Unit, onChangeAmount: () -> Unit, onError: (text: String) -> Unit) {
+    val context = LocalContext.current
+
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    Popup(
+        alignment = Align
