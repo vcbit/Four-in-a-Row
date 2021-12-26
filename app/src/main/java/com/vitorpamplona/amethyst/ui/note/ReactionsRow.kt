@@ -470,4 +470,15 @@ private fun BoostTypeChoicePopup(baseNote: Note, accountViewModel: AccountViewMo
     ) {
         FlowRow() {
             Button(
-  
+                modifier = Modifier.padding(horizontal = 3.dp),
+                onClick = {
+                    accountViewModel.boost(baseNote)
+                    onDismiss()
+                },
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults
+                    .buttonColors(
+                        backgroundColor = MaterialTheme.colors.primary
+                    )
+            ) {
+                Text(stringResource(R.string.boost),
