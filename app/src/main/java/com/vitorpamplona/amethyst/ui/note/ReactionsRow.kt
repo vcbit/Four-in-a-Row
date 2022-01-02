@@ -508,4 +508,14 @@ fun ZapAmountChoicePopup(baseNote: Note, accountViewModel: AccountViewModel, onD
     val account = accountState?.account ?: return
 
     Popup(
-        alignment = Align
+        alignment = Alignment.BottomCenter,
+        offset = IntOffset(0, -50),
+        onDismissRequest = { onDismiss() }
+    ) {
+        FlowRow(horizontalArrangement = Arrangement.Center) {
+            account.zapAmountChoices.forEach { amountInSats ->
+                Button(
+                    modifier = Modifier.padding(horizontal = 3.dp),
+                    onClick = {
+                        accountViewModel.zap(baseNote, amountInSats * 1000, "", context, onError)
+     
