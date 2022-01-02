@@ -529,4 +529,17 @@ fun ZapAmountChoicePopup(baseNote: Note, accountViewModel: AccountViewModel, onD
                     Text(
                         "⚡ ${showAmount(amountInSats.toBigDecimal().setScale(1))}",
                         color = Color.White,
-                        textAlign =
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.combinedClickable(
+                            onClick = {
+                                accountViewModel.zap(baseNote, amountInSats * 1000, "", context, onError)
+                                onDismiss()
+                            },
+                            onLongClick = {
+                                onChangeAmount()
+                            }
+                        )
+                    )
+                }
+            }
+    
