@@ -542,4 +542,21 @@ fun ZapAmountChoicePopup(baseNote: Note, accountViewModel: AccountViewModel, onD
                     )
                 }
             }
-    
+        }
+    }
+}
+
+class UpdateZapAmountViewModel : ViewModel() {
+    private var account: Account? = null
+
+    var nextAmount by mutableStateOf(TextFieldValue(""))
+    var amountSet by mutableStateOf(listOf<Long>())
+
+    fun load(account: Account) {
+        this.account = account
+        this.amountSet = account.zapAmountChoices
+    }
+
+    fun toListOfAmounts(commaSeparatedAmounts: String): List<Long> {
+        return commaSeparatedAmounts.split(",").map { it.trim().toLongOrNull() ?: 0 }
+  
