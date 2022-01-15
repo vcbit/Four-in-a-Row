@@ -559,4 +559,25 @@ class UpdateZapAmountViewModel : ViewModel() {
 
     fun toListOfAmounts(commaSeparatedAmounts: String): List<Long> {
         return commaSeparatedAmounts.split(",").map { it.trim().toLongOrNull() ?: 0 }
-  
+    }
+
+    fun addAmount() {
+        val newValue = nextAmount.text.trim().toLongOrNull()
+        if (newValue != null) {
+            amountSet = amountSet + newValue
+        }
+
+        nextAmount = TextFieldValue("")
+    }
+
+    fun removeAmount(amount: Long) {
+        amountSet = amountSet - amount
+    }
+
+    fun sendPost() {
+        account?.changeZapAmounts(amountSet)
+        nextAmount = TextFieldValue("")
+    }
+
+    fun cancel() {
+        nextAmount = Text
