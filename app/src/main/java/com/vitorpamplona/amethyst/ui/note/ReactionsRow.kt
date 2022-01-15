@@ -580,4 +580,20 @@ class UpdateZapAmountViewModel : ViewModel() {
     }
 
     fun cancel() {
-        nextAmount = Text
+        nextAmount = TextFieldValue("")
+    }
+
+    fun hasChanged(): Boolean {
+        return amountSet != account?.zapAmountChoices
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
+    val postViewModel: UpdateZapAmountViewModel = viewModel()
+
+    // initialize focus reference to be able to request focus programmatically
+//    val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(account)
