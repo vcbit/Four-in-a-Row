@@ -596,4 +596,19 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
     // initialize focus reference to be able to request focus programmatically
 //    val keyboardController = LocalSoftwareKeyboardController.current
 
-    LaunchedEffect(account)
+    LaunchedEffect(account) {
+        postViewModel.load(account)
+    }
+
+    Dialog(
+        onDismissRequest = { onClose() },
+        properties = DialogProperties(
+            dismissOnClickOutside = false,
+            usePlatformDefaultWidth = false
+        )
+    ) {
+        Surface() {
+            Column(modifier = Modifier.padding(10.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangem
