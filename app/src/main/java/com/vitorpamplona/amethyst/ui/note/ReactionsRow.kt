@@ -611,4 +611,17 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
             Column(modifier = Modifier.padding(10.dp)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangem
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CloseButton(onCancel = {
+                        postViewModel.cancel()
+                        onClose()
+                    })
+
+                    SaveButton(
+                        onPost = {
+                            postViewModel.sendPost()
+                            onClose()
+                        },
+                        isActive = postViewModel.hasC
