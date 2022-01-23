@@ -634,4 +634,12 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
                     Column(modifier = Modifier.animateContentSize()) {
                         FlowRow(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                             postViewModel.amountSet.forEach { amountInSats ->
-                      
+                                Button(
+                                    modifier = Modifier.padding(horizontal = 3.dp),
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = ButtonDefaults
+                                        .buttonColors(
+                                            backgroundColor = MaterialTheme.colors.primary
+                                        ),
+                                    onClick = {
+                                
