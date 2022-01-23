@@ -624,4 +624,14 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
                             postViewModel.sendPost()
                             onClose()
                         },
-                        isActive = postViewModel.hasC
+                        isActive = postViewModel.hasChanged()
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.animateContentSize()) {
+                        FlowRow(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                            postViewModel.amountSet.forEach { amountInSats ->
+                      
