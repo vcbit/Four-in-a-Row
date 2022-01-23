@@ -642,4 +642,16 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
                                             backgroundColor = MaterialTheme.colors.primary
                                         ),
                                     onClick = {
-                                
+                                        postViewModel.removeAmount(amountInSats)
+                                    }
+                                ) {
+                                    Text("⚡ ${showAmount(amountInSats.toBigDecimal().setScale(1))} ✖", color = Color.White, textAlign = TextAlign.Center)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Row(modifier
