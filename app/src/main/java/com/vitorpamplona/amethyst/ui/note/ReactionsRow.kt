@@ -654,4 +654,12 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                Row(modifier
+                Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    OutlinedTextField(
+                        label = { Text(text = stringResource(R.string.new_amount_in_sats)) },
+                        value = postViewModel.nextAmount,
+                        onValueChange = {
+                            postViewModel.nextAmount = it
+                        },
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            capitalizat
