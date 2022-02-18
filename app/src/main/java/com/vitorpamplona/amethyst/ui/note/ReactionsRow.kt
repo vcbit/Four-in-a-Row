@@ -662,4 +662,14 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
                             postViewModel.nextAmount = it
                         },
                         keyboardOptions = KeyboardOptions.Default.copy(
-                            capitalizat
+                            capitalization = KeyboardCapitalization.None,
+                            keyboardType = KeyboardType.Number
+                        ),
+                        placeholder = {
+                            Text(
+                                text = "100, 1000, 5000",
+                                color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                            )
+                        },
+                        singleLine = true,
+               
