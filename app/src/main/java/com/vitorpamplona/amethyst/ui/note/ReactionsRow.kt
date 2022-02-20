@@ -683,4 +683,26 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
                         colors = ButtonDefaults
                             .buttonColors(
                                 backgroundColor = MaterialTheme.colors.primary
-         
+                            )
+                    ) {
+                        Text(text = stringResource(R.string.add), color = Color.White)
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun showCount(count: Int?): String {
+    if (count == null) return ""
+    if (count == 0) return ""
+
+    return when {
+        count >= 1000000000 -> "${Math.round(count / 1000000000f)}G"
+        count >= 1000000 -> "${Math.round(count / 1000000f)}M"
+        count >= 1000 -> "${Math.round(count / 1000f)}k"
+        else -> "$count"
+    }
+}
+
+val O
