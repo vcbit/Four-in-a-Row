@@ -705,4 +705,15 @@ fun showCount(count: Int?): String {
     }
 }
 
-val O
+val OneGiga = BigDecimal(1000000000)
+val OneMega = BigDecimal(1000000)
+val OneKilo = BigDecimal(1000)
+
+fun showAmount(amount: BigDecimal?): String {
+    if (amount == null) return ""
+    if (amount.abs() < BigDecimal(0.01)) return ""
+
+    return when {
+        amount >= OneGiga -> "%.1fG".format(amount.div(OneGiga).setScale(1, RoundingMode.HALF_UP))
+        amount >= OneMega -> "%.1fM".format(amount.div(OneMega).setScale(1, RoundingMode.HALF_UP))
+        amount >= OneKilo -> "%.1fk".format(amo
