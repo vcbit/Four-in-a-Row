@@ -672,4 +672,15 @@ fun UpdateZapAmountDialog(onClose: () -> Unit, account: Account) {
                             )
                         },
                         singleLine = true,
-               
+                        modifier = Modifier
+                            .padding(end = 10.dp)
+                            .weight(1f)
+                    )
+
+                    Button(
+                        onClick = { postViewModel.addAmount() },
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults
+                            .buttonColors(
+                                backgroundColor = MaterialTheme.colors.primary
+         
