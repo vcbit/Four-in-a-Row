@@ -716,4 +716,7 @@ fun showAmount(amount: BigDecimal?): String {
     return when {
         amount >= OneGiga -> "%.1fG".format(amount.div(OneGiga).setScale(1, RoundingMode.HALF_UP))
         amount >= OneMega -> "%.1fM".format(amount.div(OneMega).setScale(1, RoundingMode.HALF_UP))
-        amount >= OneKilo -> "%.1fk".format(amo
+        amount >= OneKilo -> "%.1fk".format(amount.div(OneKilo).setScale(1, RoundingMode.HALF_UP))
+        else -> "%.0f".format(amount)
+    }
+}
