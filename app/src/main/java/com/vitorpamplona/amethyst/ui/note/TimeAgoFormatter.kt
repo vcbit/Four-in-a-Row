@@ -14,4 +14,18 @@ fun timeAgo(mills: Long?, context: Context): String {
         DateUtils.MINUTE_IN_MILLIS,
         DateUtils.FORMAT_ABBREV_ALL
     ).toString()
-    if (humanReadable.startsWith("In") || humanReadable.startsW
+    if (humanReadable.startsWith("In") || humanReadable.startsWith("0")) {
+        humanReadable = context.getString(R.string.now)
+    }
+
+    return " • " + humanReadable
+        .replace(" hr. ago", context.getString(R.string.h))
+        .replace(" min. ago", context.getString(R.string.m))
+        .replace(" days ago", context.getString(R.string.d))
+}
+
+fun timeAgoShort(mills: Long?, context: Context): String {
+    if (mills == null) return " "
+
+    var humanReadable = DateUtils.getRelativeTimeSpanString(
+        mills * 
