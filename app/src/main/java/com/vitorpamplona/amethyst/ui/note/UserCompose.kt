@@ -25,4 +25,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun UserCompose(baseUser: User, accountViewModel: Accoun
+fun UserCompose(baseUser: User, accountViewModel: AccountViewModel, navController: NavController) {
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    val userState by account.userProfile().live().follows.observeAsState()
+    val userFollows = userState?.user ?: return
+
+    val coroutineScope = rememberCoroutineScope()
+
+    Column(
+        modifier =
+        Modifier.clickable(
+            onClick = { navController.navigate("User/${baseUser.pubke
