@@ -45,3 +45,13 @@ fun timeAgoLong(mills: Long?, context: Context): String {
 
     var humanReadable = DateUtils.getRelativeTimeSpanString(
         mills * 1000,
+        System.currentTimeMillis(),
+        DateUtils.MINUTE_IN_MILLIS,
+        DateUtils.FORMAT_SHOW_TIME
+    ).toString()
+    if (humanReadable.startsWith("In") || humanReadable.startsWith("0")) {
+        humanReadable = context.getString(R.string.now)
+    }
+
+    return humanReadable
+}
