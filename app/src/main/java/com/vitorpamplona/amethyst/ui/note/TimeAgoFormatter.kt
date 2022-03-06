@@ -28,4 +28,20 @@ fun timeAgoShort(mills: Long?, context: Context): String {
     if (mills == null) return " "
 
     var humanReadable = DateUtils.getRelativeTimeSpanString(
-        mills * 
+        mills * 1000,
+        System.currentTimeMillis(),
+        DateUtils.MINUTE_IN_MILLIS,
+        DateUtils.FORMAT_ABBREV_ALL
+    ).toString()
+    if (humanReadable.startsWith("In") || humanReadable.startsWith("0")) {
+        humanReadable = context.getString(R.string.now)
+    }
+
+    return humanReadable
+}
+
+fun timeAgoLong(mills: Long?, context: Context): String {
+    if (mills == null) return " "
+
+    var humanReadable = DateUtils.getRelativeTimeSpanString(
+        mills * 1000,
