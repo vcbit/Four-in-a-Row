@@ -66,3 +66,13 @@ fun UserCompose(baseUser: User, accountViewModel: AccountViewModel, navControlle
                     overflow = TextOverflow.Ellipsis
                 )
             }
+
+            Column(modifier = Modifier.padding(start = 10.dp)) {
+                if (account.isHidden(baseUser)) {
+                    ShowUserButton {
+                        account.showUser(baseUser.pubkeyHex)
+                    }
+                } else if (userFollows.isFollowing(baseUser)) {
+                    UnfollowButton { coroutineScope.launch(Dispatchers.IO) { account.unfollow(baseUser) } }
+                } else {
+                    FollowButton { coro
