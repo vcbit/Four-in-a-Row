@@ -37,4 +37,19 @@ fun UserCompose(baseUser: User, accountViewModel: AccountViewModel, navControlle
     Column(
         modifier =
         Modifier.clickable(
-            onClick = { navController.navigate("User/${baseUser.pubke
+            onClick = { navController.navigate("User/${baseUser.pubkeyHex}") }
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(
+                    start = 12.dp,
+                    end = 12.dp,
+                    top = 10.dp
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            UserPicture(baseUser, navController, account.userProfile(), 55.dp)
+
+            Column(modifier = Modifier.padding(start = 10.dp).weight(1f)) {
+                Row(verticalAlignment = Ali
