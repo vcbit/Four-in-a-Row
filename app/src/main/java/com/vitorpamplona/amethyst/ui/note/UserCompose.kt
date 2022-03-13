@@ -52,4 +52,17 @@ fun UserCompose(baseUser: User, accountViewModel: AccountViewModel, navControlle
             UserPicture(baseUser, navController, account.userProfile(), 55.dp)
 
             Column(modifier = Modifier.padding(start = 10.dp).weight(1f)) {
-                Row(verticalAlignment = Ali
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    UsernameDisplay(baseUser)
+                }
+
+                val baseUserState by baseUser.live().metadata.observeAsState()
+                val user = baseUserState?.user ?: return
+
+                Text(
+                    user.info?.about ?: "",
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
