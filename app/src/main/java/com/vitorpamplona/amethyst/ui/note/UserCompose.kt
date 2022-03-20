@@ -75,4 +75,14 @@ fun UserCompose(baseUser: User, accountViewModel: AccountViewModel, navControlle
                 } else if (userFollows.isFollowing(baseUser)) {
                     UnfollowButton { coroutineScope.launch(Dispatchers.IO) { account.unfollow(baseUser) } }
                 } else {
-                    FollowButton { coro
+                    FollowButton { coroutineScope.launch(Dispatchers.IO) { account.follow(baseUser) } }
+                }
+            }
+        }
+
+        Divider(
+            modifier = Modifier.padding(top = 10.dp),
+            thickness = 0.25.dp
+        )
+    }
+}
