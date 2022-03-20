@@ -18,4 +18,20 @@ fun NoteUsernameDisplay(baseNote: Note, weight: Modifier = Modifier) {
 
     val author = note.author
 
-    if (author !
+    if (author != null) {
+        UsernameDisplay(author, weight)
+    }
+}
+
+@Composable
+fun UsernameDisplay(baseUser: User, weight: Modifier = Modifier) {
+    val userState by baseUser.live().metadata.observeAsState()
+    val user = userState?.user ?: return
+
+    if (user.bestUsername() != null && user.bestDisplayName() != null) {
+        Text(
+            user.bestDisplayName() ?: "",
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            "@${(user.bestUsername() ?: "")}
