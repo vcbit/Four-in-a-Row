@@ -34,4 +34,18 @@ fun UsernameDisplay(baseUser: User, weight: Modifier = Modifier) {
             fontWeight = FontWeight.Bold
         )
         Text(
-            "@${(user.bestUsername() ?: "")}
+            "@${(user.bestUsername() ?: "")}",
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = weight
+        )
+    } else if (user.bestDisplayName() != null) {
+        Text(
+            user.bestDisplayName() ?: "",
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = weight
+        )
+    } else if (user.bestUsername() != null)
