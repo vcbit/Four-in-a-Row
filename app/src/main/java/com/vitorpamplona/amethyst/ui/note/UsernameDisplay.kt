@@ -48,4 +48,21 @@ fun UsernameDisplay(baseUser: User, weight: Modifier = Modifier) {
             overflow = TextOverflow.Ellipsis,
             modifier = weight
         )
-    } else if (user.bestUsername() != null)
+    } else if (user.bestUsername() != null) {
+        Text(
+            "@${(user.bestUsername() ?: "")}",
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = weight
+        )
+    } else {
+        Text(
+            user.pubkeyDisplayHex(),
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = weight
+        )
+    }
+}
