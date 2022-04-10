@@ -40,4 +40,19 @@ import java.math.BigDecimal
 @Composable
 fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewModel, navController: NavController) {
     val accountState by accountViewModel.accountLiveData.observeAsState()
-    val account = accountState?.account ?: 
+    val account = accountState?.account ?: return
+
+    val userState by account.userProfile().live().follows.observeAsState()
+    val userFollows = userState?.user ?: return
+
+    val noteState by baseNote.second.live().metadata.observeAsState()
+    val noteZap = noteState?.note ?: return
+
+    val baseNoteRequest by baseNote.first.live().metadata.observeAsState()
+    val noteZapRequest = baseNoteRequest?.note ?: return
+
+    val baseAuthor = noteZapRequest.author
+
+    val coroutineScope = rememberCoroutineScope()
+
+    if (baseAut
