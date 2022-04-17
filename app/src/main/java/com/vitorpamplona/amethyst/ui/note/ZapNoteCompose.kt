@@ -70,4 +70,15 @@ fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewMode
                     .padding(
                         start = 12.dp,
                         end = 12.dp,
-                    
+                        top = 10.dp
+                    ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                UserPicture(baseAuthor, navController, account.userProfile(), 55.dp)
+
+                Column(modifier = Modifier.padding(start = 10.dp).weight(1f)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        UsernameDisplay(baseAuthor)
+                    }
+
+              
