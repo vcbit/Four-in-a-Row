@@ -55,4 +55,19 @@ fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewMode
 
     val coroutineScope = rememberCoroutineScope()
 
-    if (baseAut
+    if (baseAuthor == null) {
+        BlankNote()
+    } else {
+        Column(
+            modifier =
+            Modifier.clickable(
+                onClick = { navController.navigate("User/${baseAuthor.pubkeyHex}") }
+            ),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(
+                        start = 12.dp,
+                        end = 12.dp,
+                    
