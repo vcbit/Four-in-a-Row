@@ -81,4 +81,15 @@ fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewMode
                         UsernameDisplay(baseAuthor)
                     }
 
-              
+                    val baseAuthorState by baseAuthor.live().metadata.observeAsState()
+                    val user = baseAuthorState?.user ?: return
+
+                    Text(
+                        user.info?.about ?: "",
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                var zapAmount by remember { mutab
