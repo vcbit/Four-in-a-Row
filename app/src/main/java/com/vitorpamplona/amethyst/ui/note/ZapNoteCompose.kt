@@ -92,4 +92,17 @@ fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewMode
                     )
                 }
 
-                var zapAmount by remember { mutab
+                var zapAmount by remember { mutableStateOf<BigDecimal?>(null) }
+
+                LaunchedEffect(key1 = noteZap) {
+                    withContext(Dispatchers.IO) {
+                        zapAmount = (noteZap.event as? LnZapEvent)?.amount
+                    }
+                }
+
+                Column(
+                    modifier = Modifier.padding(start = 10.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        "${showAmount(zapAmount)} 
