@@ -105,4 +105,14 @@ fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewMode
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        "${showAmount(zapAmount)} 
+                        "${showAmount(zapAmount)} ${stringResource(R.string.sats)}",
+                        color = BitcoinOrange,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.W500
+                    )
+                }
+
+                Column(modifier = Modifier.padding(start = 10.dp)) {
+                    if (account.isHidden(baseAuthor)) {
+                        ShowUserButton {
+                            account.showUser(baseAuthor.pubkeyHex)
