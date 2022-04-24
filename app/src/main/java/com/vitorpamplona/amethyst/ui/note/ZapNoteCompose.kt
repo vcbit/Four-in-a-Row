@@ -116,3 +116,14 @@ fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewMode
                     if (account.isHidden(baseAuthor)) {
                         ShowUserButton {
                             account.showUser(baseAuthor.pubkeyHex)
+                        }
+                    } else if (userFollows.isFollowing(baseAuthor)) {
+                        UnfollowButton { coroutineScope.launch(Dispatchers.IO) { account.unfollow(baseAuthor) } }
+                    } else {
+                        FollowButton { coroutineScope.launch(Dispatchers.IO) { account.follow(baseAuthor) } }
+                    }
+                }
+            }
+
+            Divider(
+                modifier = Modifier.padding(top = 10.dp)
