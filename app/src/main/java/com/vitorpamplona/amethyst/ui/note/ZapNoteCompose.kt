@@ -126,4 +126,9 @@ fun ZapNoteCompose(baseNote: Pair<Note, Note>, accountViewModel: AccountViewMode
             }
 
             Divider(
-                modifier = Modifier.padding(top = 10.dp)
+                modifier = Modifier.padding(top = 10.dp),
+                thickness = 0.25.dp
+            )
+        }
+    }
+}
