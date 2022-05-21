@@ -44,4 +44,19 @@ class AccountStateViewModel() : ViewModel() {
             if (key.startsWith("nsec")) {
                 Account(Persona(privKey = key.bechToBytes()))
             } else if (key.startsWith("npub")) {
-                Account(Persona(p
+                Account(Persona(pubKey = key.bechToBytes()))
+            } else if (pattern.matcher(key).matches()) {
+                // Evaluate NIP-5
+                Account(Persona())
+            } else {
+                Account(Persona(Hex.decode(key)))
+            }
+
+        LocalPreferences.updatePrefsForLogin(account)
+        login(account)
+    }
+
+    fun switchUser(npub: String) {
+        prepareLogoutOrSwitch()
+        LocalPreferences.switchToAccount(npub)
+        tryLoginExistingA
