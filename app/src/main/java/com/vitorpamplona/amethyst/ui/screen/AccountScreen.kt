@@ -20,4 +20,13 @@ fun AccountScreen(accountStateViewModel: AccountStateViewModel, startingPage: St
                 is AccountState.LoggedOff -> {
                     LoginPage(accountStateViewModel, isFirstLogin = true)
                 }
-                is AccountState.Logg
+                is AccountState.LoggedIn -> {
+                    MainScreen(AccountViewModel(state.account), accountStateViewModel, startingPage)
+                }
+                is AccountState.LoggedInViewOnly -> {
+                    MainScreen(AccountViewModel(state.account), accountStateViewModel, startingPage)
+                }
+            }
+        }
+    }
+}
