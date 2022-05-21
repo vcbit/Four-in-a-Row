@@ -26,4 +26,22 @@ class AccountStateViewModel() : ViewModel() {
         // pulls account from storage.
 
         // Keeps it in the the UI thread to void blinking the login page.
-        // viewModelScope.launch(Dispatchers.IO
+        // viewModelScope.launch(Dispatchers.IO) {
+        tryLoginExistingAccount()
+        // }
+    }
+
+    private fun tryLoginExistingAccount() {
+        LocalPreferences.loadFromEncryptedStorage()?.let {
+            login(it)
+        }
+    }
+
+    fun login(key: String) {
+        val pattern = Pattern.compile(".+@.+\\.[a-z]+")
+
+        val account =
+            if (key.startsWith("nsec")) {
+                Account(Persona(privKey = key.bechToBytes()))
+            } else if (key.startsWith("npub")) {
+                Account(Persona(p
