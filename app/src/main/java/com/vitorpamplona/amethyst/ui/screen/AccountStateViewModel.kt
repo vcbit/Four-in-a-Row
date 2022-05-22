@@ -104,4 +104,19 @@ class AccountStateViewModel() : ViewModel() {
                 }
             }
             is AccountState.LoggedInViewOnly -> {
-               
+                GlobalScope.launch(Dispatchers.Main) {
+                    state.account.saveable.removeObserver(saveListener)
+                }
+            }
+            else -> {}
+        }
+
+        _accountContent.update { AccountState.LoggedOff }
+    }
+
+    fun logOff(npub: String) {
+        prepareLogoutOrSwitch()
+        LocalPreferences.updatePrefsForLogout(npub)
+        tryLoginExistingAccount()
+    }
+}
