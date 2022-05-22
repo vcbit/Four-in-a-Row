@@ -91,4 +91,17 @@ class AccountStateViewModel() : ViewModel() {
     @OptIn(DelicateCoroutinesApi::class)
     private val saveListener: (com.vitorpamplona.amethyst.model.AccountState) -> Unit = {
         GlobalScope.launch(Dispatchers.IO) {
-    
+            LocalPreferences.saveToEncryptedStorage(it.account)
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun prepareLogoutOrSwitch() {
+        when (val state = accountContent.value) {
+            is AccountState.LoggedIn -> {
+                GlobalScope.launch(Dispatchers.Main) {
+                    state.account.saveable.removeObserver(saveListener)
+                }
+            }
+            is AccountState.LoggedInViewOnly -> {
+               
