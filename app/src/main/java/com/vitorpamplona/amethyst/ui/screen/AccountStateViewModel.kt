@@ -59,4 +59,20 @@ class AccountStateViewModel() : ViewModel() {
     fun switchUser(npub: String) {
         prepareLogoutOrSwitch()
         LocalPreferences.switchToAccount(npub)
-        tryLoginExistingA
+        tryLoginExistingAccount()
+    }
+
+    fun newKey() {
+        val account = Account(Persona())
+        LocalPreferences.updatePrefsForLogin(account)
+        login(account)
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun login(account: Account) {
+        LocalPreferences.updatePrefsForLogin(account)
+
+        if (account.loggedIn.privKey != null) {
+            _accountContent.update { AccountState.LoggedIn(account) }
+        } else {
+            _accountContent.update { AccountState.LoggedInViewOnly(account) }
