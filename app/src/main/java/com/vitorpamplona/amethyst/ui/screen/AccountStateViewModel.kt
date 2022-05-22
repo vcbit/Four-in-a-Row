@@ -76,3 +76,19 @@ class AccountStateViewModel() : ViewModel() {
             _accountContent.update { AccountState.LoggedIn(account) }
         } else {
             _accountContent.update { AccountState.LoggedInViewOnly(account) }
+        }
+
+        val scope = CoroutineScope(Job() + Dispatchers.IO)
+        scope.launch {
+            ServiceManager.start(account)
+        }
+
+        GlobalScope.launch(Dispatchers.Main) {
+            account.saveable.observeForever(saveListener)
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private val saveListener: (com.vitorpamplona.amethyst.model.AccountState) -> Unit = {
+        GlobalScope.launch(Dispatchers.IO) {
+    
