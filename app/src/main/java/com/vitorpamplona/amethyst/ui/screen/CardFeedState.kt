@@ -37,4 +37,15 @@ class ZapSetCard(val note: Note, val zapEvents: Map<Note, Note>) : Card() {
     override fun createdAt(): Long {
         return createdAt
     }
-    over
+    override fun id() = note.idHex + "Z" + createdAt
+}
+
+class MultiSetCard(val note: Note, val boostEvents: List<Note>, val likeEvents: List<Note>, val zapEvents: Map<Note, Note>) : Card() {
+    val createdAt = maxOf(
+        zapEvents.maxOfOrNull { it.value.createdAt() ?: 0 } ?: 0,
+        likeEvents.maxOfOrNull { it.createdAt() ?: 0 } ?: 0,
+        boostEvents.maxOfOrNull { it.createdAt() ?: 0 } ?: 0
+    )
+
+    override fun createdAt(): Long {
+        return create
