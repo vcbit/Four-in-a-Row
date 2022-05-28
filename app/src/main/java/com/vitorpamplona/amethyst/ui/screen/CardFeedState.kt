@@ -71,4 +71,9 @@ class MessageSetCard(val note: Note) : Card() {
     override fun id() = note.idHex
 }
 
-sealed class CardFe
+sealed class CardFeedState {
+    object Loading : CardFeedState()
+    class Loaded(val feed: MutableState<List<Card>>) : CardFeedState()
+    object Empty : CardFeedState()
+    class FeedError(val errorMessage: String) : CardFeedState()
+}
