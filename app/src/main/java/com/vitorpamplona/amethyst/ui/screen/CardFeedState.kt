@@ -48,4 +48,27 @@ class MultiSetCard(val note: Note, val boostEvents: List<Note>, val likeEvents: 
     )
 
     override fun createdAt(): Long {
-        return create
+        return createdAt
+    }
+    override fun id() = note.idHex + "X" + createdAt
+}
+
+class BoostSetCard(val note: Note, val boostEvents: List<Note>) : Card() {
+    val createdAt = boostEvents.maxOf { it.createdAt() ?: 0 }
+
+    override fun createdAt(): Long {
+        return createdAt
+    }
+
+    override fun id() = note.idHex + "B" + createdAt
+}
+
+class MessageSetCard(val note: Note) : Card() {
+    override fun createdAt(): Long {
+        return note.createdAt() ?: 0
+    }
+
+    override fun id() = note.idHex
+}
+
+sealed class CardFe
