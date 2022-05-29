@@ -33,3 +33,20 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
     val feedContent = _feedContent.asStateFlow()
 
     private var lastNotes: List<Note>? = null
+
+    fun refresh() {
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+            refreshSuspended()
+        }
+    }
+
+    @Synchronized
+    private fun refreshSuspended() {
+        val notes = dataSource.loadTop()
+
+        val lastNotesCopy = lastNotes
+
+        val oldNotesState = feedContent.value
+        if (lastNotesCopy != null && oldNotesState is CardFeedState.Loaded) {
+            val newCards = con
