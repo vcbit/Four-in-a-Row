@@ -20,4 +20,16 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.corouti
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.concurrent.atomic.AtomicBoolean
+
+class NotificationViewModel : CardFeedViewModel(NotificationFeedFilter)
+
+open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
+    private val _feedContent = MutableStateFlow<CardFeedState>(CardFeedState.Loading)
+    val feedContent = _feedContent.asStateFlow()
+
+    private var lastNotes: List<Note>? = null
