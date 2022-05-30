@@ -62,4 +62,16 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
     }
 
     private fun convertToCard(notes: List<Note>): List<Card> {
-        val reactionsPerEvent = mutableMapOf<Note, MutableList<Note>>
+        val reactionsPerEvent = mutableMapOf<Note, MutableList<Note>>()
+        notes
+            .filter { it.event is ReactionEvent }
+            .forEach {
+                val reactedPost = it.replyTo?.lastOrNull() { it.event !is ChannelMetadataEvent && it.event !is ChannelCreateEvent }
+                if (reactedPost != null) {
+                    reactionsPerEvent.getOrPut(reactedPost, { mutableListOf() }).add(it)
+                }
+            }
+
+        // val reactionCards = reactionsPerEvent.map { LikeSetCard(it.key, it.value) }
+
+        val zapsPerEvent = mutableMap
