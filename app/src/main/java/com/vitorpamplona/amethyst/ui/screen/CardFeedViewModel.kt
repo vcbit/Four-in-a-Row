@@ -93,4 +93,16 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
         notes
             .filter { it.event is RepostEvent }
             .forEach {
-                val boostedPost = it.replyTo?.lastOrNull() { it.event !is ChannelMetadataEve
+                val boostedPost = it.replyTo?.lastOrNull() { it.event !is ChannelMetadataEvent && it.event !is ChannelCreateEvent }
+                if (boostedPost != null) {
+                    boostsPerEvent.getOrPut(boostedPost, { mutableListOf() }).add(it)
+                }
+            }
+
+        // val boostCards = boostsPerEvent.map { BoostSetCard(it.key, it.value) }
+
+        val allBaseNotes = zapsPerEvent.keys + boostsPerEvent.keys + reactionsPerEvent.keys
+        val multiCards = allBaseNotes.map {
+            MultiSetCard(
+                it,
+                boostsPerEvent
