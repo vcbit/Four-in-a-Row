@@ -105,4 +105,17 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
         val multiCards = allBaseNotes.map {
             MultiSetCard(
                 it,
-                boostsPerEvent
+                boostsPerEvent.get(it) ?: emptyList(),
+                reactionsPerEvent.get(it) ?: emptyList(),
+                zapsPerEvent.get(it) ?: emptyMap()
+            )
+        }
+
+        val textNoteCards = notes.filter { it.event !is ReactionEvent && it.event !is RepostEvent && it.event !is LnZapEvent }.map {
+            if (it.event is PrivateDmEvent) {
+                MessageSetCard(it)
+            } else if (it.event is BadgeAwardEvent) {
+                BadgeCard(it)
+            } else {
+                NoteCard(it)
+         
