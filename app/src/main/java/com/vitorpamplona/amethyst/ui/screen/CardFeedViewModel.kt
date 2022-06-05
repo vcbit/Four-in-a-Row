@@ -82,4 +82,15 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
                 if (zappedPost != null) {
                     val zapRequest = zappedPost.zaps.filter { it.value == zapEvent }.keys.firstOrNull()
                     if (zapRequest != null) {
-            
+                        zapsPerEvent.getOrPut(zappedPost, { mutableMapOf() }).put(zapRequest, zapEvent)
+                    }
+                }
+            }
+
+        // val zapCards = zapsPerEvent.map { ZapSetCard(it.key, it.value) }
+
+        val boostsPerEvent = mutableMapOf<Note, MutableList<Note>>()
+        notes
+            .filter { it.event is RepostEvent }
+            .forEach {
+                val boostedPost = it.replyTo?.lastOrNull() { it.event !is ChannelMetadataEve
