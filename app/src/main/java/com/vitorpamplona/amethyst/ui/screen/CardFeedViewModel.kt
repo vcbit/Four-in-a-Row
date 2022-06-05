@@ -118,4 +118,18 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
                 BadgeCard(it)
             } else {
                 NoteCard(it)
-         
+            }
+        }
+
+        return (multiCards + textNoteCards).sortedBy { it.createdAt() }.reversed()
+    }
+
+    private fun updateFeed(notes: List<Card>) {
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            val currentState = feedContent.value
+
+            if (notes.isEmpty()) {
+                _feedContent.update { CardFeedState.Empty }
+            } else if (currentState is CardFeedState.Loaded) {
+       
