@@ -132,4 +132,20 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
             if (notes.isEmpty()) {
                 _feedContent.update { CardFeedState.Empty }
             } else if (currentState is CardFeedState.Loaded) {
-       
+                // updates the current list
+                currentState.feed.value = notes
+            } else {
+                _feedContent.update { CardFeedState.Loaded(mutableStateOf(notes)) }
+            }
+        }
+    }
+
+    var handlerWaiting = AtomicBoolean()
+
+    fun invalidateData() {
+        if (handlerWaiting.getAndSet(true)) return
+
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+            try {
+                delay(
