@@ -148,4 +148,26 @@ open class CardFeedViewModel(val dataSource: FeedFilter<Note>) : ViewModel() {
         val scope = CoroutineScope(Job() + Dispatchers.Default)
         scope.launch {
             try {
-                delay(
+                delay(150)
+                refresh()
+            } finally {
+                withContext(NonCancellable) {
+                    handlerWaiting.set(false)
+                }
+            }
+        }
+    }
+
+    private val cacheListener: (LocalCacheState) -> Unit = {
+        invalidateData()
+    }
+
+    init {
+        LocalCache.live.observeForever(cacheListener)
+    }
+
+    override fun onCleared() {
+        LocalCache.live.removeObserver(cacheListener)
+        super.onCleared()
+    }
+}
