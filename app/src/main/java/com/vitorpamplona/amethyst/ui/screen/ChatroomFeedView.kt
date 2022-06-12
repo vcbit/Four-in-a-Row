@@ -47,4 +47,18 @@ fun ChatroomFeedView(viewModel: FeedViewModel, accountViewModel: AccountViewMode
                         isRefreshing = true
                     }
                 }
-                is FeedState.L
+                is FeedState.Loaded -> {
+                    LaunchedEffect(state.feed.value.firstOrNull()) {
+                        if (listState.firstVisibleItemIndex <= 1) {
+                            listState.animateScrollToItem(0)
+                        }
+                    }
+
+                    LazyColumn(
+                        contentPadding = PaddingValues(
+                            top = 10.dp,
+                            bottom = 10.dp
+                        ),
+                        reverseLayout = true,
+                        state = listState
+           
