@@ -35,4 +35,16 @@ fun ChatroomFeedView(viewModel: FeedViewModel, accountViewModel: AccountViewMode
     }
 
     Column() {
-        Cros
+        Crossfade(targetState = feedState, animationSpec = tween(durationMillis = 100)) { state ->
+            when (state) {
+                is FeedState.Empty -> {
+                    FeedEmpty {
+                        isRefreshing = true
+                    }
+                }
+                is FeedState.FeedError -> {
+                    FeedError(state.errorMessage) {
+                        isRefreshing = true
+                    }
+                }
+                is FeedState.L
