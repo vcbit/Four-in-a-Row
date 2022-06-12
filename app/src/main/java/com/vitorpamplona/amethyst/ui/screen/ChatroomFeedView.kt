@@ -61,4 +61,16 @@ fun ChatroomFeedView(viewModel: FeedViewModel, accountViewModel: AccountViewMode
                         ),
                         reverseLayout = true,
                         state = listState
-           
+                    ) {
+                        itemsIndexed(state.feed.value, key = { _, item -> item.idHex }) { _, item ->
+                            ChatroomMessageCompose(item, routeForLastRead, accountViewModel = accountViewModel, navController = navController, onWantsToReply = onWantsToReply)
+                        }
+                    }
+                }
+                FeedState.Loading -> {
+                    LoadingFeed()
+                }
+            }
+        }
+    }
+}
