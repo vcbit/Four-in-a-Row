@@ -30,3 +30,13 @@ fun rememberForeverLazyListState(
             savedIndex,
             savedOffset
         )
+    }
+    DisposableEffect(Unit) {
+        onDispose {
+            val lastIndex = scrollState.firstVisibleItemIndex
+            val lastOffset = scrollState.firstVisibleItemScrollOffset
+            savedScrollStates[key] = ScrollState(lastIndex, lastOffset)
+        }
+    }
+    return scrollState
+}
