@@ -40,4 +40,16 @@ fun LnZapFeedView(viewModel: LnZapFeedViewModel, accountViewModel: AccountViewMo
                 when (state) {
                     is LnZapFeedState.Empty -> {
                         FeedEmpty {
-   
+                            refreshing = true
+                        }
+                    }
+                    is LnZapFeedState.FeedError -> {
+                        FeedError(state.errorMessage) {
+                            refreshing = true
+                        }
+                    }
+                    is LnZapFeedState.Loaded -> {
+                        refreshing = false
+                        LnZapFeedLoaded(state, accountViewModel, navController)
+                    }
+                    is LnZapFee
