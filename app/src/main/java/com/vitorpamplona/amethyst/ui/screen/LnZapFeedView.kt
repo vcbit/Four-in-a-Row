@@ -19,4 +19,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.com
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.vitorpamplona.amethyst.ui.note.ZapNoteCompose
+import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun LnZapFeedView(viewModel: LnZapFeedViewModel, accountViewModel: AccountViewModel, navController: NavController) {
+    val feedState by viewModel.feedContent.collectAsState()
+
+    var refreshing by re
