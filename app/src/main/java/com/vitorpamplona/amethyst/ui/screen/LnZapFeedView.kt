@@ -30,4 +30,14 @@ import com.vitorpamplona.amethyst.ui.screen.loggedIn.AccountViewModel
 fun LnZapFeedView(viewModel: LnZapFeedViewModel, accountViewModel: AccountViewModel, navController: NavController) {
     val feedState by viewModel.feedContent.collectAsState()
 
-    var refreshing by re
+    var refreshing by remember { mutableStateOf(false) }
+    val refresh = { refreshing = true; viewModel.refresh(); refreshing = false }
+    val pullRefreshState = rememberPullRefreshState(refreshing, onRefresh = refresh)
+
+    Box(Modifier.pullRefresh(pullRefreshState)) {
+        Column() {
+            Crossfade(targetState = feedState, animationSpec = tween(durationMillis = 100)) { state ->
+                when (state) {
+                    is LnZapFeedState.Empty -> {
+                        FeedEmpty {
+   
