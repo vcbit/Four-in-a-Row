@@ -72,4 +72,14 @@ private fun LnZapFeedLoaded(
     val listState = rememberLazyListState()
 
     LazyColumn(
-        contentPa
+        contentPadding = PaddingValues(
+            top = 10.dp,
+            bottom = 10.dp
+        ),
+        state = listState
+    ) {
+        itemsIndexed(state.feed.value, key = { _, item -> item.second.idHex }) { _, item ->
+            ZapNoteCompose(item, accountViewModel = accountViewModel, navController = navController)
+        }
+    }
+}
