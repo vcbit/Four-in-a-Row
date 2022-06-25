@@ -52,4 +52,24 @@ fun LnZapFeedView(viewModel: LnZapFeedViewModel, accountViewModel: AccountViewMo
                         refreshing = false
                         LnZapFeedLoaded(state, accountViewModel, navController)
                     }
-                    is LnZapFee
+                    is LnZapFeedState.Loading -> {
+                        LoadingFeed()
+                    }
+                }
+            }
+        }
+
+        PullRefreshIndicator(refreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
+    }
+}
+
+@Composable
+private fun LnZapFeedLoaded(
+    state: LnZapFeedState.Loaded,
+    accountViewModel: AccountViewModel,
+    navController: NavController
+) {
+    val listState = rememberLazyListState()
+
+    LazyColumn(
+        contentPa
