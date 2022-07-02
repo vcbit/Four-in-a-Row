@@ -23,4 +23,20 @@ class NostrUserProfileZapsFeedViewModel : LnZapFeedViewModel(UserProfileZapsFeed
 
 open class LnZapFeedViewModel(val dataSource: FeedFilter<Pair<Note, Note>>) : ViewModel() {
     private val _feedContent = MutableStateFlow<LnZapFeedState>(LnZapFeedState.Loading)
-    val feedContent = _feedCont
+    val feedContent = _feedContent.asStateFlow()
+
+    fun refresh() {
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+            refreshSuspended()
+        }
+    }
+
+    private fun refreshSuspended() {
+        val notes = dataSource.loadTop()
+
+        val oldNotesState = feedContent.value
+        if (oldNotesState is LnZapFeedState.Loaded) {
+            // Using size as a proxy for has changed.
+            if (notes != oldNotesState.feed.value) {
+     
