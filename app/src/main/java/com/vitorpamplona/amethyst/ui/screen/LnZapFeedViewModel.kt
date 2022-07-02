@@ -39,4 +39,18 @@ open class LnZapFeedViewModel(val dataSource: FeedFilter<Pair<Note, Note>>) : Vi
         if (oldNotesState is LnZapFeedState.Loaded) {
             // Using size as a proxy for has changed.
             if (notes != oldNotesState.feed.value) {
-     
+                updateFeed(notes)
+            }
+        } else {
+            updateFeed(notes)
+        }
+    }
+
+    private fun updateFeed(notes: List<Pair<Note, Note>>) {
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            val currentState = feedContent.value
+            if (notes.isEmpty()) {
+                _feedContent.update { LnZapFeedState.Empty }
+            } else if (currentState is LnZapFeedState.Loaded) {
+                // updates the cu
