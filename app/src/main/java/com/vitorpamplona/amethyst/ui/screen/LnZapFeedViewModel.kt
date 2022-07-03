@@ -53,4 +53,21 @@ open class LnZapFeedViewModel(val dataSource: FeedFilter<Pair<Note, Note>>) : Vi
             if (notes.isEmpty()) {
                 _feedContent.update { LnZapFeedState.Empty }
             } else if (currentState is LnZapFeedState.Loaded) {
-                // updates the cu
+                // updates the current list
+                currentState.feed.value = notes
+            } else {
+                _feedContent.update { LnZapFeedState.Loaded(mutableStateOf(notes)) }
+            }
+        }
+    }
+
+    var handlerWaiting = AtomicBoolean()
+
+    fun invalidateData() {
+        if (handlerWaiting.getAndSet(true)) return
+
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+            try {
+                delay(50)
+ 
