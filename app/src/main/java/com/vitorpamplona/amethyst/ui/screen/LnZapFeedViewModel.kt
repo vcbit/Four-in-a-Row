@@ -70,4 +70,25 @@ open class LnZapFeedViewModel(val dataSource: FeedFilter<Pair<Note, Note>>) : Vi
         scope.launch {
             try {
                 delay(50)
- 
+                refresh()
+            } finally {
+                withContext(NonCancellable) {
+                    handlerWaiting.set(false)
+                }
+            }
+        }
+    }
+
+    private val cacheListener: (LocalCacheState) -> Unit = {
+        invalidateData()
+    }
+
+    init {
+        LocalCache.live.observeForever(cacheListener)
+    }
+
+    override fun onCleared() {
+        LocalCache.live.removeObserver(cacheListener)
+        super.onCleared()
+    }
+}
