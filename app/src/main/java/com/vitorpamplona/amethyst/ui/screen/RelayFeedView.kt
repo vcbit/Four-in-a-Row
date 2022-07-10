@@ -41,4 +41,14 @@ import kotlinx.coroutines.withContext
 import java.util.concurrent.atomic.AtomicBoolean
 
 class RelayFeedViewModel : ViewModel() {
-    val order = 
+    val order = compareByDescending<RelayInfo> { it.lastEvent }.thenByDescending { it.counter }.thenBy { it.url }
+
+    private val _feedContent = MutableStateFlow<List<RelayInfo>>(emptyList())
+    val feedContent = _feedContent.asStateFlow()
+
+    var currentUser: User? = null
+
+    fun refresh() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val beingUsed = currentUser?.relaysBeingUsed?.values ?: emptyList()
+            val beingUsedSet = currentUser?.relaysBei
