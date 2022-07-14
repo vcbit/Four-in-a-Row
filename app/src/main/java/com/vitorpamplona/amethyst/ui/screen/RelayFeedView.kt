@@ -51,4 +51,24 @@ class RelayFeedViewModel : ViewModel() {
     fun refresh() {
         viewModelScope.launch(Dispatchers.Default) {
             val beingUsed = currentUser?.relaysBeingUsed?.values ?: emptyList()
-            val beingUsedSet = currentUser?.relaysBei
+            val beingUsedSet = currentUser?.relaysBeingUsed?.keys ?: emptySet()
+
+            val newRelaysFromRecord = currentUser?.relays?.entries?.mapNotNull {
+                if (it.key !in beingUsedSet) {
+                    RelayInfo(it.key, 0, 0)
+                } else {
+                    null
+                }
+            } ?: emptyList()
+
+            val newList = (beingUsed + newRelaysFromRecord).sortedWith(order)
+
+            _feedContent.update { newList }
+        }
+    }
+
+    val listener: (UserState) -> Unit = {
+        invalidateData()
+    }
+
+    fun 
