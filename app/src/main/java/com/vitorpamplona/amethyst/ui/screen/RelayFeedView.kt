@@ -71,4 +71,20 @@ class RelayFeedViewModel : ViewModel() {
         invalidateData()
     }
 
-    fun 
+    fun subscribeTo(user: User) {
+        currentUser = user
+        user.live().relays.observeForever(listener)
+        user.live().relayInfo.observeForever(listener)
+        invalidateData()
+    }
+
+    fun unsubscribeTo(user: User) {
+        user.live().relays.removeObserver(listener)
+        user.live().relayInfo.removeObserver(listener)
+        currentUser = null
+    }
+
+    var handlerWaiting = AtomicBoolean()
+
+    private fun invalidateData() {
+        if (handlerWaiting.getAndSet(true)) return
