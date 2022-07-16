@@ -106,4 +106,19 @@ class RelayFeedViewModel : ViewModel() {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun RelayFeedView(viewModel: RelayFeedViewModel, 
+fun RelayFeedView(viewModel: RelayFeedViewModel, accountViewModel: AccountViewModel) {
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    val feedState by viewModel.feedContent.collectAsState()
+
+    var wantsToAddRelay by remember {
+        mutableStateOf("")
+    }
+
+    if (wantsToAddRelay.isNotEmpty()) {
+        NewRelayListView({ wantsToAddRelay = "" }, account, wantsToAddRelay)
+    }
+
+    var refreshing by remember { mutableStateOf(false) }
+    val 
