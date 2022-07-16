@@ -88,3 +88,22 @@ class RelayFeedViewModel : ViewModel() {
 
     private fun invalidateData() {
         if (handlerWaiting.getAndSet(true)) return
+
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+            try {
+                delay(50)
+                refresh()
+            } finally {
+                withContext(NonCancellable) {
+                    handlerWaiting.set(false)
+                }
+            }
+            handlerWaiting.set(false)
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun RelayFeedView(viewModel: RelayFeedViewModel, 
