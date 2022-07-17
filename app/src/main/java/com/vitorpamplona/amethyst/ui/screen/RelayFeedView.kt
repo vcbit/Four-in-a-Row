@@ -146,4 +146,6 @@ fun RelayFeedView(viewModel: RelayFeedViewModel, accountViewModel: AccountViewMo
             }
         }
 
-        PullRefreshIndicator(refreshing, pullRefres
+        PullRefreshIndicator(refreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
+    }
+}
