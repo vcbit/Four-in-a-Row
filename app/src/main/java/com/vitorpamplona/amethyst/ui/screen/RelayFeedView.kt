@@ -121,4 +121,16 @@ fun RelayFeedView(viewModel: RelayFeedViewModel, accountViewModel: AccountViewMo
     }
 
     var refreshing by remember { mutableStateOf(false) }
-    val 
+    val refresh = { refreshing = true; viewModel.refresh(); refreshing = false }
+    val pullRefreshState = rememberPullRefreshState(refreshing, onRefresh = refresh)
+
+    Box(Modifier.pullRefresh(pullRefreshState)) {
+        Column() {
+            val listState = rememberLazyListState()
+
+            LazyColumn(
+                contentPadding = PaddingValues(
+                    top = 10.dp,
+                    bottom = 10.dp
+                ),
+                stat
