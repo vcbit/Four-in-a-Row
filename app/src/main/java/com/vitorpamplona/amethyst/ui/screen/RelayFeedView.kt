@@ -133,4 +133,17 @@ fun RelayFeedView(viewModel: RelayFeedViewModel, accountViewModel: AccountViewMo
                     top = 10.dp,
                     bottom = 10.dp
                 ),
-                stat
+                state = listState
+            ) {
+                itemsIndexed(feedState, key = { _, item -> item.url }) { _, item ->
+                    RelayCompose(
+                        item,
+                        accountViewModel = accountViewModel,
+                        onAddRelay = { wantsToAddRelay = item.url },
+                        onRemoveRelay = { wantsToAddRelay = item.url }
+                    )
+                }
+            }
+        }
+
+        PullRefreshIndicator(refreshing, pullRefres
