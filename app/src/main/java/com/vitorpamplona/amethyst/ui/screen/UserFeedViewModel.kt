@@ -83,3 +83,18 @@ open class UserFeedViewModel(val dataSource: FeedFilter<User>) : ViewModel() {
             }
             handlerWaiting.set(false)
         }
+    }
+
+    private val cacheListener: (LocalCacheState) -> Unit = {
+        invalidateData()
+    }
+
+    init {
+        LocalCache.live.observeForever(cacheListener)
+    }
+
+    override fun onCleared() {
+        LocalCache.live.removeObserver(cacheListener)
+        super.onCleared()
+    }
+}
