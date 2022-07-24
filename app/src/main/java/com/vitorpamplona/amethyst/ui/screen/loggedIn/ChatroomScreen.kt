@@ -164,3 +164,72 @@ fun ChatroomScreen(userId: String?, accountViewModel: AccountViewModel, navContr
                     ),
                     modifier = Modifier.weight(1f, true),
                     shape = RoundedCornerShape(25.dp),
+                    placeholder = {
+                        Text(
+                            text = stringResource(id = R.string.reply_here),
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                        )
+                    },
+                    textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Content),
+                    trailingIcon = {
+                        PostButton(
+                            onPost = {
+                                account.sendPrivateMeesage(newPost.value.text, userId, replyTo.value)
+                                newPost.value = TextFieldValue("")
+                                replyTo.value = null
+                                feedViewModel.refresh() // Don't wait a full second before updating
+                            },
+                            newPost.value.text.isNotBlank(),
+                            modifier = Modifier.padding(end = 10.dp)
+                        )
+                    },
+                    colors = TextFieldDefaults.textFieldColors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ChatroomHeader(baseUser: User, navController: NavController) {
+    Column(
+        modifier = Modifier.clickable(
+            onClick = { navController.navigate("User/${baseUser.pubkeyHex}") }
+        )
+    ) {
+        Column(modifier = Modifier.padding(12.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                val authorState by baseUser.live().metadata.observeAsState()
+                val author = authorState?.user!!
+
+                RobohashAsyncImageProxy(
+                    robot = author.pubkeyHex,
+                    model = ResizeImage(author.profilePicture(), 35.dp),
+                    contentDescription = stringResource(id = R.string.profile_image),
+                    modifier = Modifier
+                        .width(35.dp)
+                        .height(35.dp)
+                        .clip(shape = CircleShape)
+                )
+
+                Column(modifier = Modifier.padding(start = 10.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        UsernameDisplay(baseUser)
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        ObserveDisplayNip05Status(baseUser)
+                    }
+                }
+            }
+        }
+
+        Divider(
+            modifier = Modifier.padding(start = 12.dp, end = 12.dp),
+            thickness = 0.25.dp
+        )
+    }
+}
