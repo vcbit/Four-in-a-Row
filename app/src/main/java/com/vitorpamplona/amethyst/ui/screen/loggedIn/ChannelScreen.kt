@@ -301,3 +301,88 @@ private fun NoteCopyButton(
         colors = ButtonDefaults
             .buttonColors(
                 backgroundColor = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+            )
+    ) {
+        Icon(
+            tint = Color.White,
+            imageVector = Icons.Default.Share,
+            contentDescription = stringResource(R.string.copies_the_note_id_to_the_clipboard_for_sharing)
+        )
+
+        DropdownMenu(
+            expanded = popupExpanded,
+            onDismissRequest = { popupExpanded = false }
+        ) {
+            DropdownMenuItem(onClick = { clipboardManager.setText(AnnotatedString(note.idNote())); popupExpanded = false }) {
+                Text(stringResource(R.string.copy_channel_id_note_to_the_clipboard))
+            }
+        }
+    }
+}
+
+@Composable
+private fun EditButton(account: Account, channel: Channel) {
+    var wantsToPost by remember {
+        mutableStateOf(false)
+    }
+
+    if (wantsToPost) {
+        NewChannelView({ wantsToPost = false }, account = account, channel)
+    }
+
+    Button(
+        modifier = Modifier
+            .padding(horizontal = 3.dp)
+            .width(50.dp),
+        onClick = { wantsToPost = true },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.primary
+            )
+    ) {
+        Icon(
+            tint = Color.White,
+            imageVector = Icons.Default.EditNote,
+            contentDescription = stringResource(R.string.edits_the_channel_metadata)
+        )
+    }
+}
+
+@Composable
+private fun JoinButton(account: Account, channel: Channel, navController: NavController) {
+    Button(
+        modifier = Modifier.padding(horizontal = 3.dp),
+        onClick = {
+            account.joinChannel(channel.idHex)
+            navController.navigate(Route.Message.route)
+        },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.primary
+            ),
+        contentPadding = PaddingValues(vertical = 6.dp, horizontal = 16.dp)
+    ) {
+        Text(text = stringResource(R.string.join), color = Color.White)
+    }
+}
+
+@Composable
+private fun LeaveButton(account: Account, channel: Channel, navController: NavController) {
+    Button(
+        modifier = Modifier.padding(horizontal = 3.dp),
+        onClick = {
+            account.leaveChannel(channel.idHex)
+            navController.navigate(Route.Message.route)
+        },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.primary
+            ),
+        contentPadding = PaddingValues(vertical = 6.dp, horizontal = 16.dp)
+    ) {
+        Text(text = stringResource(R.string.leave), color = Color.White)
+    }
+}
