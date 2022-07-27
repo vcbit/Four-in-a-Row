@@ -27,4 +27,16 @@ import com.vitorpamplona.amethyst.ui.screen.NostrHiddenAccountsFeedViewModel
 import com.vitorpamplona.amethyst.ui.screen.UserFeedView
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalPag
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun FiltersScreen(accountViewModel: AccountViewModel, navController: NavController) {
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account
+
+    if (account != null) {
+        HiddenAccountsFeedFilter.account = account
+
+        val feedViewModel: NostrHiddenAccountsFeedViewModel = viewModel()
+
+        Column(Modifier.fillMaxHeight()) {
+            Column(modifier = Modifier.padding(start = 10.dp, end = 10.d
