@@ -17,4 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.google.accompanist.pager.Experimenta
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.pagerTabIndicatorOffset
+import com.google.accompanist.pager.rememberPagerState
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.ui.dal.HiddenAccountsFeedFilter
+import com.vitorpamplona.amethyst.ui.screen.NostrHiddenAccountsFeedViewModel
+import com.vitorpamplona.amethyst.ui.screen.UserFeedView
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalPag
