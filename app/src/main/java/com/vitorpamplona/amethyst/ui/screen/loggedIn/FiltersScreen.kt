@@ -49,4 +49,16 @@ fun FiltersScreen(accountViewModel: AccountViewModel, navController: NavControll
                     indicator = { tabPositions ->
                         TabRowDefaults.Indicator(
                             Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
-             
+                            color = MaterialTheme.colors.primary
+                        )
+                    }
+                ) {
+                    Tab(
+                        selected = pagerState.currentPage == 0,
+                        onClick = { coroutineScope.launch { pagerState.animateScrollToPage(0) } },
+                        text = {
+                            Text(text = stringResource(R.string.blocked_users))
+                        }
+                    )
+                }
+                Horiz
