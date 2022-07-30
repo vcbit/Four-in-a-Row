@@ -61,4 +61,12 @@ fun FiltersScreen(accountViewModel: AccountViewModel, navController: NavControll
                         }
                     )
                 }
-                Horiz
+                HorizontalPager(count = 1, state = pagerState) {
+                    when (pagerState.currentPage) {
+                        0 -> UserFeedView(feedViewModel, accountViewModel, navController)
+                    }
+                }
+            }
+        }
+    }
+}
