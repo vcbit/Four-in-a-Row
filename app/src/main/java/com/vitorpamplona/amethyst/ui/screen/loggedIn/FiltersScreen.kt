@@ -39,4 +39,14 @@ fun FiltersScreen(accountViewModel: AccountViewModel, navController: NavControll
         val feedViewModel: NostrHiddenAccountsFeedViewModel = viewModel()
 
         Column(Modifier.fillMaxHeight()) {
-            Column(modifier = Modifier.padding(start = 10.dp, end = 10.d
+            Column(modifier = Modifier.padding(start = 10.dp, end = 10.dp)) {
+                val pagerState = rememberPagerState()
+                val coroutineScope = rememberCoroutineScope()
+
+                TabRow(
+                    backgroundColor = MaterialTheme.colors.background,
+                    selectedTabIndex = pagerState.currentPage,
+                    indicator = { tabPositions ->
+                        TabRowDefaults.Indicator(
+                            Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
+             
