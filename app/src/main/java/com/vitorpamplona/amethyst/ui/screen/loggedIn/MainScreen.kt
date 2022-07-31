@@ -20,4 +20,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.comp
+import androidx.navigation.compose.rememberNavController
+import com.vitorpamplona.amethyst.buttons.NewChannelButton
+import com.vitorpamplona.amethyst.buttons.NewNoteButton
+import com.vitorpamplona.amethyst.ui.navigation.AccountSwitchBottomSheet
+import com.vitorpamplona.amethyst.ui.navigation.AppBottomBar
+import com.vitorpamplona.amethyst.ui.navigation.AppNavigation
+import com.vitorpamplona.amethyst.ui.navigation.AppTopBar
+import com.vitorpamplona.amethyst.ui.navigation.DrawerContent
+import
