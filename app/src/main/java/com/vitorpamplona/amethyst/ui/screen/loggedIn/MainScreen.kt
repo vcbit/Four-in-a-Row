@@ -37,4 +37,15 @@ import com.vitorpamplona.amethyst.ui.screen.AccountStateViewModel
 @Composable
 fun MainScreen(accountViewModel: AccountViewModel, accountStateViewModel: AccountStateViewModel, startingPage: String? = null) {
     val navController = rememberNavController()
-    val scaffoldState = rem
+    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+    val sheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
+        skipHalfExpanded = true
+    )
+
+    ModalBottomSheetLayout(
+        sheetState = sheetState,
+        sheetContent = {
+            AccountSwitchBottomSheet(accountViewModel = accountViewModel, accountStateViewModel = accountStateViewModel)
+   
