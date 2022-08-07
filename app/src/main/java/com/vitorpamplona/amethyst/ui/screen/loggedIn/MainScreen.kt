@@ -28,4 +28,13 @@ import com.vitorpamplona.amethyst.ui.navigation.AppBottomBar
 import com.vitorpamplona.amethyst.ui.navigation.AppNavigation
 import com.vitorpamplona.amethyst.ui.navigation.AppTopBar
 import com.vitorpamplona.amethyst.ui.navigation.DrawerContent
-import
+import com.vitorpamplona.amethyst.ui.navigation.Route
+import com.vitorpamplona.amethyst.ui.navigation.currentRoute
+import com.vitorpamplona.amethyst.ui.screen.AccountState
+import com.vitorpamplona.amethyst.ui.screen.AccountStateViewModel
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun MainScreen(accountViewModel: AccountViewModel, accountStateViewModel: AccountStateViewModel, startingPage: String? = null) {
+    val navController = rememberNavController()
+    val scaffoldState = rem
