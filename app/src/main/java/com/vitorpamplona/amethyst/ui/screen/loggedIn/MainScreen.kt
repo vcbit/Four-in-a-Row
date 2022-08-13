@@ -61,4 +61,19 @@ fun MainScreen(accountViewModel: AccountViewModel, accountStateViewModel: Accoun
                 AppTopBar(navController, scaffoldState, accountViewModel)
             },
             drawerContent = {
-                DrawerContent(navController, scaffoldState, sheetState,
+                DrawerContent(navController, scaffoldState, sheetState, accountViewModel)
+            },
+            floatingActionButton = {
+                FloatingButton(navController, accountStateViewModel)
+            },
+            scaffoldState = scaffoldState
+        ) {
+            Column(modifier = Modifier.padding(bottom = it.calculateBottomPadding())) {
+                AppNavigation(navController, accountViewModel, startingPage)
+            }
+        }
+    }
+}
+
+@Composable
+fun FloatingButton(navController: NavHostController, accountViewModel: AccountSt
