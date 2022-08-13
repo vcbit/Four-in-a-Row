@@ -101,4 +101,13 @@ fun FloatingButton(navController: NavHostController, accountViewModel: AccountSt
                 is AccountState.LoggedInViewOnly -> {
                     // Does nothing.
                 }
-             
+                is AccountState.LoggedOff -> {
+                    // Does nothing.
+                }
+                is AccountState.LoggedIn -> {
+                    NewChannelButton(state.account)
+                }
+            }
+        }
+    }
+}
