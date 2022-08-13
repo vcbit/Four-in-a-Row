@@ -48,4 +48,17 @@ fun MainScreen(accountViewModel: AccountViewModel, accountStateViewModel: Accoun
         sheetState = sheetState,
         sheetContent = {
             AccountSwitchBottomSheet(accountViewModel = accountViewModel, accountStateViewModel = accountStateViewModel)
-   
+        }
+    ) {
+        Scaffold(
+            modifier = Modifier
+                .background(MaterialTheme.colors.primaryVariant)
+                .statusBarsPadding(),
+            bottomBar = {
+                AppBottomBar(navController, accountViewModel)
+            },
+            topBar = {
+                AppTopBar(navController, scaffoldState, accountViewModel)
+            },
+            drawerContent = {
+                DrawerContent(navController, scaffoldState, sheetState,
