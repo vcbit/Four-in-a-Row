@@ -76,4 +76,14 @@ fun MainScreen(accountViewModel: AccountViewModel, accountStateViewModel: Accoun
 }
 
 @Composable
-fun FloatingButton(navController: NavHostController, accountViewModel: AccountSt
+fun FloatingButton(navController: NavHostController, accountViewModel: AccountStateViewModel) {
+    val accountState by accountViewModel.accountContent.collectAsState()
+
+    if (currentRoute(navController)?.substringBefore("?") == Route.Home.base) {
+        Crossfade(targetState = accountState, animationSpec = tween(durationMillis = 100)) { state ->
+            when (state) {
+                is AccountState.LoggedInViewOnly -> {
+                    // Does nothing.
+                }
+                is AccountState.LoggedOff -> {
+                    // Does no
