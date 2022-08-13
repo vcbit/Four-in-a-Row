@@ -86,4 +86,19 @@ fun FloatingButton(navController: NavHostController, accountViewModel: AccountSt
                     // Does nothing.
                 }
                 is AccountState.LoggedOff -> {
-                    // Does no
+                    // Does nothing.
+                }
+                is AccountState.LoggedIn -> {
+                    NewNoteButton(state.account)
+                }
+            }
+        }
+    }
+
+    if (currentRoute(navController) == Route.Message.base) {
+        Crossfade(targetState = accountState, animationSpec = tween(durationMillis = 100)) { state ->
+            when (state) {
+                is AccountState.LoggedInViewOnly -> {
+                    // Does nothing.
+                }
+             
