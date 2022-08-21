@@ -25,4 +25,19 @@ fun NotificationScreen(accountViewModel: AccountViewModel, navController: NavCon
     val accountState by accountViewModel.accountLiveData.observeAsState()
     val account = accountState?.account ?: return
 
-    NotificationFeedF
+    NotificationFeedFilter.account = account
+    val feedViewModel: NotificationViewModel = viewModel()
+
+    LaunchedEffect(accountViewModel) {
+        feedViewModel.refresh()
+    }
+
+    val lifeCycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(accountViewModel) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                feedViewModel.refresh()
+            }
+        }
+
+        lifeCycleOwner.lifecycle.addObserver(obser
