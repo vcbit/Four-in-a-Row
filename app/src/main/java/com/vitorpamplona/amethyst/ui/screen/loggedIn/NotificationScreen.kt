@@ -40,4 +40,17 @@ fun NotificationScreen(accountViewModel: AccountViewModel, navController: NavCon
             }
         }
 
-        lifeCycleOwner.lifecycle.addObserver(obser
+        lifeCycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifeCycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+    Column(Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier.padding(vertical = 0.dp)
+        ) {
+            CardFeedView(feedViewModel, accountViewModel = accountViewModel, navController, Route.Notification.route)
+        }
+    }
+}
