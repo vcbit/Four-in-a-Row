@@ -117,3 +117,450 @@ fun ProfileScreen(userId: String?, accountViewModel: AccountViewModel, navContro
                 NostrUserProfileDataSource.loadUserProfile(userId)
                 NostrUserProfileDataSource.start()
             }
+            if (event == Lifecycle.Event.ON_PAUSE) {
+                println("Profile Stop")
+                NostrUserProfileDataSource.loadUserProfile(null)
+                NostrUserProfileDataSource.stop()
+            }
+        }
+
+        lifeCycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifeCycleOwner.lifecycle.removeObserver(observer)
+            println("Profile Dispose")
+            NostrUserProfileDataSource.loadUserProfile(null)
+            NostrUserProfileDataSource.stop()
+        }
+    }
+
+    val baseUser = NostrUserProfileDataSource.user ?: return
+
+    var columnSize by remember { mutableStateOf(IntSize.Zero) }
+    var tabsSize by remember { mutableStateOf(IntSize.Zero) }
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colors.background
+    ) {
+        val pagerState = rememberPagerState()
+        val coroutineScope = rememberCoroutineScope()
+        val scrollState = rememberScrollState()
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .onSizeChanged {
+                    columnSize = it
+                }
+        ) {
+            Box(
+                modifier = Modifier
+                    .verticalScroll(scrollState)
+                    .nestedScroll(object : NestedScrollConnection {
+                        override fun onPreScroll(
+                            available: Offset,
+                            source: NestedScrollSource
+                        ): Offset {
+                            // When scrolling vertically, scroll the container first.
+                            return if (available.y < 0 && scrollState.canScrollForward) {
+                                coroutineScope.launch {
+                                    scrollState.scrollBy(-available.y)
+                                }
+                                Offset(0f, available.y)
+                            } else {
+                                Offset.Zero
+                            }
+                        }
+                    })
+                    .fillMaxHeight()
+            ) {
+                Column(modifier = Modifier.padding()) {
+                    ProfileHeader(baseUser, navController, account, accountViewModel)
+                    ScrollableTabRow(
+                        backgroundColor = MaterialTheme.colors.background,
+                        selectedTabIndex = pagerState.currentPage,
+                        indicator = { tabPositions ->
+                            TabRowDefaults.Indicator(
+                                Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
+                                color = MaterialTheme.colors.primary
+                            )
+                        },
+                        edgePadding = 8.dp,
+                        modifier = Modifier.onSizeChanged {
+                            tabsSize = it
+                        }
+                    ) {
+                        val tabs = listOf<@Composable() (() -> Unit)?>(
+                            {
+                                Text(text = stringResource(R.string.notes))
+                            },
+                            {
+                                Text(text = stringResource(R.string.replies))
+                            },
+                            {
+                                val userState by baseUser.live().follows.observeAsState()
+                                val userFollows = userState?.user?.follows?.size ?: "--"
+
+                                Text(text = "$userFollows ${stringResource(R.string.follows)}")
+                            },
+                            {
+                                val userState by baseUser.live().follows.observeAsState()
+                                val userFollowers = userState?.user?.followers?.size ?: "--"
+
+                                Text(text = "$userFollowers ${stringResource(id = R.string.followers)}")
+                            },
+                            {
+                                val userState by baseUser.live().zaps.observeAsState()
+                                val userZaps = userState?.user
+
+                                var zapAmount by remember { mutableStateOf<BigDecimal?>(null) }
+
+                                LaunchedEffect(key1 = userState) {
+                                    withContext(Dispatchers.IO) {
+                                        val tempAmount = userZaps?.zappedAmount()
+                                        withContext(Dispatchers.Main) {
+                                            zapAmount = tempAmount
+                                        }
+                                    }
+                                }
+
+                                Text(text = "${showAmount(zapAmount)} ${stringResource(id = R.string.zaps)}")
+                            },
+                            {
+                                val userState by baseUser.live().reports.observeAsState()
+                                val userReports = userState?.user?.reports?.values?.flatten()?.count()
+
+                                Text(text = "$userReports ${stringResource(R.string.reports)}")
+                            },
+                            {
+                                val userState by baseUser.live().relays.observeAsState()
+                                val userRelaysBeingUsed = userState?.user?.relaysBeingUsed?.size ?: "--"
+
+                                val userStateRelayInfo by baseUser.live().relayInfo.observeAsState()
+                                val userRelays = userStateRelayInfo?.user?.relays?.size ?: "--"
+
+                                Text(text = "$userRelaysBeingUsed / $userRelays ${stringResource(R.string.relays)}")
+                            }
+                        )
+
+                        tabs.forEachIndexed { index, function ->
+                            Tab(
+                                selected = pagerState.currentPage == index,
+                                onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
+                                text = function
+                            )
+                        }
+                    }
+                    HorizontalPager(
+                        count = 7,
+                        state = pagerState,
+                        modifier = with(LocalDensity.current) {
+                            Modifier.height((columnSize.height - tabsSize.height).toDp())
+                        }
+                    ) {
+                        when (pagerState.currentPage) {
+                            0 -> TabNotesNewThreads(accountViewModel, navController)
+                            1 -> TabNotesConversations(accountViewModel, navController)
+                            2 -> TabFollows(baseUser, accountViewModel, navController)
+                            3 -> TabFollowers(baseUser, accountViewModel, navController)
+                            4 -> TabReceivedZaps(baseUser, accountViewModel, navController)
+                            5 -> TabReports(baseUser, accountViewModel, navController)
+                            6 -> TabRelays(baseUser, accountViewModel)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ProfileHeader(
+    baseUser: User,
+    navController: NavController,
+    account: Account,
+    accountViewModel: AccountViewModel
+) {
+    var popupExpanded by remember { mutableStateOf(false) }
+    var zoomImageDialogOpen by remember { mutableStateOf(false) }
+
+    val accountUserState by account.userProfile().live().follows.observeAsState()
+    val accountUser = accountUserState?.user ?: return
+
+    val coroutineScope = rememberCoroutineScope()
+    val clipboardManager = LocalClipboardManager.current
+
+    Box {
+        DrawBanner(baseUser)
+
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 10.dp)
+                .size(40.dp)
+                .align(Alignment.TopEnd)
+        ) {
+            Button(
+                modifier = Modifier
+                    .size(30.dp)
+                    .align(Alignment.Center),
+                onClick = { popupExpanded = true },
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults
+                    .buttonColors(
+                        backgroundColor = MaterialTheme.colors.background
+                    ),
+                contentPadding = PaddingValues(0.dp)
+            ) {
+                Icon(
+                    tint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = stringResource(R.string.more_options)
+                )
+
+                UserProfileDropDownMenu(baseUser, popupExpanded, { popupExpanded = false }, accountViewModel)
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .padding(top = 75.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                UserPicture(
+                    baseUser = baseUser,
+                    baseUserAccount = account.userProfile(),
+                    size = 100.dp,
+                    modifier = Modifier.border(
+                        3.dp,
+                        MaterialTheme.colors.background,
+                        CircleShape
+                    ),
+                    onClick = {
+                        if (baseUser.profilePicture() != null) {
+                            zoomImageDialogOpen = true
+                        }
+                    },
+                    onLongClick = {
+                        ResizeImage(it.info?.picture, 100.dp).proxyUrl()?.let { it1 ->
+                            clipboardManager.setText(
+                                AnnotatedString(it1)
+                            )
+                        }
+                    }
+                )
+
+                Spacer(Modifier.weight(1f))
+
+                Row(
+                    modifier = Modifier
+                        .height(35.dp)
+                        .padding(bottom = 3.dp)
+                ) {
+                    MessageButton(baseUser, navController)
+
+                    // No need for this button anymore
+                    // NPubCopyButton(baseUser)
+
+                    if (accountUser == baseUser) {
+                        EditButton(account)
+                    }
+
+                    if (account.isHidden(baseUser)) {
+                        ShowUserButton {
+                            account.showUser(baseUser.pubkeyHex)
+                        }
+                    } else if (accountUser.isFollowing(baseUser)) {
+                        UnfollowButton { coroutineScope.launch(Dispatchers.IO) { account.unfollow(baseUser) } }
+                    } else {
+                        FollowButton { coroutineScope.launch(Dispatchers.IO) { account.follow(baseUser) } }
+                    }
+                }
+            }
+
+            DrawAdditionalInfo(baseUser, account, navController)
+
+            Divider(modifier = Modifier.padding(top = 6.dp))
+        }
+    }
+
+    if (zoomImageDialogOpen) {
+        ZoomableImageDialog(baseUser.profilePicture()!!, onDismiss = { zoomImageDialogOpen = false })
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun DrawAdditionalInfo(baseUser: User, account: Account, navController: NavController) {
+    val userState by baseUser.live().metadata.observeAsState()
+    val user = userState?.user ?: return
+
+    val userBadgeState by baseUser.live().badges.observeAsState()
+    val userBadge = userBadgeState?.user ?: return
+
+    val uri = LocalUriHandler.current
+    val clipboardManager = LocalClipboardManager.current
+
+    Row(verticalAlignment = Alignment.Bottom) {
+        user.bestDisplayName()?.let {
+            Text(
+                it,
+                modifier = Modifier.padding(top = 7.dp),
+                fontWeight = FontWeight.Bold,
+                fontSize = 25.sp
+            )
+        }
+
+        user.bestUsername()?.let {
+            Text(
+                "@$it",
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                modifier = Modifier.padding(top = 1.dp, bottom = 1.dp, start = 5.dp)
+            )
+        }
+    }
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = user.pubkeyDisplayHex(),
+            modifier = Modifier.padding(top = 1.dp, bottom = 1.dp),
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+        )
+
+        IconButton(
+            modifier = Modifier
+                .size(30.dp)
+                .padding(start = 5.dp),
+            onClick = { clipboardManager.setText(AnnotatedString(user.pubkeyNpub())); }
+        ) {
+            Icon(
+                imageVector = Icons.Default.ContentCopy,
+                null,
+                modifier = Modifier
+                    .padding(end = 5.dp)
+                    .size(15.dp),
+                tint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+            )
+        }
+    }
+
+    userBadge.acceptedBadges?.let { note ->
+        (note.event as? BadgeProfilesEvent)?.let { event ->
+            FlowRow(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(vertical = 5.dp)) {
+                event.badgeAwardEvents().forEach { badgeAwardEvent ->
+                    val baseNote = LocalCache.notes[badgeAwardEvent]
+                    if (baseNote != null) {
+                        val badgeAwardState by baseNote.live().metadata.observeAsState()
+                        val baseBadgeDefinition = badgeAwardState?.note?.replyTo?.firstOrNull()
+
+                        if (baseBadgeDefinition != null) {
+                            BadgeThumb(baseBadgeDefinition, navController, 50.dp)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    DisplayNip05ProfileStatus(user)
+
+    val website = user.info?.website
+    if (!website.isNullOrEmpty()) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                tint = MaterialTheme.colors.onSurface.copy(alpha = 0.32f),
+                imageVector = Icons.Default.Link,
+                contentDescription = stringResource(R.string.website),
+                modifier = Modifier.size(16.dp)
+            )
+
+            ClickableText(
+                text = AnnotatedString(website.removePrefix("https://")),
+                onClick = { website.let { runCatching { uri.openUri(it) } } },
+                style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary),
+                modifier = Modifier.padding(top = 1.dp, bottom = 1.dp, start = 5.dp)
+            )
+        }
+    }
+
+    var zapExpanded by remember { mutableStateOf(false) }
+
+    val lud16 = user.info?.lud16?.trim() ?: user.info?.lud06?.trim()
+
+    if (!lud16.isNullOrEmpty()) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                tint = BitcoinOrange,
+                imageVector = Icons.Default.Bolt,
+                contentDescription = stringResource(R.string.lightning_address),
+                modifier = Modifier.size(16.dp)
+            )
+
+            ClickableText(
+                text = AnnotatedString(lud16),
+                onClick = { zapExpanded = !zapExpanded },
+                style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary),
+                modifier = Modifier
+                    .padding(top = 1.dp, bottom = 1.dp, start = 5.dp)
+                    .weight(1f)
+            )
+        }
+
+        if (zapExpanded) {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(vertical = 5.dp)) {
+                InvoiceRequest(lud16, baseUser.pubkeyHex, account) {
+                    zapExpanded = false
+                }
+            }
+        }
+    }
+
+    val identities = user.info?.latestMetadata?.identityClaims()
+    if (!identities.isNullOrEmpty()) {
+        identities.forEach { identity: IdentityClaim ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    tint = Color.Unspecified,
+                    painter = painterResource(id = identity.toIcon()),
+                    contentDescription = stringResource(identity.toDescriptor()),
+                    modifier = Modifier.size(16.dp)
+                )
+
+                ClickableText(
+                    text = AnnotatedString(identity.identity),
+                    onClick = { runCatching { uri.openUri(identity.toProofUrl()) } },
+                    style = LocalTextStyle.current.copy(color = MaterialTheme.colors.primary),
+                    modifier = Modifier
+                        .padding(top = 1.dp, bottom = 1.dp, start = 5.dp)
+                        .weight(1f)
+                )
+            }
+        }
+    }
+
+    user.info?.about?.let {
+        Text(
+            it,
+            color = MaterialTheme.colors.onSurface,
+            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
+        )
+    }
+}
+
+@Composable
+fun BadgeThumb(
+    note: Note,
+    navController: NavController,
+    size: Dp,
+    pictureModifier: Modifier = Modifier
+) {
+    BadgeThumb(note, size, pictureModifier) {
+        navController.navigate("Note/${it.idHex}")
+    }
+}
+
+@Composable
