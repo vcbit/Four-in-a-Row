@@ -564,3 +564,447 @@ fun BadgeThumb(
 }
 
 @Composable
+fun BadgeThumb(
+    baseNote: Note,
+    size: Dp,
+    pictureModifier: Modifier = Modifier,
+    onClick: ((Note) -> Unit)? = null
+) {
+    val noteState by baseNote.live().metadata.observeAsState()
+    val note = noteState?.note ?: return
+
+    val event = (note.event as? BadgeDefinitionEvent)
+    val image = event?.thumb() ?: event?.image()
+
+    Box(
+        Modifier
+            .width(size)
+            .height(size)
+    ) {
+        if (image == null) {
+            RobohashAsyncImage(
+                robot = "authornotfound",
+                contentDescription = stringResource(R.string.unknown_author),
+                modifier = pictureModifier
+                    .fillMaxSize(1f)
+                    .background(MaterialTheme.colors.background)
+            )
+        } else {
+            RobohashFallbackAsyncImage(
+                robot = note.idHex,
+                model = image,
+                contentDescription = stringResource(id = R.string.profile_image),
+                modifier = pictureModifier
+                    .fillMaxSize(1f)
+                    .clip(shape = CircleShape)
+                    .background(MaterialTheme.colors.background)
+                    .run {
+                        if (onClick != null) {
+                            this.clickable(onClick = { onClick(note) })
+                        } else {
+                            this
+                        }
+                    }
+
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun DrawBanner(baseUser: User) {
+    val userState by baseUser.live().metadata.observeAsState()
+    val user = userState?.user ?: return
+
+    val banner = user.info?.banner
+    val clipboardManager = LocalClipboardManager.current
+    var zoomImageDialogOpen by remember { mutableStateOf(false) }
+
+    if (!banner.isNullOrBlank()) {
+        AsyncImage(
+            model = banner,
+            contentDescription = stringResource(id = R.string.profile_image),
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(125.dp)
+                .combinedClickable(
+                    onClick = {},
+                    onLongClick = {
+                        clipboardManager.setText(AnnotatedString(banner))
+                    }
+                )
+                .clickable { zoomImageDialogOpen = true }
+        )
+
+        if (zoomImageDialogOpen) {
+            ZoomableImageDialog(imageUrl = banner, onDismiss = { zoomImageDialogOpen = false })
+        }
+    } else {
+        Image(
+            painter = painterResource(R.drawable.profile_banner),
+            contentDescription = stringResource(id = R.string.profile_banner),
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(125.dp)
+        )
+    }
+}
+
+@Composable
+fun TabNotesNewThreads(accountViewModel: AccountViewModel, navController: NavController) {
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    if (accountState != null) {
+        val feedViewModel: NostrUserProfileNewThreadsFeedViewModel = viewModel()
+
+        LaunchedEffect(Unit) {
+            feedViewModel.refresh()
+        }
+
+        Column(Modifier.fillMaxHeight()) {
+            Column(
+                modifier = Modifier.padding(vertical = 0.dp)
+            ) {
+                FeedView(feedViewModel, accountViewModel, navController, null)
+            }
+        }
+    }
+}
+
+@Composable
+fun TabNotesConversations(accountViewModel: AccountViewModel, navController: NavController) {
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    if (accountState != null) {
+        val feedViewModel: NostrUserProfileConversationsFeedViewModel = viewModel()
+
+        LaunchedEffect(Unit) {
+            feedViewModel.refresh()
+        }
+
+        Column(Modifier.fillMaxHeight()) {
+            Column(
+                modifier = Modifier.padding(vertical = 0.dp)
+            ) {
+                FeedView(feedViewModel, accountViewModel, navController, null)
+            }
+        }
+    }
+}
+
+@Composable
+fun TabFollows(baseUser: User, accountViewModel: AccountViewModel, navController: NavController) {
+    val feedViewModel: NostrUserProfileFollowsUserFeedViewModel = viewModel()
+
+    val userState by baseUser.live().follows.observeAsState()
+
+    LaunchedEffect(userState) {
+        feedViewModel.invalidateData()
+    }
+
+    Column(Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier.padding(vertical = 0.dp)
+        ) {
+            UserFeedView(feedViewModel, accountViewModel, navController)
+        }
+    }
+}
+
+@Composable
+fun TabFollowers(baseUser: User, accountViewModel: AccountViewModel, navController: NavController) {
+    val feedViewModel: NostrUserProfileFollowersUserFeedViewModel = viewModel()
+
+    val userState by baseUser.live().follows.observeAsState()
+
+    LaunchedEffect(userState) {
+        feedViewModel.invalidateData()
+    }
+
+    Column(Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier.padding(vertical = 0.dp)
+        ) {
+            UserFeedView(feedViewModel, accountViewModel, navController)
+        }
+    }
+}
+
+@Composable
+fun TabReceivedZaps(baseUser: User, accountViewModel: AccountViewModel, navController: NavController) {
+    val feedViewModel: NostrUserProfileZapsFeedViewModel = viewModel()
+
+    val userState by baseUser.live().zaps.observeAsState()
+
+    LaunchedEffect(userState) {
+        feedViewModel.invalidateData()
+    }
+
+    Column(Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier.padding(vertical = 0.dp)
+        ) {
+            LnZapFeedView(feedViewModel, accountViewModel, navController)
+        }
+    }
+}
+
+@Composable
+fun TabReports(baseUser: User, accountViewModel: AccountViewModel, navController: NavController) {
+    val feedViewModel: NostrUserProfileReportFeedViewModel = viewModel()
+
+    val userState by baseUser.live().reports.observeAsState()
+
+    LaunchedEffect(userState) {
+        feedViewModel.invalidateData()
+    }
+
+    Column(Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier.padding(vertical = 0.dp)
+        ) {
+            FeedView(feedViewModel, accountViewModel, navController, null)
+        }
+    }
+}
+
+@Composable
+fun TabRelays(user: User, accountViewModel: AccountViewModel) {
+    val feedViewModel: RelayFeedViewModel = viewModel()
+
+    val lifeCycleOwner = LocalLifecycleOwner.current
+
+    DisposableEffect(user) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                println("Profile Relay Start")
+                feedViewModel.subscribeTo(user)
+            }
+            if (event == Lifecycle.Event.ON_PAUSE) {
+                println("Profile Relay Stop")
+                feedViewModel.unsubscribeTo(user)
+            }
+        }
+
+        lifeCycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifeCycleOwner.lifecycle.removeObserver(observer)
+            println("Profile Relay Dispose")
+            feedViewModel.unsubscribeTo(user)
+        }
+    }
+
+    Column(Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier.padding(vertical = 0.dp)
+        ) {
+            RelayFeedView(feedViewModel, accountViewModel)
+        }
+    }
+}
+
+@Composable
+private fun NPubCopyButton(
+    user: User
+) {
+    val clipboardManager = LocalClipboardManager.current
+    var popupExpanded by remember { mutableStateOf(false) }
+
+    Button(
+        modifier = Modifier
+            .padding(horizontal = 3.dp)
+            .width(50.dp),
+        onClick = { popupExpanded = true },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+            )
+    ) {
+        Icon(
+            tint = Color.White,
+            imageVector = Icons.Default.Share,
+            contentDescription = stringResource(R.string.copies_the_public_key_to_the_clipboard_for_sharing)
+        )
+
+        DropdownMenu(
+            expanded = popupExpanded,
+            onDismissRequest = { popupExpanded = false }
+        ) {
+            DropdownMenuItem(onClick = { clipboardManager.setText(AnnotatedString(user.pubkeyNpub())); popupExpanded = false }) {
+                Text(stringResource(R.string.copy_public_key_npub_to_the_clipboard))
+            }
+        }
+    }
+}
+
+@Composable
+private fun MessageButton(user: User, navController: NavController) {
+    Button(
+        modifier = Modifier
+            .padding(horizontal = 3.dp)
+            .width(50.dp),
+        onClick = { navController.navigate("Room/${user.pubkeyHex}") },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+            )
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_dm),
+            stringResource(R.string.send_a_direct_message),
+            modifier = Modifier.size(20.dp),
+            tint = Color.White
+        )
+    }
+}
+
+@Composable
+private fun EditButton(account: Account) {
+    var wantsToEdit by remember {
+        mutableStateOf(false)
+    }
+
+    if (wantsToEdit) {
+        NewUserMetadataView({ wantsToEdit = false }, account)
+    }
+
+    Button(
+        modifier = Modifier
+            .padding(horizontal = 3.dp)
+            .width(50.dp),
+        onClick = { wantsToEdit = true },
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.primary
+            )
+    ) {
+        Icon(
+            tint = Color.White,
+            imageVector = Icons.Default.EditNote,
+            contentDescription = stringResource(R.string.edits_the_user_s_metadata)
+        )
+    }
+}
+
+@Composable
+fun UnfollowButton(onClick: () -> Unit) {
+    Button(
+        modifier = Modifier.padding(horizontal = 3.dp),
+        onClick = onClick,
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.primary
+            ),
+        contentPadding = PaddingValues(vertical = 6.dp, horizontal = 16.dp)
+    ) {
+        Text(text = stringResource(R.string.unfollow), color = Color.White)
+    }
+}
+
+@Composable
+fun FollowButton(onClick: () -> Unit) {
+    Button(
+        modifier = Modifier.padding(start = 3.dp),
+        onClick = onClick,
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.primary
+            ),
+        contentPadding = PaddingValues(vertical = 6.dp, horizontal = 16.dp)
+    ) {
+        Text(text = stringResource(R.string.follow), color = Color.White, textAlign = TextAlign.Center)
+    }
+}
+
+@Composable
+fun ShowUserButton(onClick: () -> Unit) {
+    Button(
+        modifier = Modifier.padding(start = 3.dp),
+        onClick = onClick,
+        shape = RoundedCornerShape(20.dp),
+        colors = ButtonDefaults
+            .buttonColors(
+                backgroundColor = MaterialTheme.colors.primary
+            ),
+        contentPadding = PaddingValues(vertical = 6.dp, horizontal = 16.dp)
+    ) {
+        Text(text = stringResource(R.string.unblock), color = Color.White)
+    }
+}
+
+@Composable
+fun UserProfileDropDownMenu(user: User, popupExpanded: Boolean, onDismiss: () -> Unit, accountViewModel: AccountViewModel) {
+    val clipboardManager = LocalClipboardManager.current
+    val accountState by accountViewModel.accountLiveData.observeAsState()
+    val account = accountState?.account ?: return
+
+    DropdownMenu(
+        expanded = popupExpanded,
+        onDismissRequest = onDismiss
+    ) {
+        DropdownMenuItem(onClick = { clipboardManager.setText(AnnotatedString(user.pubkeyNpub())); onDismiss() }) {
+            Text(stringResource(R.string.copy_user_id))
+        }
+
+        if (account.userProfile() != user) {
+            Divider()
+            if (account.isHidden(user)) {
+                DropdownMenuItem(onClick = {
+                    accountViewModel.show(user)
+                    onDismiss()
+                }) {
+                    Text(stringResource(R.string.unblock_user))
+                }
+            } else {
+                DropdownMenuItem(onClick = {
+                    accountViewModel.hide(user)
+                    onDismiss()
+                }) {
+                    Text(stringResource(id = R.string.block_hide_user))
+                }
+            }
+            Divider()
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(user, ReportEvent.ReportType.SPAM)
+                accountViewModel.hide(user)
+                onDismiss()
+            }) {
+                Text(stringResource(id = R.string.report_spam_scam))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(user, ReportEvent.ReportType.PROFANITY)
+                accountViewModel.hide(user)
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.report_hateful_speech))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(user, ReportEvent.ReportType.IMPERSONATION)
+                accountViewModel.hide(user)
+                onDismiss()
+            }) {
+                Text(stringResource(id = R.string.report_impersonation))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(user, ReportEvent.ReportType.NUDITY)
+                accountViewModel.hide(user)
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.report_nudity_porn))
+            }
+            DropdownMenuItem(onClick = {
+                accountViewModel.report(user, ReportEvent.ReportType.ILLEGAL)
+                accountViewModel.hide(user)
+                onDismiss()
+            }) {
+                Text(stringResource(id = R.string.report_illegal_behaviour))
+            }
+        }
+    }
+}
