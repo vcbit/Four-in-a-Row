@@ -31,4 +31,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.input.*
-import androidx.compose.ui.text.style.TextAli
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.vitorpamplona.amethyst.R
+import com.vitorpamplona.amethyst.ui.screen.AccountStateViewModel
+import java.util.*
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun LoginPage(
+    accountViewModel: AccountStateViewModel,
+    isFirstLogin: Boolean
+) {
+    val key = remember { mutableStateOf(TextFieldValue("")) }
+    var errorMessage by remember { mutableSt
