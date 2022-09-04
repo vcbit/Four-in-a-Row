@@ -59,4 +59,18 @@ fun LoginPage(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         // The first child is glued to the top.
-        // Hence we have nothing at the top, an
+        // Hence we have nothing at the top, an empty box is used.
+        Box(modifier = Modifier.height(0.dp))
+
+        // The second child, this column, is centered vertically.
+        Column(
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painterResource(id = R.drawable.amethyst),
+                contentDescription = stringResource(R.string.app_logo),
+                modifier = Modifier.size(200.dp),
+    
