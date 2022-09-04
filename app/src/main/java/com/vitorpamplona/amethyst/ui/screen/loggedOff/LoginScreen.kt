@@ -46,4 +46,17 @@ fun LoginPage(
     isFirstLogin: Boolean
 ) {
     val key = remember { mutableStateOf(TextFieldValue("")) }
-    var errorMessage by remember { mutableSt
+    var errorMessage by remember { mutableStateOf("") }
+    val acceptedTerms = remember { mutableStateOf(!isFirstLogin) }
+    var termsAcceptanceIsRequired by remember { mutableStateOf("") }
+    val uri = LocalUriHandler.current
+    val context = LocalContext.current
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        // The first child is glued to the top.
+        // Hence we have nothing at the top, an
