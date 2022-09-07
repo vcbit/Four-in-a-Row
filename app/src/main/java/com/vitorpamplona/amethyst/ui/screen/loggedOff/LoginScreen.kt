@@ -73,4 +73,18 @@ fun LoginPage(
                 painterResource(id = R.drawable.amethyst),
                 contentDescription = stringResource(R.string.app_logo),
                 modifier = Modifier.size(200.dp),
-    
+                contentScale = ContentScale.Inside
+            )
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            var showPassword by remember {
+                mutableStateOf(false)
+            }
+
+            val autofillNode = AutofillNode(
+                autofillTypes = listOf(AutofillType.Password),
+                onFill = { key.value = TextFieldValue(it) }
+            )
+            val autofill = LocalAutofill.current
+            LocalAut
