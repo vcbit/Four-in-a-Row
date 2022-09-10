@@ -87,4 +87,15 @@ fun LoginPage(
                 onFill = { key.value = TextFieldValue(it) }
             )
             val autofill = LocalAutofill.current
-            LocalAut
+            LocalAutofillTree.current += autofillNode
+
+            OutlinedTextField(
+                modifier = Modifier
+                    .onGloballyPositioned { coordinates ->
+                        autofillNode.boundingBox = coordinates.boundsInWindow()
+                    }
+                    .onFocusChanged { focusState ->
+                        autofill?.run {
+                            if (focusState.isFocused) {
+                                requestAutofillForNode(autofillNode)
+                       
