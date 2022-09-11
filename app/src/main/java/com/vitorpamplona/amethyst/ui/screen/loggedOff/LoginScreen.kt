@@ -119,4 +119,15 @@ fun LoginPage(
                 trailingIcon = {
                     IconButton(onClick = { showPassword = !showPassword }) {
                         Icon(
-                            imageVector = if (showPassword) Icons.Outlined.VisibilityOff else Icons.Outlined.V
+                            imageVector = if (showPassword) Icons.Outlined.VisibilityOff else Icons.Outlined.Visibility,
+                            contentDescription = if (showPassword) {
+                                stringResource(R.string.show_password)
+                            } else {
+                                stringResource(
+                                    R.string.hide_password
+                                )
+                            }
+                        )
+                    }
+                },
+                visualTransformation = if (showPassword) VisualTrans
