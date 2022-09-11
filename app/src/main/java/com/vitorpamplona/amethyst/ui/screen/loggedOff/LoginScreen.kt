@@ -130,4 +130,16 @@ fun LoginPage(
                         )
                     }
                 },
-                visualTransformation = if (showPassword) VisualTrans
+                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                keyboardActions = KeyboardActions(
+                    onGo = {
+                        try {
+                            accountViewModel.login(key.value.text)
+                        } catch (e: Exception) {
+                            errorMessage = context.getString(R.string.invalid_key)
+                        }
+                    }
+                )
+            )
+            if (errorMessage.isNotBlank()) {
+          
