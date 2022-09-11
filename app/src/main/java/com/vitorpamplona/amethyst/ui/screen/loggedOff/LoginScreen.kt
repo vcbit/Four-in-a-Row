@@ -98,4 +98,16 @@ fun LoginPage(
                         autofill?.run {
                             if (focusState.isFocused) {
                                 requestAutofillForNode(autofillNode)
-                       
+                            } else {
+                                cancelAutofillForNode(autofillNode)
+                            }
+                        }
+                    },
+                value = key.value,
+                onValueChange = { key.value = it },
+                keyboardOptions = KeyboardOptions(
+                    autoCorrect = false,
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Go
+                ),
+                placehol
