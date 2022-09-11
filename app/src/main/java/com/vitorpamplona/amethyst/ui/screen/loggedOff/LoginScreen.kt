@@ -110,4 +110,13 @@ fun LoginPage(
                     keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Go
                 ),
-                placehol
+                placeholder = {
+                    Text(
+                        text = stringResource(R.string.nsec_npub_hex_private_key),
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.32f)
+                    )
+                },
+                trailingIcon = {
+                    IconButton(onClick = { showPassword = !showPassword }) {
+                        Icon(
+                            imageVector = if (showPassword) Icons.Outlined.VisibilityOff else Icons.Outlined.V
