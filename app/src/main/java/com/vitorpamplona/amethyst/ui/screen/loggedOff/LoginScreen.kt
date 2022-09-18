@@ -155,4 +155,16 @@ fun LoginPage(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
                         checked = acceptedTerms.value,
-                        onCheckedCha
+                        onCheckedChange = { acceptedTerms.value = it }
+                    )
+
+                    val regularText =
+                        SpanStyle(color = MaterialTheme.colors.onBackground)
+
+                    val clickableTextStyle =
+                        SpanStyle(color = MaterialTheme.colors.primary)
+
+                    val annotatedTermsString = buildAnnotatedString {
+                        withStyle(regularText) {
+                            append(stringResource(R.string.i_accept_the))
+                       
