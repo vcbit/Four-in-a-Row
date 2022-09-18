@@ -167,4 +167,16 @@ fun LoginPage(
                     val annotatedTermsString = buildAnnotatedString {
                         withStyle(regularText) {
                             append(stringResource(R.string.i_accept_the))
-                       
+                        }
+
+                        withStyle(clickableTextStyle) {
+                            pushStringAnnotation("openTerms", "")
+                            append(stringResource(R.string.terms_of_use))
+                        }
+                    }
+
+                    ClickableText(
+                        text = annotatedTermsString
+                    ) { spanOffset ->
+                        annotatedTermsString.getStringAnnotations(spanOffset, spanOffset)
+                            .fir
