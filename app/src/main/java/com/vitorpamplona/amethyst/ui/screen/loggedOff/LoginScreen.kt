@@ -142,4 +142,17 @@ fun LoginPage(
                 )
             )
             if (errorMessage.isNotBlank()) {
-          
+                Text(
+                    text = errorMessage,
+                    color = MaterialTheme.colors.error,
+                    style = MaterialTheme.typography.caption
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            if (isFirstLogin) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(
+                        checked = acceptedTerms.value,
+                        onCheckedCha
