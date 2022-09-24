@@ -214,4 +214,15 @@ fun LoginPage(
                         if (acceptedTerms.value && key.value.text.isNotBlank()) {
                             try {
                                 accountViewModel.login(key.value.text)
-                            } catch (e: Exce
+                            } catch (e: Exception) {
+                                errorMessage = context.getString(R.string.invalid_key)
+                            }
+                        }
+                    },
+                    shape = RoundedCornerShape(35.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    colors = ButtonDefaults
+                        .buttonColors(
+                            backgroundColor = if (acceptedTerms.value
