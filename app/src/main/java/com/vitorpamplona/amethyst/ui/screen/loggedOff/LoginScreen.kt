@@ -191,4 +191,17 @@ fun LoginPage(
                 if (termsAcceptanceIsRequired.isNotBlank()) {
                     Text(
                         text = termsAcceptanceIsRequired,
-    
+                        color = MaterialTheme.colors.error,
+                        style = MaterialTheme.typography.caption
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                Button(
+                    onClick = {
+                        if (!acceptedTerms.value) {
+                            termsAcceptanceIsRequired =
+                  
