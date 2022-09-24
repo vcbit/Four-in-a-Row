@@ -204,4 +204,14 @@ fun LoginPage(
                     onClick = {
                         if (!acceptedTerms.value) {
                             termsAcceptanceIsRequired =
-                  
+                                context.getString(R.string.acceptance_of_terms_is_required)
+                        }
+
+                        if (key.value.text.isBlank()) {
+                            errorMessage = context.getString(R.string.key_is_required)
+                        }
+
+                        if (acceptedTerms.value && key.value.text.isNotBlank()) {
+                            try {
+                                accountViewModel.login(key.value.text)
+                            } catch (e: Exce
