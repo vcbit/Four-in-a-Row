@@ -179,4 +179,16 @@ fun LoginPage(
                         text = annotatedTermsString
                     ) { spanOffset ->
                         annotatedTermsString.getStringAnnotations(spanOffset, spanOffset)
-                            .fir
+                            .firstOrNull()
+                            ?.also { span ->
+                                if (span.tag == "openTerms") {
+                                    runCatching { uri.openUri("https://github.com/vitorpamplona/amethyst/blob/main/PRIVACY.md") }
+                                }
+                            }
+                    }
+                }
+
+                if (termsAcceptanceIsRequired.isNotBlank()) {
+                    Text(
+                        text = termsAcceptanceIsRequired,
+    
