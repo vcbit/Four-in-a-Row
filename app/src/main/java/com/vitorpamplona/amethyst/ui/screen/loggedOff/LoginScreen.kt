@@ -225,4 +225,19 @@ fun LoginPage(
                         .height(50.dp),
                     colors = ButtonDefaults
                         .buttonColors(
-                            backgroundColor = if (acceptedTerms.value
+                            backgroundColor = if (acceptedTerms.value) MaterialTheme.colors.primary else Color.Gray
+                        )
+                ) {
+                    Text(text = stringResource(R.string.login))
+                }
+            }
+        }
+
+        // The last child is glued to the bottom.
+        ClickableText(
+            text = AnnotatedString(stringResource(R.string.generate_a_new_key)),
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxWidth(),
+            onClick = {
+                if 
