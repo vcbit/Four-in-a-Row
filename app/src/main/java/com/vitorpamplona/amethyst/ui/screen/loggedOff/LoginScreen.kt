@@ -240,4 +240,15 @@ fun LoginPage(
                 .padding(20.dp)
                 .fillMaxWidth(),
             onClick = {
-                if 
+                if (acceptedTerms.value) {
+                    accountViewModel.newKey()
+                } else {
+                    termsAcceptanceIsRequired =
+                        context.getString(R.string.acceptance_of_terms_is_required)
+                }
+            },
+            style = TextStyle(
+                fontSize = 14.sp,
+                textDecoration = TextDecoration.Underline,
+                color = MaterialTheme.colors.primary,
+                textAlign = Text
