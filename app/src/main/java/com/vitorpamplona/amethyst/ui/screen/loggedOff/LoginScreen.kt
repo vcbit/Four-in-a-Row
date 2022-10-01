@@ -251,4 +251,8 @@ fun LoginPage(
                 fontSize = 14.sp,
                 textDecoration = TextDecoration.Underline,
                 color = MaterialTheme.colors.primary,
-                textAlign = Text
+                textAlign = TextAlign.Center
+            )
+        )
+    }
+}
