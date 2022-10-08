@@ -24,4 +24,7 @@
           <item android:offset="0" android:color="#FF550066"/>
           <item android:offset="1" android:color="#FFA75CCC"/>
         </gradient>
-    
+      </aapt:attr>
+    </path>
+  </group>
+</vector>
