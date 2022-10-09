@@ -9,4 +9,14 @@
     <string name="post_not_found">المنشور غير موجود</string>
     <string name="channel_image">صورة القناة</string>
     <string name="referenced_event_not_found">لم يتم العثور على الحدث المشار إليه</string>
-    <string name="could_not_decrypt_the_message">لا يمكن فك تشفي
+    <string name="could_not_decrypt_the_message">لا يمكن فك تشفير الرسالة</string>
+    <string name="group_picture">صورة المجموعة</string>
+    <string name="explicit_content">محتوى فاضح</string>
+    <string name="spam">رسائل عشوائية</string>
+    <string name="impersonation">التمثيل</string>
+    <string name="illegal_behavior">تصرف غير قانوني</string>
+    <string name="unknown">غير معروف</string>
+    <string name="relay_icon">Relay Icon</string>
+    <string name="unknown_author">كاتب غير معروف</string>
+    <string name="copy_text">نسخ النص</string>
+    <string name="copy_user_pubkey">نسخ المفتاح العام</strin
