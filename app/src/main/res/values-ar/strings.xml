@@ -19,4 +19,12 @@
     <string name="relay_icon">Relay Icon</string>
     <string name="unknown_author">كاتب غير معروف</string>
     <string name="copy_text">نسخ النص</string>
-    <string name="copy_user_pubkey">نسخ المفتاح العام</strin
+    <string name="copy_user_pubkey">نسخ المفتاح العام</string>
+    <string name="copy_note_id">نسخ معرف </string>
+    <string name="broadcast">بث</string>
+    <string name="block_hide_user">حظر و إخفاء المستخدم</string>
+    <string name="report_spam_scam">الابلاغ عن البريد العشوائي / الاحتيال</string>
+    <string name="report_impersonation">الإبلاغ عن التمثيل</string>
+    <string name="report_explicit_content">الإبلاغ عن المحتوى الصريح / الفاضح</string>
+    <string name="report_illegal_behaviour">الإبلاغ عن سلوك غير قانوني</string>
+    <string name="login_with_a_
