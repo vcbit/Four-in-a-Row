@@ -27,4 +27,7 @@
     <string name="report_impersonation">الإبلاغ عن التمثيل</string>
     <string name="report_explicit_content">الإبلاغ عن المحتوى الصريح / الفاضح</string>
     <string name="report_illegal_behaviour">الإبلاغ عن سلوك غير قانوني</string>
-    <string name="login_with_a_
+    <string name="login_with_a_private_key_to_be_able_to_reply">قم بتسجيل الدخول باستخدام مفتاح خاص لتتمكن من الرد</string>
+    <string name="login_with_a_private_key_to_be_able_to_boost_posts">قم بتسجيل الدخول باستخدام مفتاح خاص لتتمكن من تعزيز المشاركات</string>
+    <string name="login_with_a_private_key_to_like_posts">تسجيل الدخول باستخدام مفتاح خاص لإبداء الإعجاب بالمنشورات</string>
+    <string name="no_zap_amount_setup_long_press_to_change">لا يوجد إعداد لمبلغ Zap. اضغط لفترة طويلة للتغيير</strin
