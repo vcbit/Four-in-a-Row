@@ -56,4 +56,12 @@
     <string name="thank_you_so_much">شكرا جزيلا!</string>
     <string name="amount_in_sats">المبلغ في Sats</string>
     <string name="send_sats">إرسال Sats</string>
-    <string name="never_translate_from">"لا تترجم ابداً من "</str
+    <string name="never_translate_from">"لا تترجم ابداً من "</string>
+    <string name="error_parsing_preview_for">خطأ في تحليل المعاينة لـ %1$s : %2$s</string>
+    <string name="preview_card_image_for">معاينة صورة البطاقة لـ %1$s</string>
+    <string name="new_channel">قناة جديدة</string>
+    <string name="channel_name">اسم القناة</string>
+    <string name="my_awesome_group">مجموعتي الرائعة</string>
+    <string name="picture_url">رابط الصورة</string>
+    <string name="description">الوصف</string>
+    <string name="about_us">معلومات عن القناة..</s
