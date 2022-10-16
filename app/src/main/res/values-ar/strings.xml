@@ -64,4 +64,14 @@
     <string name="my_awesome_group">مجموعتي الرائعة</string>
     <string name="picture_url">رابط الصورة</string>
     <string name="description">الوصف</string>
-    <string name="about_us">معلومات عن القناة..</s
+    <string name="about_us">معلومات عن القناة..</string>
+    <string name="what_s_on_your_mind">ما الذي يدور في ذهنك؟</string>
+    <string name="post">نشر</string>
+    <string name="save">حفظ</string>
+    <string name="create">إنشاء</string>
+    <string name="cancel">إلغاء</string>
+    <string name="failed_to_upload_the_image">فشل تحميل الصورة</string>
+    <string name="relay_address">Relay عنوان</string>
+    <string name="posts">المنشورات</string>
+    <string name="errors">الأخطاء</string>
+    <string name="home_feed">المنشورات الرئي
