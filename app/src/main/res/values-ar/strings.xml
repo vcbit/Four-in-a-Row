@@ -48,4 +48,12 @@
     <string name="profile">الملف الشخصي</string>
     <string name="security_filters">مرشحات الأمان</string>
     <string name="log_out">تسجيل الخروج</string>
-    <string name="show_m
+    <string name="show_more">إظهار المزيد</string>
+    <string name="lightning_invoice">Lightning فاتورة</string>
+    <string name="pay">اإدفع</string>
+    <string name="lightning_tips">Lightning تبرع</string>
+    <string name="note_to_receiver">ملاحظة للمستقبل</string>
+    <string name="thank_you_so_much">شكرا جزيلا!</string>
+    <string name="amount_in_sats">المبلغ في Sats</string>
+    <string name="send_sats">إرسال Sats</string>
+    <string name="never_translate_from">"لا تترجم ابداً من "</str
