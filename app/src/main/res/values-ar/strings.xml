@@ -74,4 +74,12 @@
     <string name="relay_address">Relay عنوان</string>
     <string name="posts">المنشورات</string>
     <string name="errors">الأخطاء</string>
-    <string name="home_feed">المنشورات الرئي
+    <string name="home_feed">المنشورات الرئيسية</string>
+    <string name="private_message_feed"> الرسائل الخاصة</string>
+    <string name="public_chat_feed">الرسائل العامة</string>
+    <string name="global_feed">الموجز العام</string>
+    <string name="add_a_relay">أضف Relay</string>
+    <string name="display_name">إسم العرض</string>
+    <string name="my_display_name">إسم العرض الخاص بي</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="my_username">اسم المستخدم الخاص بي<
