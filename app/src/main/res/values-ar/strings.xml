@@ -90,4 +90,10 @@
     <string name="ln_address">LN عنوان</string>
     <string name="ln_url_outdated">LN رابط (قديم)</string>
     <string name="image_saved_to_the_gallery">تم حفظ الصورة في المعرض</string>
-    <string name="failed_to_save_the_imag
+    <string name="failed_to_save_the_image">فشل حفظ الصورة</string>
+    <string name="upload_image">تحميل الصورة</string>
+    <string name="uploading">جاري التحميل…</string>
+    <string name="user_does_not_have_a_lightning_address_setup_to_receive_sats">لا يمتلك المستخدم إعداد عنوان lighting لاستقبال sats</string>
+    <string name="reply_here">"الرد هنا.. "</string>
+    <string name="copies_the_note_id_to_the_clipboard_for_sharing">نسخ معرف الملاحظة إلى الحافظة للمشاركة</string>
+    <string name="copy_channel_id_note_to_the_clipboard">انسخ معرف القناة (
