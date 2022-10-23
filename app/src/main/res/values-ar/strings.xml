@@ -96,4 +96,12 @@
     <string name="user_does_not_have_a_lightning_address_setup_to_receive_sats">لا يمتلك المستخدم إعداد عنوان lighting لاستقبال sats</string>
     <string name="reply_here">"الرد هنا.. "</string>
     <string name="copies_the_note_id_to_the_clipboard_for_sharing">نسخ معرف الملاحظة إلى الحافظة للمشاركة</string>
-    <string name="copy_channel_id_note_to_the_clipboard">انسخ معرف القناة (
+    <string name="copy_channel_id_note_to_the_clipboard">انسخ معرف القناة (ملاحظة) إلى الحافظة</string>
+    <string name="edits_the_channel_metadata">تعديل البيانات الوصفية للقناة</string>
+    <string name="join">إنضمام</string>
+    <string name="known">معروف</string>
+    <string name="new_requests">طلبات جديدة</string>
+    <string name="blocked_users">المستخدمين المحظورين</string>
+    <string name="new_threads">المنشورات</string>
+    <string name="conversations">المحادثات</string>
+    <string name="notes">الملاحظات</string
