@@ -135,4 +135,12 @@
     <string name="key_is_required">المفتاح مطلوب</string>
     <string name="login">تسجيل دخول</string>
     <string name="generate_a_new_key">إنشاء مفتاح جديد</string>
-    <string name="l
+    <string name="loading_feed">بإنتظار التحديثات</string>
+    <string name="error_loading_replies">خطأ في تحميل الردود:</string>
+    <string name="try_again">المحاولة مرة اخرى</string>
+    <string name="feed_is_empty">لا توجد ملاحظات.</string>
+    <string name="refresh">تحديث</string>
+    <string name="created">انشئ</string>
+    <string name="with_description_of">مع وصف</string>
+    <string name="and_picture">و صورة</string>
+    <string name="changed
