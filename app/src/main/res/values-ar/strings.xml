@@ -127,4 +127,12 @@
     <string name="app_logo">شعار التطبيق</string>
     <string name="nsec_npub_hex_private_key">nsec / npub / hex private key</string>
     <string name="show_password">إظهار كلمة السر</string>
-    <str
+    <string name="hide_password">اخفاء كلمة السر</string>
+    <string name="invalid_key">مفتاح غير صحيح</string>
+    <string name="i_accept_the">"اقبل شروط الاستخدام "</string>
+    <string name="terms_of_use">شروط الاستخدام</string>
+    <string name="acceptance_of_terms_is_required">يجب قبول شروط الإستخدام</string>
+    <string name="key_is_required">المفتاح مطلوب</string>
+    <string name="login">تسجيل دخول</string>
+    <string name="generate_a_new_key">إنشاء مفتاح جديد</string>
+    <string name="l
