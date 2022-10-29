@@ -143,4 +143,12 @@
     <string name="created">انشئ</string>
     <string name="with_description_of">مع وصف</string>
     <string name="and_picture">و صورة</string>
-    <string name="changed
+    <string name="changed_chat_name_to">تم تغيير اسم الدردشة إلى</string>
+    <string name="description_to">الوصف الى</string>
+    <string name="and_picture_to">و الصورة الى</string>
+    <string name="leave">مغادرة</string>
+    <string name="unfollow">الغاء المتابعة</string>
+    <string name="channel_created">تم انشاء القناة</string>
+    <string name="channel_information_changed_to">تم تغيير معلومات القناة إلى</string>
+    <string name="public_chat">الدردشة العامة</string>
+    <string name="posts_received">تم 
