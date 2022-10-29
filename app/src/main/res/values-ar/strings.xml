@@ -119,4 +119,12 @@
     <string name="send_a_direct_message">إرسال رسالة مباشرة</string>
     <string name="edits_the_user_s_metadata">القيام بتحرير metadata للمستخدم</string>
     <string name="follow">متابعة</string>
-  
+    <string name="unblock">رفع الحظر</string>
+    <string name="copy_user_id">نسخ معرف المستخدم</string>
+    <string name="unblock_user">إلغاء حظر عن مستخدم</string>
+    <string name="npub_hex_username">npub, hex, username </string>
+    <string name="clear">نظف</string>
+    <string name="app_logo">شعار التطبيق</string>
+    <string name="nsec_npub_hex_private_key">nsec / npub / hex private key</string>
+    <string name="show_password">إظهار كلمة السر</string>
+    <str
