@@ -163,4 +163,10 @@
     <string name="now">الان</string>
     <string name="h">س</string>
     <string name="m">د</string>
-    <string name="d">يوم
+    <string name="d">يوم</string>
+    <string name="nudity">عُري</string>
+    <string name="profanity_hateful_speech">الألفاظ النابية / خطاب كراهية</string>
+    <string name="report_hateful_speech">أبلغ عن كلام يحض على الكراهية</string>
+    <string name="report_nudity_porn">الإبلاغ عن عُري / إباحي</string>
+    <string name="others">آخرون</string>
+</resources>
