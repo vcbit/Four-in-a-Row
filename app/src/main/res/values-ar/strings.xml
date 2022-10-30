@@ -151,4 +151,16 @@
     <string name="channel_created">تم انشاء القناة</string>
     <string name="channel_information_changed_to">تم تغيير معلومات القناة إلى</string>
     <string name="public_chat">الدردشة العامة</string>
-    <string name="posts_received">تم 
+    <string name="posts_received">تم استلام المشاركات</string>
+    <string name="remove">ازالة</string>
+    <string name="auto">تلقائي</string>
+    <string name="translated_from">مترجم من</string>
+    <string name="to">الى</string>
+    <string name="show_in">تظهر في</string>
+    <string name="first">اولا</string>
+    <string name="always_translate_to">ترجمة إلى</string>
+    <string name="never">ابداً</string>
+    <string name="now">الان</string>
+    <string name="h">س</string>
+    <string name="m">د</string>
+    <string name="d">يوم
