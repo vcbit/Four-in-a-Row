@@ -18,4 +18,10 @@
     <string name="relay_icon">Іконка релею</string>
     <string name="unknown_author">Невідомий автор</string>
     <string name="copy_text">Скопіювати текст</string>
-    <string name="copy_user_pubkey">Скопію
+    <string name="copy_user_pubkey">Скопіювати ключ користувача</string>
+    <string name="copy_note_id">Скопіювати ID допису</string>
+    <string name="broadcast">Розіслати</string>
+    <string name="block_hide_user">Блокувати та приховати користувача</string>
+    <string name="report_spam_scam">Повідомити про спам / шахрайство</string>
+    <string name="report_impersonation">Повідомити про видачу себе за іншу особу</string>
+    <string name="report_explicit_content">Повідомити про відвертий 
