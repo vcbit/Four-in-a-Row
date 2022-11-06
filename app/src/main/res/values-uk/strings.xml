@@ -24,4 +24,9 @@
     <string name="block_hide_user">Блокувати та приховати користувача</string>
     <string name="report_spam_scam">Повідомити про спам / шахрайство</string>
     <string name="report_impersonation">Повідомити про видачу себе за іншу особу</string>
-    <string name="report_explicit_content">Повідомити про відвертий 
+    <string name="report_explicit_content">Повідомити про відвертий вміст</string>
+    <string name="report_illegal_behaviour">Повідомити про незаконні дії</string>
+    <string name="login_with_a_private_key_to_be_able_to_reply">Увійдіть з приватним ключем щоб відповісти</string>
+    <string name="login_with_a_private_key_to_be_able_to_boost_posts">Увійдіть з приватним ключем щоб просувати дописи</string>
+    <string name="login_with_a_private_key_to_like_posts">Увійдіть з приватним ключем щоб лайкати дописи</string>
+    <string name="no_zap_amount_setup_long_press_to_cha
