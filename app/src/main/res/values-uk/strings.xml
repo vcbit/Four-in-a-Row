@@ -9,4 +9,13 @@
     <string name="channel_image">Фото каналу</string>
     <string name="referenced_event_not_found">Пов\'язану подію не знайдено</string>
     <string name="could_not_decrypt_the_message">Не вдалося розшифрувати повідомлення</string>
-    <string name="gro
+    <string name="group_picture">Фото групи</string>
+    <string name="explicit_content">Відвертий вміст</string>
+    <string name="spam">Спам</string>
+    <string name="impersonation">Видача себе за іншу особу</string>
+    <string name="illegal_behavior">Незаконні дії</string>
+    <string name="unknown">Невідомо</string>
+    <string name="relay_icon">Іконка релею</string>
+    <string name="unknown_author">Невідомий автор</string>
+    <string name="copy_text">Скопіювати текст</string>
+    <string name="copy_user_pubkey">Скопію
