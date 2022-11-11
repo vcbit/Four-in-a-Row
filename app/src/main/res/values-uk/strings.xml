@@ -29,4 +29,11 @@
     <string name="login_with_a_private_key_to_be_able_to_reply">Увійдіть з приватним ключем щоб відповісти</string>
     <string name="login_with_a_private_key_to_be_able_to_boost_posts">Увійдіть з приватним ключем щоб просувати дописи</string>
     <string name="login_with_a_private_key_to_like_posts">Увійдіть з приватним ключем щоб лайкати дописи</string>
-    <string name="no_zap_amount_setup_long_press_to_cha
+    <string name="no_zap_amount_setup_long_press_to_change">Не налаштовані запи. Натисніть та утримуйте для налаштування</string>
+    <string name="login_with_a_private_key_to_be_able_to_send_zaps">Увійдіть з приватним ключем щоб запати</string>
+    <string name="zaps">Запи</string>
+    <string name="view_count">Перегляди</string>
+    <string name="boost">Просувати</string>
+    <string name="boosted">boosted</string>
+    <string name="quote">Цитувати</string>
+    <string name="new_amount_in_sats">Нова сума в sat
