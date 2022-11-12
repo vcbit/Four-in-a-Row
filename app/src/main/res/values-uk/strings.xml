@@ -46,4 +46,13 @@
     <string name="followers">" Підписників"</string>
     <string name="profile">Профіль</string>
     <string name="security_filters">Фільтри безпеки</string>
-    <string name="log_out">Вийти<
+    <string name="log_out">Вийти</string>
+    <string name="show_more">Більше</string>
+    <string name="lightning_invoice">Lightning інвойс</string>
+    <string name="pay">Сплатити</string>
+    <string name="lightning_tips">Lightning чайові</string>
+    <string name="note_to_receiver">Примітка для отримувача</string>
+    <string name="thank_you_so_much">Дуже дякуємо!</string>
+    <string name="amount_in_sats">Сума в sat</string>
+    <string name="send_sats">Надіслати</string>
+    <string name="never_translate_from">"Не переводити з "</strin
