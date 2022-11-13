@@ -64,4 +64,13 @@
     <string name="picture_url">URL фотографії</string>
     <string name="description">Опис</string>
     <string name="about_us">"Про нас.. "</string>
-    <string 
+    <string name="what_s_on_your_mind">Що нового?</string>
+    <string name="post">Надіслати</string>
+    <string name="save">Зберегти</string>
+    <string name="create">Створити</string>
+    <string name="cancel">Скасувати</string>
+    <string name="failed_to_upload_the_image">Не вдалося завантажити фото</string>
+    <string name="relay_address">Адреса релея</string>
+    <string name="posts">Дописи</string>
+    <string name="errors">Помилки</string>
+    <string name="home_feed">Домашня 
