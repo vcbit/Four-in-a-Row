@@ -73,4 +73,12 @@
     <string name="relay_address">Адреса релея</string>
     <string name="posts">Дописи</string>
     <string name="errors">Помилки</string>
-    <string name="home_feed">Домашня 
+    <string name="home_feed">Домашня стрічка</string>
+    <string name="private_message_feed">Стрічка персональних повідомлень</string>
+    <string name="public_chat_feed">Стрічка чатів</string>
+    <string name="global_feed">Глобальна стрічка</string>
+    <string name="add_a_relay">Додати релей</string>
+    <string name="display_name">Видиме ім\'я</string>
+    <string name="my_display_name">Моє видиме ім\'я</string>
+    <string name="username">Нікнейм</string>
+    <string name="my_username">Мій
