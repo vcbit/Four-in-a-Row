@@ -81,4 +81,13 @@
     <string name="display_name">Видиме ім\'я</string>
     <string name="my_display_name">Моє видиме ім\'я</string>
     <string name="username">Нікнейм</string>
-    <string name="my_username">Мій
+    <string name="my_username">Мій нікнейм</string>
+    <string name="about_me">Про мене</string>
+    <string name="avatar_url">URL фотографії</string>
+    <string name="banner_url">URL банеру</string>
+    <string name="website_url">URL сайту</string>
+    <string name="ln_address">LN адреса</string>
+    <string name="ln_url_outdated">LN URL (застарівш.)</string>
+    <string name="image_saved_to_the_gallery">Фото збережено до галереї</string>
+    <string name="failed_to_save_the_image">Не вдалося зберегти фото</string>
+    <string name="upload_image">Заванта
