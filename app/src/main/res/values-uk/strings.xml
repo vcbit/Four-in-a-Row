@@ -55,4 +55,13 @@
     <string name="thank_you_so_much">Дуже дякуємо!</string>
     <string name="amount_in_sats">Сума в sat</string>
     <string name="send_sats">Надіслати</string>
-    <string name="never_translate_from">"Не переводити з "</strin
+    <string name="never_translate_from">"Не переводити з "</string>
+    <string name="error_parsing_preview_for">"Не вдалося створити перегляд для %1$s : %2$s"</string>
+    <string name="preview_card_image_for">"Перегляд для %1$s"</string>
+    <string name="new_channel">Новий канал</string>
+    <string name="channel_name">Назва каналу</string>
+    <string name="my_awesome_group">Моя нова група</string>
+    <string name="picture_url">URL фотографії</string>
+    <string name="description">Опис</string>
+    <string name="about_us">"Про нас.. "</string>
+    <string 
