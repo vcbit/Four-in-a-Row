@@ -96,4 +96,13 @@
     <string name="reply_here">"відповісти.. "</string>
     <string name="copies_the_note_id_to_the_clipboard_for_sharing">Копіює ID допису для відправки</string>
     <string name="copy_channel_id_note_to_the_clipboard">Скопіювати ID каналу (допису)</string>
-    <string name="edits_
+    <string name="edits_the_channel_metadata">Редагує метадані каналу</string>
+    <string name="join">Увійти</string>
+    <string name="known">Відомі</string>
+    <string name="new_requests">Нові запити</string>
+    <string name="blocked_users">Заблоковані користувачі</string>
+    <string name="new_threads">Нові треди</string>
+    <string name="conversations">Обговорення</string>
+    <string name="notes">Дописи</string>
+    <string name="replies">Відповіді</string>
+    <string name="follows">"Підписо
