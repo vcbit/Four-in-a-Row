@@ -105,4 +105,11 @@
     <string name="conversations">Обговорення</string>
     <string name="notes">Дописи</string>
     <string name="replies">Відповіді</string>
-    <string name="follows">"Підписо
+    <string name="follows">"Підписок"</string>
+    <string name="reports">"Скарг"</string>
+    <string name="more_options">Більше опцій</string>
+    <string name="relays">" Релеїв"</string>
+    <string name="website">Сайт</string>
+    <string name="lightning_address">Lightning адреса</string>
+    <string name="copies_the_nsec_id_your_password_to_the_clipboard_for_backup">Копіює Nsec ID (ваш пароль) для резервного копіювання</string>
+    <string name="copy_private_key_to_the_clipboard">Скопіювати при
