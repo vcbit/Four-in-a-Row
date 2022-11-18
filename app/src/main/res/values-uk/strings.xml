@@ -126,4 +126,12 @@
     <string name="app_logo">Логотип додатка</string>
     <string name="nsec_npub_hex_private_key">nsec / npub / приватний ключ в hex</string>
     <string name="show_password">Показати пароль</string>
-    <string na
+    <string name="hide_password">Сховати пароль</string>
+    <string name="invalid_key">Некоректний ключ</string>
+    <string name="i_accept_the">"Я приймаю "</string>
+    <string name="terms_of_use">умови користування</string>
+    <string name="acceptance_of_terms_is_required">Треба прийняти умови користування</string>
+    <string name="key_is_required">Треба ввести ключ</string>
+    <string name="login">Увійти</string>
+    <string name="generate_a_new_key">Згенерувати ключ</string>
+    <string name="loading_feed">
