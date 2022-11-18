@@ -119,4 +119,11 @@
     <string name="edits_the_user_s_metadata">Редагує метадані користувача</string>
     <string name="follow">Підписатися</string>
     <string name="unblock">Розблокувати</string>
-    
+    <string name="copy_user_id">Скопіювати ID користувача</string>
+    <string name="unblock_user">Розблокувати користувача</string>
+    <string name="npub_hex_username">"npub, hex, нікнейм "</string>
+    <string name="clear">Очистити</string>
+    <string name="app_logo">Логотип додатка</string>
+    <string name="nsec_npub_hex_private_key">nsec / npub / приватний ключ в hex</string>
+    <string name="show_password">Показати пароль</string>
+    <string na
