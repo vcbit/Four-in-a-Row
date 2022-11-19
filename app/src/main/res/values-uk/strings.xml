@@ -142,4 +142,12 @@
     <string name="created">створив(ла)</string>
     <string name="with_description_of">з описом</string>
     <string name="and_picture">та фото</string>
-    <string nam
+    <string name="changed_chat_name_to">змінив(ла) назву на</string>
+    <string name="description_to">опис на</string>
+    <string name="and_picture_to">та фото на</string>
+    <string name="leave">Вийти</string>
+    <string name="unfollow">Відписатися</string>
+    <string name="channel_created">Канал створено</string>
+    <string name="channel_information_changed_to">Інформацію каналу змінено на</string>
+    <string name="public_chat">Публічний чат</string>
+    <string name="posts_received">дописі
