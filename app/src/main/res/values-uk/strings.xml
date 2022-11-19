@@ -134,4 +134,12 @@
     <string name="key_is_required">Треба ввести ключ</string>
     <string name="login">Увійти</string>
     <string name="generate_a_new_key">Згенерувати ключ</string>
-    <string name="loading_feed">
+    <string name="loading_feed">Завантаження стрічки</string>
+    <string name="error_loading_replies">"Не вдалося завантажити відповіді: "</string>
+    <string name="try_again">Повторити</string>
+    <string name="feed_is_empty">Стрічка порожня.</string>
+    <string name="refresh">Оновити</string>
+    <string name="created">створив(ла)</string>
+    <string name="with_description_of">з описом</string>
+    <string name="and_picture">та фото</string>
+    <string nam
