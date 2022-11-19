@@ -150,4 +150,14 @@
     <string name="channel_created">Канал створено</string>
     <string name="channel_information_changed_to">Інформацію каналу змінено на</string>
     <string name="public_chat">Публічний чат</string>
-    <string name="posts_received">дописі
+    <string name="posts_received">дописів отримано</string>
+    <string name="remove">Видалити</string>
+    <string name="auto">Автоматично</string>
+    <string name="translated_from">перекладено з</string>
+    <string name="to">на</string>
+    <string name="show_in">Показати спершу на</string>
+    <string name="first" />
+    <string name="always_translate_to">Завжди перекладати на</string>
+    <string name="never">ніколи</string>
+    <string name="now">зараз</string>
+    <string name="h">год<
