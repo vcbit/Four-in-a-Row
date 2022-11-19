@@ -160,4 +160,13 @@
     <string name="always_translate_to">Завжди перекладати на</string>
     <string name="never">ніколи</string>
     <string name="now">зараз</string>
-    <string name="h">год<
+    <string name="h">год</string>
+    <string name="m">хв</string>
+    <string name="d">дн</string>
+    <string name="nudity">Нагота</string>
+    <string name="profanity_hateful_speech">Лайка / Образи</string>
+    <string name="report_hateful_speech">Повідомити про образи</string>
+    <string name="report_nudity_porn">Повідомити про наготу / порно</string>
+    <string name="others">інших</string>
+    <string name="search_feed">Пошук</string>
+    <string name="mark_all_known_as_read">Позначити всі відомі прочитаними</strin
