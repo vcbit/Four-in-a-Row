@@ -169,4 +169,10 @@
     <string name="report_nudity_porn">Повідомити про наготу / порно</string>
     <string name="others">інших</string>
     <string name="search_feed">Пошук</string>
-    <string name="mark_all_known_as_read">Позначити всі відомі прочитаними</strin
+    <string name="mark_all_known_as_read">Позначити всі відомі прочитаними</string>
+    <string name="mark_all_new_as_read">Позначити всі нові прочитаними</string>
+    <string name="mark_all_as_read">Позначити все прочитаним</string>
+    <string name="backup_keys">Резервне копіювання</string>
+    <string name="account_backup_tips_md" tools:ignore="Typos">
+        ## Резервне копіювання та поради з безпеки
+        \n\nВаш акаунт захищений приватним ключем. Цей ключ – довгий випадковий рядок із приставкою **nsec1**. Той, хто володіє вашим приватним ключем, може п
