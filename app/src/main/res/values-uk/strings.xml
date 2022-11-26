@@ -182,3 +182,11 @@
     </string>
     <string name="secret_key_copied_to_clipboard">Приватний ключ (nsec) скопійовано</string>
     <string name="copy_my_secret_key">Скопіювати мій приватний ключ</string>
+    <string name="biometric_authentication_failed">Помилка входу</string>
+    <string name="biometric_error">Помилка</string>
+    <string name="badge_created_by">"Створено %1$s"</string>
+    <string name="badge_award_image_for">"Картинка значка-нагороди %1$s"</string>
+    <string name="new_badge_award_notif">Ви отримали в нагороду новий значок</string>
+    <string name="award_granted_to">Значок-нагороду видано</string>
+    <string name="copied_note_text_to_clipboard">Скопіювати текст</string>
+    <string 
