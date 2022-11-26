@@ -189,4 +189,10 @@
     <string name="new_badge_award_notif">Ви отримали в нагороду новий значок</string>
     <string name="award_granted_to">Значок-нагороду видано</string>
     <string name="copied_note_text_to_clipboard">Скопіювати текст</string>
-    <string 
+    <string name="copied_user_id_to_clipboard" tools:ignore="Typos">ID (npub) автора скопійовано</string>
+    <string name="copied_note_id_to_clipboard" tools:ignore="Typos">ID запису (note1) скопійовано</string>
+    <string name="select_text_dialog_top">Виділити текст</string>
+    <string name="quick_action_select">Виділити</string>
+    <string name="quick_action_share_browser_link">Поділитися посиланням</string>
+    <string name="quick_action_share">Поділитися</string>
+    <string name="
