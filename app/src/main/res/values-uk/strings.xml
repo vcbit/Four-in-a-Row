@@ -202,4 +202,5 @@
     <string name="quick_action_unfollow">@string/unfollow</string>
     <string name="quick_action_follow">@string/follow</string>
     <string name="quick_action_request_deletion_alert_title">Запросити видалення</string>
-    <string name="quick_acti
+    <string name="quick_action_request_deletion_alert_body">Amethyst попросить релеї, до яких ви зараз підключені, видалити цей запис. Однак немає гарантії, що запис буде назавжди видалено цими релеями, або іншими, які вже його зберегли.</string>
+</resources>

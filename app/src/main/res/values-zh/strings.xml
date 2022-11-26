@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="point_to_the_qr_code">对准二维码</string>
+    <string name="show_qr">显示二维码</string>
+    <string name="profile_image">头像图片</string>
+    <string name="scan_qr">扫描二维码</string>
+    <stri
