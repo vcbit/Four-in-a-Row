@@ -3,4 +3,12 @@
     <string name="show_qr">显示二维码</string>
     <string name="profile_image">头像图片</string>
     <string name="scan_qr">扫描二维码</string>
-    <stri
+    <string name="show_anyway">一直显示</string>
+    <string name="post_was_flagged_as_inappropriate_by">帖文被标记为不当</string>
+    <string name="post_not_found">未找到帖子</string>
+    <string name="channel_image">频道图片</string>
+    <string name="referenced_event_not_found">未找到相关事件</string>
+    <string name="could_not_decrypt_the_message">无法解密消息</string>
+    <string name="group_picture">群聊图片</string>
+    <string name="explicit_content">明确内容</string>
+    <string name="spam">垃圾邮件</
