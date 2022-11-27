@@ -22,4 +22,10 @@
     <string name="copy_note_id">复制笔记ID</string>
     <string name="broadcast">广播</string>
     <string name="block_hide_user"><![CDATA[阻止并隐藏用户]]></string>
-    <str
+    <string name="report_spam_scam">举报垃圾邮件/诈骗</string>
+    <string name="report_impersonation">举报冒充</string>
+    <string name="report_explicit_content">举报明确内容</string>
+    <string name="report_illegal_behaviour">举报非法行为</string>
+    <string name="login_with_a_private_key_to_be_able_to_reply">使用私钥登录以便回复</string>
+    <string name="login_with_a_private_key_to_be_able_to_boost_posts">使用私钥登录以便提升帖子</string>
+    <string name="login_with_a_private_key_to_like_post
