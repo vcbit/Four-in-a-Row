@@ -11,4 +11,15 @@
     <string name="could_not_decrypt_the_message">无法解密消息</string>
     <string name="group_picture">群聊图片</string>
     <string name="explicit_content">明确内容</string>
-    <string name="spam">垃圾邮件</
+    <string name="spam">垃圾邮件</string>
+    <string name="impersonation">冒充</string>
+    <string name="illegal_behavior">非法行为</string>
+    <string name="unknown">未知</string>
+    <string name="relay_icon">中继器图标</string>
+    <string name="unknown_author">未知作者</string>
+    <string name="copy_text">复制文本</string>
+    <string name="copy_user_pubkey">复制作者@npub</string>
+    <string name="copy_note_id">复制笔记ID</string>
+    <string name="broadcast">广播</string>
+    <string name="block_hide_user"><![CDATA[阻止并隐藏用户]]></string>
+    <str
