@@ -48,4 +48,13 @@
     <string name="security_filters">安全过滤器</string>
     <string name="log_out">登出</string>
     <string name="show_more">显示更多</string>
-    <string name="lightni
+    <string name="lightning_invoice">闪电网络发票</string>
+    <string name="pay">付款</string>
+    <string name="lightning_tips">闪电小费</string>
+    <string name="note_to_receiver">聪给收款方的留言</string>
+    <string name="thank_you_so_much">非常感谢！</string>
+    <string name="amount_in_sats">聪数量</string>
+    <string name="send_sats">发送聪</string>
+    <string name="never_translate_from">"不再翻译"</string>
+    <string name="error_parsing_preview_for">"解析 %1$s 预览出错：%2$s"</string>
+    <string name="preview_card_image_for">"预览 %1$s 
