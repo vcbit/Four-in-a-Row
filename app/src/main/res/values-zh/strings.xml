@@ -37,4 +37,15 @@
     <string name="boosted">已提升</string>
     <string name="quote">引用</string>
     <string name="new_amount_in_sats">新的聪金额</string>
-    <string name="ad
+    <string name="add">添加</string>
+    <string name="replying_to">"回复 "</string>
+    <string name="and">" 和 "</string>
+    <string name="in_channel">" 在频道 "</string>
+    <string name="profile_banner">个人档案横幅</string>
+    <string name="following">" 关注"</string>
+    <string name="followers">" 粉丝"</string>
+    <string name="profile">个人档案</string>
+    <string name="security_filters">安全过滤器</string>
+    <string name="log_out">登出</string>
+    <string name="show_more">显示更多</string>
+    <string name="lightni
