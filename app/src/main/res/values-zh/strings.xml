@@ -79,4 +79,15 @@
     <string name="global_feed">全球</string>
     <string name="search_feed">搜索</string>
     <string name="add_a_relay">添加中继器</string>
-    <string name="display_name">显
+    <string name="display_name">显示名称</string>
+    <string name="my_display_name">我的显示名称</string>
+    <string name="username">用户名</string>
+    <string name="my_username">我的用户名</string>
+    <string name="about_me">关于我</string>
+    <string name="avatar_url">头像链接</string>
+    <string name="banner_url">横幅链接</string>
+    <string name="website_url">网站链接</string>
+    <string name="ln_address">LN地址</string>
+    <string name="ln_url_outdated">LN链接（过期）</string>
+    <string name="image_saved_to_the_gallery">图片已保存到相册</string>
+    <stri
