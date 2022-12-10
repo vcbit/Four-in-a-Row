@@ -68,4 +68,15 @@
     <string name="post">发布</string>
     <string name="save">保存</string>
     <string name="create">创建</string>
-    <string name="cancel">取消</s
+    <string name="cancel">取消</string>
+    <string name="failed_to_upload_the_image">上传图片失败</string>
+    <string name="relay_address">中继器地址</string>
+    <string name="posts">帖文</string>
+    <string name="errors">错误</string>
+    <string name="home_feed">主页</string>
+    <string name="private_message_feed">私信</string>
+    <string name="public_chat_feed">公开聊天</string>
+    <string name="global_feed">全球</string>
+    <string name="search_feed">搜索</string>
+    <string name="add_a_relay">添加中继器</string>
+    <string name="display_name">显
