@@ -90,4 +90,11 @@
     <string name="ln_address">LN地址</string>
     <string name="ln_url_outdated">LN链接（过期）</string>
     <string name="image_saved_to_the_gallery">图片已保存到相册</string>
+    <string name="failed_to_save_the_image">保存图片失败</string>
+    <string name="upload_image">上传图片</string>
+    <string name="uploading">上传中…</string>
+    <string name="user_does_not_have_a_lightning_address_setup_to_receive_sats">用户尚未设置闪电地址以接收聪</string>
+    <string name="reply_here">"回复这里.. "</string>
+    <string name="copies_the_note_id_to_the_clipboard_for_sharing">复制笔记ID到剪贴板，供分享</string>
+    <string name="copy_channel_id_note_to_the_clipboard">复制频道ID（笔记）到剪贴板</string>
     <stri
