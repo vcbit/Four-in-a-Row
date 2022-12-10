@@ -97,4 +97,15 @@
     <string name="reply_here">"回复这里.. "</string>
     <string name="copies_the_note_id_to_the_clipboard_for_sharing">复制笔记ID到剪贴板，供分享</string>
     <string name="copy_channel_id_note_to_the_clipboard">复制频道ID（笔记）到剪贴板</string>
-    <stri
+    <string name="edits_the_channel_metadata">编辑频道元数据</string>
+    <string name="join">加入</string>
+    <string name="known">私聊</string>
+    <string name="new_requests">新请求</string>
+    <string name="blocked_users">已隐藏用户</string>
+    <string name="new_threads">新动态</string>
+    <string name="conversations">会话</string>
+    <string name="notes">动态</string>
+    <string name="replies">回复</string>
+    <string name="follows">关注</string>
+    <string name="reports">举报</string>
+    <st
