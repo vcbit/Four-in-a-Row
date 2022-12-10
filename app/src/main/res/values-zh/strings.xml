@@ -108,4 +108,11 @@
     <string name="replies">回复</string>
     <string name="follows">关注</string>
     <string name="reports">举报</string>
-    <st
+    <string name="more_options">更多选项</string>
+    <string name="relays">中继</string>
+    <string name="website">网站</string>
+    <string name="lightning_address">闪电地址</string>
+    <string name="copies_the_nsec_id_your_password_to_the_clipboard_for_backup">复制 Nsec ID（您的私人密钥）到剪贴板以备备份</string>
+    <string name="copy_private_key_to_the_clipboard">复制私钥到剪贴板</string>
+    <string name="copies_the_public_key_to_the_clipboard_for_sharing">复制公钥到剪贴板以供共享</string>
+    <string name="copy_public_key_npub_to_the_clipboard">复制公钥（NPub）到剪贴板</
