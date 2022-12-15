@@ -146,4 +146,15 @@
     <string name="changed_chat_name_to">将聊天名称修改为</string>
     <string name="description_to">描述更改为</string>
     <string name="and_picture_to">图片更改为</string>
-  
+    <string name="leave">离开</string>
+    <string name="unfollow">取关</string>
+    <string name="channel_created">频道已创建</string>
+    <string name="channel_information_changed_to">频道信息已更改为</string>
+    <string name="public_chat">公共聊天</string>
+    <string name="posts_received">收到文章</string>
+    <string name="remove">移除</string>
+    <string name="auto">自动</string>
+    <string name="translated_from">从</string>
+    <string name="to">更改为</string>
+    <string name="show_in">先显示</string>
+    <string name="f
