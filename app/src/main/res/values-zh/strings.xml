@@ -135,4 +135,15 @@
     <string name="key_is_required">需要密钥</string>
     <string name="login">登录</string>
     <string name="generate_a_new_key">生成新密钥</string>
-    <string name="loading_feed">正在加
+    <string name="loading_feed">正在加载</string>
+    <string name="error_loading_replies">加载回复出错：</string>
+    <string name="try_again">重试</string>
+    <string name="feed_is_empty">信息流为空。</string>
+    <string name="refresh">刷新</string>
+    <string name="created">创建</string>
+    <string name="with_description_of">描述为</string>
+    <string name="and_picture">并上传图片</string>
+    <string name="changed_chat_name_to">将聊天名称修改为</string>
+    <string name="description_to">描述更改为</string>
+    <string name="and_picture_to">图片更改为</string>
+  
