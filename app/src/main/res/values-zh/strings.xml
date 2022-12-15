@@ -125,4 +125,14 @@
     <string name="npub_hex_username">npub，hex，用户名 </string>
     <string name="clear">清除</string>
     <string name="app_logo">应用标志</string>
-    <string name="nsec_npub_hex_private_key">nsec/ npub/ he
+    <string name="nsec_npub_hex_private_key">nsec/ npub/ hex 私钥</string>
+    <string name="show_password">显示密码</string>
+    <string name="hide_password">隐藏密码</string>
+    <string name="invalid_key">无效密钥</string>
+    <string name="i_accept_the">我接受</string>
+    <string name="terms_of_use">使用条款</string>
+    <string name="acceptance_of_terms_is_required">需要接受条款</string>
+    <string name="key_is_required">需要密钥</string>
+    <string name="login">登录</string>
+    <string name="generate_a_new_key">生成新密钥</string>
+    <string name="loading_feed">正在加
