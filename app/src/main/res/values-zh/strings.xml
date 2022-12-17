@@ -157,4 +157,14 @@
     <string name="translated_from">从</string>
     <string name="to">更改为</string>
     <string name="show_in">先显示</string>
-    <string name="f
+    <string name="first">在前</string>
+    <string name="always_translate_to">总是翻译为</string>
+    <string name="never">从不</string>
+    <string name="now">现在</string>
+    <string name="h">小时</string>
+    <string name="m">分</string>
+    <string name="d">天</string>
+    <string name="nudity">裸体</string>
+    <string name="profanity_hateful_speech">不文雅的言辞 / 敌意言论</string>
+    <string name="report_hateful_speech">举报敌意言论</string>
+    <string name="re
