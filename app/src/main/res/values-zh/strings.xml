@@ -167,4 +167,13 @@
     <string name="nudity">裸体</string>
     <string name="profanity_hateful_speech">不文雅的言辞 / 敌意言论</string>
     <string name="report_hateful_speech">举报敌意言论</string>
-    <string name="re
+    <string name="report_nudity_porn">举报裸体 / 情色内容</string>
+    <string name="others">其他</string>
+    <string name="mark_all_known_as_read">将所有已知内容标记为已读</string>
+    <string name="mark_all_new_as_read">将所有新内容标记为已读</string>
+    <string name="mark_all_as_read">将所有内容标记为已读</string>
+    <string name="account_backup_tips_md" tools:ignore="Typos">
+        ## 备份与安全提示
+        \n\n您的帐户由一个私人密钥保护。 密钥是以**nsec1**开头的长随机字符串。任何拥有您的私人密钥的人都可以使用您的身份发布内容。
+        \n\n- **不要**将您的私人密钥添加到您不信任的任何网站或软件，亦不要在网上公开。
+        \n- Amethyst 开发人员**永远不会**要求
