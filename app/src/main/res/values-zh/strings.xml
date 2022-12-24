@@ -185,4 +185,11 @@
     <string name="biometric_error">错误</string>
     <string name="badge_created_by">"由 %1$s 创建"</string>
     <string name="badge_award_image_for">"颁发给 %1$s 的徽章图片"</string>
-    <string name="new_badge_award_notif">您收到了新的徽
+    <string name="new_badge_award_notif">您收到了新的徽章奖励</string>
+    <string name="award_granted_to">徽章奖励授予</string>
+    <string name="copied_note_text_to_clipboard">文本已复制到剪贴板</string>
+    <string name="copied_user_id_to_clipboard" tools:ignore="Typos">复制作者的 @npub 到剪贴板</string>
+    <string name="copied_note_id_to_clipboard" tools:ignore="Typos">复制文章ID (@note1) 到剪贴板</string>
+    <string name="select_text_dialog_top">选择文本</string>
+    <string name="quick_action_select">选择</string>
+    <string name="quick_actio
