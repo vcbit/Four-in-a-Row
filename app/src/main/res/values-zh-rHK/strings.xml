@@ -4,4 +4,14 @@
     <string name="profile_image">頭像圖片</string>
     <string name="scan_qr">掃描二維碼</string>
     <string name="show_anyway">一直顯示</string>
-    <string name="post_was_flagged_as_inappropriate_by">帖文被標
+    <string name="post_was_flagged_as_inappropriate_by">帖文被標記為不當</string>
+    <string name="post_not_found">未找到帖子</string>
+    <string name="channel_image">頻道圖片</string>
+    <string name="referenced_event_not_found">未找到相關事件</string>
+    <string name="could_not_decrypt_the_message">無法解密消息</string>
+    <string name="group_picture">羣聊圖片</string>
+    <string name="explicit_content">明確內容</string>
+    <string name="spam">垃圾郵件</string>
+    <string name="impersonation">冒充</string>
+    <string name="illegal_behavior">非法行為</string>
+    <stri
