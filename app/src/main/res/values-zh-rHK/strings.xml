@@ -24,4 +24,10 @@
     <string name="block_hide_user"><![CDATA[阻止並隱藏用户]]></string>
     <string name="report_spam_scam">舉報垃圾郵件/詐騙</string>
     <string name="report_impersonation">舉報冒充</string>
- 
+    <string name="report_explicit_content">舉報明確內容</string>
+    <string name="report_illegal_behaviour">舉報非法行為</string>
+    <string name="login_with_a_private_key_to_be_able_to_reply">使用私鑰登錄以便回覆</string>
+    <string name="login_with_a_private_key_to_be_able_to_boost_posts">使用私鑰登錄以便提升帖子</string>
+    <string name="login_with_a_private_key_to_like_posts">使用私鑰登錄以便點贊帖子</string>
+    <string name="no_zap_amount_setup_long_press_to_change">沒有設置Zap金額。長按以更改</string>
+    <string 
