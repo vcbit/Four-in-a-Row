@@ -14,4 +14,14 @@
     <string name="spam">垃圾郵件</string>
     <string name="impersonation">冒充</string>
     <string name="illegal_behavior">非法行為</string>
-    <stri
+    <string name="unknown">未知</string>
+    <string name="relay_icon">中繼器圖標</string>
+    <string name="unknown_author">未知作者</string>
+    <string name="copy_text">複製文本</string>
+    <string name="copy_user_pubkey">複製作者@npub</string>
+    <string name="copy_note_id">複製筆記ID</string>
+    <string name="broadcast">廣播</string>
+    <string name="block_hide_user"><![CDATA[阻止並隱藏用户]]></string>
+    <string name="report_spam_scam">舉報垃圾郵件/詐騙</string>
+    <string name="report_impersonation">舉報冒充</string>
+ 
