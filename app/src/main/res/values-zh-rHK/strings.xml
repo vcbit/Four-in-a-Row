@@ -51,4 +51,13 @@
     <string name="lightning_invoice">閃電網絡發票</string>
     <string name="pay">付款</string>
     <string name="lightning_tips">閃電小費</string>
-    <string name="not
+    <string name="note_to_receiver">聰給收款方的留言</string>
+    <string name="thank_you_so_much">非常感謝！</string>
+    <string name="amount_in_sats">聰數量</string>
+    <string name="send_sats">發送聰</string>
+    <string name="never_translate_from">"不再翻譯"</string>
+    <string name="error_parsing_preview_for">"解析 %1$s 預覽出錯：%2$s"</string>
+    <string name="preview_card_image_for">"預覽 %1$s 卡片圖片"</string>
+    <string name="new_channel">新頻道</string>
+    <string name="channel_name">頻道名</string>
+    <string name="my_awesome_group
