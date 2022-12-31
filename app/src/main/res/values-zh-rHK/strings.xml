@@ -60,4 +60,14 @@
     <string name="preview_card_image_for">"預覽 %1$s 卡片圖片"</string>
     <string name="new_channel">新頻道</string>
     <string name="channel_name">頻道名</string>
-    <string name="my_awesome_group
+    <string name="my_awesome_group">我的精彩羣聊</string>
+    <string name="picture_url">圖片鏈接</string>
+    <string name="description">描述</string>
+    <string name="about_us">"關於我們.. "</string>
+    <string name="what_s_on_your_mind">你在想什麼？</string>
+    <string name="post">發佈</string>
+    <string name="save">保存</string>
+    <string name="create">創建</string>
+    <string name="cancel">取消</string>
+    <string name="failed_to_upload_the_image">上傳圖片失敗</string>
+    <string name="relay_address">中繼器
