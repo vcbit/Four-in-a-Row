@@ -40,4 +40,15 @@
     <string name="add">添加</string>
     <string name="replying_to">"回覆 "</string>
     <string name="and">" 和 "</string>
-    <string name
+    <string name="in_channel">" 在頻道 "</string>
+    <string name="profile_banner">個人檔案橫幅</string>
+    <string name="following">" 關注"</string>
+    <string name="followers">" 粉絲"</string>
+    <string name="profile">個人檔案</string>
+    <string name="security_filters">安全過濾器</string>
+    <string name="log_out">登出</string>
+    <string name="show_more">顯示更多</string>
+    <string name="lightning_invoice">閃電網絡發票</string>
+    <string name="pay">付款</string>
+    <string name="lightning_tips">閃電小費</string>
+    <string name="not
