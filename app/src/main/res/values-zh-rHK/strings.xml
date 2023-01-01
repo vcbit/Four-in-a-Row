@@ -70,4 +70,15 @@
     <string name="create">創建</string>
     <string name="cancel">取消</string>
     <string name="failed_to_upload_the_image">上傳圖片失敗</string>
-    <string name="relay_address">中繼器
+    <string name="relay_address">中繼器地址</string>
+    <string name="posts">帖文</string>
+    <string name="errors">錯誤</string>
+    <string name="home_feed">主頁</string>
+    <string name="private_message_feed">私信</string>
+    <string name="public_chat_feed">公開聊天</string>
+    <string name="global_feed">全球</string>
+    <string name="search_feed">搜索</string>
+    <string name="add_a_relay">添加中繼器</string>
+    <string name="display_name">顯示名稱</string>
+    <string name="my_display_name">我的顯示名稱</string>
+    <string nam
