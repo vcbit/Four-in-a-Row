@@ -99,4 +99,16 @@
     <string name="copy_channel_id_note_to_the_clipboard">複製頻道ID（筆記）到剪貼板</string>
     <string name="edits_the_channel_metadata">編輯頻道元數據</string>
     <string name="join">加入</string>
-    <stri
+    <string name="known">私聊</string>
+    <string name="new_requests">新請求</string>
+    <string name="blocked_users">已隱藏用户</string>
+    <string name="new_threads">新動態</string>
+    <string name="conversations">會話</string>
+    <string name="notes">動態</string>
+    <string name="replies">回覆</string>
+    <string name="follows">關注</string>
+    <string name="reports">舉報</string>
+    <string name="more_options">更多選項</string>
+    <string name="relays">中繼</string>
+    <string name="website">網站</string>
+    <string name="lightni
