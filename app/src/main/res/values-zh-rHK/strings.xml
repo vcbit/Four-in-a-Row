@@ -81,4 +81,14 @@
     <string name="add_a_relay">添加中繼器</string>
     <string name="display_name">顯示名稱</string>
     <string name="my_display_name">我的顯示名稱</string>
-    <string nam
+    <string name="username">用户名</string>
+    <string name="my_username">我的用户名</string>
+    <string name="about_me">關於我</string>
+    <string name="avatar_url">頭像鏈接</string>
+    <string name="banner_url">橫幅鏈接</string>
+    <string name="website_url">網站鏈接</string>
+    <string name="ln_address">LN地址</string>
+    <string name="ln_url_outdated">LN鏈接（過期）</string>
+    <string name="image_saved_to_the_gallery">圖片已保存到相冊</string>
+    <string name="failed_to_save_the_image">保存圖片失敗</string>
+    <string name="upl
