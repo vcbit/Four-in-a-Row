@@ -137,4 +137,14 @@
     <string name="generate_a_new_key">生成新密鑰</string>
     <string name="loading_feed">正在加載</string>
     <string name="error_loading_replies">加載回覆出錯：</string>
-    <string name="try_again
+    <string name="try_again">重試</string>
+    <string name="feed_is_empty">信息流為空。</string>
+    <string name="refresh">刷新</string>
+    <string name="created">創建</string>
+    <string name="with_description_of">描述為</string>
+    <string name="and_picture">並上傳圖片</string>
+    <string name="changed_chat_name_to">將聊天名稱修改為</string>
+    <string name="description_to">描述更改為</string>
+    <string name="and_picture_to">圖片更改為</string>
+    <string name="leave">離開</string>
+    <string name="unfollow">取關</string>
