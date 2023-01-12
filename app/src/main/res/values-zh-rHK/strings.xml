@@ -159,4 +159,15 @@
     <string name="to">更改為</string>
     <string name="show_in">先顯示</string>
     <string name="first">在前</string>
-    <string name="
+    <string name="always_translate_to">總是翻譯為</string>
+    <string name="never">從不</string>
+    <string name="now">現在</string>
+    <string name="h">小時</string>
+    <string name="m">分</string>
+    <string name="d">天</string>
+    <string name="nudity">裸體</string>
+    <string name="profanity_hateful_speech">不文雅的言辭 / 敵意言論</string>
+    <string name="report_hateful_speech">舉報敵意言論</string>
+    <string name="report_nudity_porn">舉報裸體 / 情色內容</string>
+    <string name="others">其他</string>
+    <string name="mark
