@@ -180,4 +180,11 @@
         \n- Amethyst 開發人員**永遠不會**要求您提供私人密鑰。
         \n- **請**保留您的私人密鑰的安全備份，以備帳户恢復。 我們建議使用密碼管理器。
     </string>
- 
+    <string name="secret_key_copied_to_clipboard">私人密鑰（nsec）已複製到剪貼板</string>
+    <string name="copy_my_secret_key">複製我的私人密鑰</string>
+    <string name="biometric_authentication_failed">身份驗證失敗</string>
+    <string name="biometric_error">錯誤</string>
+    <string name="badge_created_by">"由 %1$s 創建"</string>
+    <string name="badge_award_image_for">"頒發給 %1$s 的徽章圖片"</string>
+    <string name="new_badge_award_notif">您收到了新的徽章獎勵</string>
+    <string name="award_granted_to">徽
