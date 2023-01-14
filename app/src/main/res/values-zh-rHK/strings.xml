@@ -187,4 +187,10 @@
     <string name="badge_created_by">"由 %1$s 創建"</string>
     <string name="badge_award_image_for">"頒發給 %1$s 的徽章圖片"</string>
     <string name="new_badge_award_notif">您收到了新的徽章獎勵</string>
-    <string name="award_granted_to">徽
+    <string name="award_granted_to">徽章獎勵授予</string>
+    <string name="copied_note_text_to_clipboard">文本已複製到剪貼板</string>
+    <string name="copied_user_id_to_clipboard" tools:ignore="Typos">複製作者的 @npub 到剪貼板</string>
+    <string name="copied_note_id_to_clipboard" tools:ignore="Typos">複製文章ID (@note1) 到剪貼板</string>
+    <string name="select_text_dialog_top">選擇文本</string>
+    <string name="quick_action_select">選擇</string>
+    <string name="quick_action_share_browser_link">分享瀏覽網址</stri
