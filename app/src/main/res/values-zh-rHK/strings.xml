@@ -193,4 +193,13 @@
     <string name="copied_note_id_to_clipboard" tools:ignore="Typos">複製文章ID (@note1) 到剪貼板</string>
     <string name="select_text_dialog_top">選擇文本</string>
     <string name="quick_action_select">選擇</string>
-    <string name="quick_action_share_browser_link">分享瀏覽網址</stri
+    <string name="quick_action_share_browser_link">分享瀏覽網址</string>
+    <string name="quick_action_share">分享</string>
+    <string name="quick_action_copy_user_id">@提及</string>
+    <string name="quick_action_copy_note_id">引用</string>
+    <string name="quick_action_copy_text">複製</string>
+    <string name="quick_action_delete">刪除</string>
+    <string name="quick_action_unfollow">取關</string>
+    <string name="quick_action_follow">關注</string>
+    <string name="quick_action_request_deletion_alert_title">請求刪貼</string>
+    <string name="quick_action_request_deletion_alert_b
