@@ -52,4 +52,13 @@ class KeyParseTest {
     }
 
     @Test
-    fun keyParseTestPubWithEx
+    fun keyParseTestPubWithExtraCharsAndAt() {
+        val result = parseDirtyWordForKey("@npub1gcxzte5zlkncx26j68ez60fzkvtkm9e0vrwdcvsjakxf9mu9qewqlfnj5z,")
+        assertEquals(Nip19.Type.USER, result?.key?.type)
+        assertEquals("460c25e682fda7832b52d1f22d3d22b3176d972f60dcdc3212ed8c92ef85065c", result?.key?.hex)
+        assertEquals(",", result?.restOfWord)
+    }
+
+    @Test
+    fun keyParseTestNoteWithExtraCharsAndNostrPrefix() {
+        val result = parseDirtyWordForKey("nostr:note1z5e2m0smx6d7e2d0zaq8d3
