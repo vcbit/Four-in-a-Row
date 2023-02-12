@@ -89,4 +89,5 @@ class KeyParseTest {
         assertEquals(Nip19.Type.USER, result?.key?.type)
         assertEquals("460c25e682fda7832b52d1f22d3d22b3176d972f60dcdc3212ed8c92ef85065c", result?.key?.hex)
         assertEquals(",", result?.restOfWord)
- 
+    }
+}
