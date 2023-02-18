@@ -28,4 +28,9 @@ class NIP19ParserTest {
 
     @Test
     fun nAddrATagParse3() {
-        val address = ATag.parse("30023:d1e60465c2b777325e9133f2100d2bb31416dca810
+        val address = ATag.parse("30023:d1e60465c2b777325e9133f2100d2bb31416dca810f54a1d95665621c5dee193:89de7920", "wss://relay.damus.io")
+        assertEquals(30023, address?.kind)
+        assertEquals("d1e60465c2b777325e9133f2100d2bb31416dca810f54a1d95665621c5dee193", address?.pubKeyHex)
+        assertEquals("89de7920", address?.dTag)
+        assertEquals("wss://relay.damus.io", address?.relay)
+        assertEquals("naddr1qqyrswtyv5mnjv3sqy28wumn8ghj7un9d3shjtnyv9kh2uewd9hsygx3uczxts4hwue9ayfn7ggq62anzstde2qs749pm9tx2csuthhpjvpsgqqq
