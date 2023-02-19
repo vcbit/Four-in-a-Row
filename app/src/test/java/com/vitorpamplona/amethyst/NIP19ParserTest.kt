@@ -52,4 +52,5 @@ class NIP19ParserTest {
     fun nAddrFormatter3() {
         val address = ATag(30023, "d1e60465c2b777325e9133f2100d2bb31416dca810f54a1d95665621c5dee193", "89de7920", "wss://relay.damus.io")
         assertEquals("naddr1qqyrswtyv5mnjv3sqy28wumn8ghj7un9d3shjtnyv9kh2uewd9hsygx3uczxts4hwue9ayfn7ggq62anzstde2qs749pm9tx2csuthhpjvpsgqqqw4rs8pmj38", address.toNAddr())
-   
+    }
+}
