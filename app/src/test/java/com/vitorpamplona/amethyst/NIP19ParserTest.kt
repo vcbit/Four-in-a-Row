@@ -33,4 +33,16 @@ class NIP19ParserTest {
         assertEquals("d1e60465c2b777325e9133f2100d2bb31416dca810f54a1d95665621c5dee193", address?.pubKeyHex)
         assertEquals("89de7920", address?.dTag)
         assertEquals("wss://relay.damus.io", address?.relay)
-        assertEquals("naddr1qqyrswtyv5mnjv3sqy28wumn8ghj7un9d3shjtnyv9kh2uewd9hsygx3uczxts4hwue9ayfn7ggq62anzstde2qs749pm9tx2csuthhpjvpsgqqq
+        assertEquals("naddr1qqyrswtyv5mnjv3sqy28wumn8ghj7un9d3shjtnyv9kh2uewd9hsygx3uczxts4hwue9ayfn7ggq62anzstde2qs749pm9tx2csuthhpjvpsgqqqw4rs8pmj38", address?.toNAddr())
+    }
+
+    @Test
+    fun nAddrFormatter() {
+        val address = ATag(30023, "460c25e682fda7832b52d1f22d3d22b3176d972f60dcdc3212ed8c92ef85065c", "", null)
+        assertEquals("naddr1qqqqygzxpsj7dqha57pjk5k37gkn6g4nzakewtmqmnwryyhd3jfwlpgxtspsgqqqw4rs3xyxus", address.toNAddr())
+    }
+
+    @Test
+    fun nAddrFormatter2() {
+        val address = ATag(30023, "d0debf9fb12def81f43d7c69429bb784812ac1e4d2d53a202db6aac7ea4b466c", "guide-wireguard", null)
+        assertEquals("
