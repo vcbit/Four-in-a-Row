@@ -12,4 +12,23 @@ class TlvTest {
         Tlv.toInt32(byteArrayOfInts(1, 2, 3))
     }
 
-    @Test(expected = IllegalArgumentExceptio
+    @Test(expected = IllegalArgumentException::class)
+    fun to_int_32_length_bigger_than_4() {
+        Tlv.toInt32(byteArrayOfInts(1, 2, 3, 4, 5))
+    }
+
+    @Test()
+    fun to_int_32_length_4() {
+        val actual = Tlv.toInt32(byteArrayOfInts(1, 2, 3, 4))
+
+        Assert.assertEquals(16909060, actual)
+    }
+
+    @Ignore("Test not implemented yet")
+    @Test()
+    fun parse_TLV() {
+        // TODO: I don't know how to test this (?)
+    }
+
+    private fun byteArrayOfInts(vararg ints: Int) =
+        ByteArray(ints.size) { 
