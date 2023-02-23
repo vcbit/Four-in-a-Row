@@ -32,4 +32,17 @@ class UserZapsTest {
             zapRequest to mockZapNoteWith("user-1", amount = 200)
         )
 
-        val actual = UserZaps.forProfil
+        val actual = UserZaps.forProfileFeed(zaps)
+
+        Assert.assertEquals(1, actual.count())
+        Assert.assertEquals(zapRequest, actual.first().first)
+        Assert.assertEquals(
+            BigDecimal(200),
+            (actual.first().second.event as LnZapEventInterface).amount()
+        )
+    }
+
+    private fun mockZapNoteWith(pubkey: HexKey, amount: Int): Note {
+        val lnZapEvent = mockk<LnZapEventInterface>()
+        every { lnZapEvent.amount() } returns amount.toBigDecimal()
+        every { lnZapEven
