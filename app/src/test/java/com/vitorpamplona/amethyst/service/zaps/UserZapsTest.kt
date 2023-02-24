@@ -45,4 +45,11 @@ class UserZapsTest {
     private fun mockZapNoteWith(pubkey: HexKey, amount: Int): Note {
         val lnZapEvent = mockk<LnZapEventInterface>()
         every { lnZapEvent.amount() } returns amount.toBigDecimal()
-        every { lnZapEven
+        every { lnZapEvent.pubKey() } returns pubkey
+
+        val zapNote = mockk<Note>()
+        every { zapNote.event } returns lnZapEvent
+
+        return zapNote
+    }
+}
